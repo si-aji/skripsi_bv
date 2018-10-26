@@ -1,0 +1,10 @@
+.swal-footer {
+    margin: 0;
+    padding: 1.25rem;
+}
+.swal-button, .swal-button:active {
+    background: #007bff;
+}
+.swal-button:hover {
+    background: #0069d9;
+}

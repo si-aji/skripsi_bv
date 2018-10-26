@@ -36,6 +36,8 @@
         <link href="{{ asset('plugins/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
         <!-- Google Fonts -->
         <link href="{{ asset('plugins/google_fonts/css/google_fonts.css') }}" rel="stylesheet">
+        <!-- Require CSS -->
+        <link href="{{ asset('css/sa_bv.css') }}" rel="stylesheet">
         @yield('needed_css')
         @yield('custom_css')
 
@@ -48,6 +50,12 @@
 
     <body>
         @yield('content')
+
+        <div id="ajax-loading">{{-- Loading / Show on Ajax Request --}}
+            <div id="ajax-loading_content">
+                <span class="fa fa-spinner fa-spin fa-3x"></span>
+            </div>
+        </div>{{-- Loading / Show on Ajax Request --}}
     </body>
 
     <!-- Require Js -->
@@ -61,5 +69,18 @@
     @yield('custom_js')
 
     {{-- Inline Js --}}
+    <script>
+        $.ajaxSetup({ {{-- Set csrf token for every ajax request --}}
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        });
+        $(document).ajaxSend(function(event, request, settings){ {{-- Show modal every ajax request --}}
+            $("#ajax-loading").show();
+        });
+        $(document).ajaxComplete(function(event, request, settings){ {{-- Hide modal after ajax request --}}
+            $("#ajax-loading").hide();
+        });
+    </script>
     @yield('inline_js')
 </html>

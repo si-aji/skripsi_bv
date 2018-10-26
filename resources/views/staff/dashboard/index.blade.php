@@ -12,5 +12,12 @@
 @endsection{{-- Content Header --}}
 
 @section('staff_content')
-    Dashboard <a onclick="showSwal()" class="btn btn-primary">Show SweetAlert2</a>
+    <div class="card">
+        <div class="card-header no-border">
+            <h3 class="card-title"><span>Dashboard</span></h3>
+        </div>
+        <div class="card-body">
+            <a onclick="showSwal()" class="btn btn-primary">Show SweetAlert2</a>
+        </div>
+    </div>
 @endsection

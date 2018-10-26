@@ -3,12 +3,13 @@
 {{-- Needed CSS --}}
 @section('needed_css')
 <link href="{{ asset('css/adminlte.css') }}" rel="stylesheet">
+<link href="{{ asset('css/sweetalert.css') }}" rel="stylesheet">
 @endsection{{-- /.Needed CSS --}}
 
 {{-- Content --}}
 @section('content')
 <div class="wrapper"><!-- Wrapper -->
-    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">{{-- Navbar --}}
+    <nav class="main-header navbar navbar-expand bg-white navbar-light elevation-1">{{-- Navbar --}}
         <ul class="navbar-nav">{{-- Left Navbar --}}
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
@@ -137,7 +138,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
+        <a href="index3.html" class="brand-link elevation-1">
             <img src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">AdminLTE 3</span>
         </a><!-- Brand Logo -->
@@ -158,7 +159,7 @@
             <nav class="mt-2" id="nav_sidebar">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-                    <li class="nav-item has-treeview menu-open">
+                    <li class="nav-item has-treeview menu-open active">
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -177,6 +178,41 @@
                                 <a href="./index2.html" class="nav-link">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>Dashboard v2</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-tree"></i>
+                            <p>
+                                UI Elements
+                                <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="pages/UI/general.html" class="nav-link">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>General</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/UI/icons.html" class="nav-link">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>Icons</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/UI/buttons.html" class="nav-link">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>Buttons</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/UI/sliders.html" class="nav-link">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>Sliders</p>
                                 </a>
                             </li>
                         </ul>
@@ -234,7 +270,7 @@
                         @yield('staff_content_title')
                     </div><!-- /.col -->
                     <div class="col-sm-6">
-                        @yield('staff_content_breadcrumn')
+                        @yield('staff_content_breadcrumb')
                     </div>
                 </div>
             </div>
@@ -265,8 +301,10 @@
 
 {{-- Needed Js --}}
 @section('needed_js')
+<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/adminlte.js') }}"></script>
 <script src="{{ asset('js/demo.js') }}"></script>
+<script src="http://list.siaji.com/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
 <!-- Plugins -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script><!-- Sweet Alert -->
@@ -276,6 +314,10 @@
 <script>
     $(document).ready(function(){
         $("body").addClass('hold-transition sidebar-mini');
+
+        $(".sidebar").perfectScrollbar({
+            suppressScrollX: true
+        });
     });
 
     function showSwal(){
