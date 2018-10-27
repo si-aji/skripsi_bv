@@ -1,5 +1,3 @@
-<p align="center">BakulVisor (Laravel)</p>
-
 # BakulVisor
 Bakul Visor adalah usaha mikro yang masih dijalankan oleh perorangan. Usaha ini memiliki toko fisik yang berada di Gg Virgo no 123b, Jl. Nitikan Baru, Sorosutan, Umbulharjo, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55162 dan beberapa toko online yang terdapat di beberapa platform jual beli online seperti Tokopedia maupun BukaLapak. Usaha ini bergerak dalam bidang penjualan barang dan jasa. Produk yang dijual ataupun ditawarkan adalah barang-barang untuk kebutuhan perawatan helm maupun aksesorisnya.
 

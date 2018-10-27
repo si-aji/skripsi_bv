@@ -2,9 +2,15 @@
     margin: 0;
     padding: 1.25rem;
 }
+
+/* Button */
 .swal-button, .swal-button:active {
     background: #007bff;
+    color: #fff;
 }
 .swal-button:hover {
     background: #0069d9;
+}
+.swal-button--danger {
+    background: #e64942 !important
 }

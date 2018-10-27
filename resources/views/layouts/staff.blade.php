@@ -139,19 +139,26 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link elevation-1">
-            <img src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <img src="{{ generate_gravatar('Bakul Visor') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">BakulVisor</span>
         </a><!-- Brand Logo -->
 
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex flex-column">
+                <div class="d-flex">
+                    <div class="image">
+                        <img src="{{ generate_gravatar(Auth::user()->name) }}" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                    </div>
                 </div>
-                <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+
+                <div class="btn-group mt-3">
+                    <a href="#" class="btn btn-primary text-white w-100">Profile</a>
+                    <a href="#" onclick="logOut();" class="btn btn-danger text-white w-100">Log Out</a>
                 </div>
             </div>
 
@@ -293,7 +300,7 @@
         <!-- Default to the left -->
         Template by <strong><a href="https://adminlte.io">AdminLTE.io</a></strong>, Customized by <strong><a href="http://siaji.com/">siAJI</a></strong>. Copyright © 2018 - All rights reserved.
         <div class="copyright float-right">
-            v0.0.2-develop  / Hand-crafted &amp; made in Yogyakarta, Indonesia
+            {{ version() }}  / Hand-crafted &amp; made in Yogyakarta, Indonesia
         </div>
     </footer><!-- Footer -->
 </div><!-- /.Wrapper -->
@@ -304,10 +311,11 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/adminlte.js') }}"></script>
 <script src="{{ asset('js/demo.js') }}"></script>
+<script src="{{ asset('js/sa_bv.js') }}"></script>
 <script src="http://list.siaji.com/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
 <!-- Plugins -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script><!-- Sweet Alert -->
+<script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script><!-- Sweet Alert -->
 @endsection{{-- /.Needed Js --}}
 {{-- Inline Js --}}
 @section('inline_js')
@@ -319,6 +327,33 @@
             suppressScrollX: true
         });
     });
+
+    //Log out function
+    function logOut(){
+        swal({
+            title: "Warning!",
+            text: "Do you really want to logout?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((value) => {
+            if (value) {
+                $.ajax({
+                    method: "POST",
+                    url: "{{ route('logout') }}",
+                    cache: false,
+                    success: function(result){
+                        //console.log(result);
+                        //Redirect to login page
+                        showSuccess_redirect(result, "{{ url('/login') }}");
+                    },
+                    error: function( jqXHR, textStatus, errorThrown ) {
+                        //console.log(jqXHR);
+                    }
+                });
+            }
+        });
+    }
 
     function showSwal(){
         swal(

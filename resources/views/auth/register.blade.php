@@ -63,6 +63,8 @@
                     <button type="reset" class="btn btn-danger w-100">Reset</button>
                     <button type="submit" class="btn btn-primary w-100">Submit</button>
                 </div>{{-- /.Button  --}}
+
+                <p class="text-center mb-0 mt-2">Already have an Account? <a href="{{ url('/login') }}">Login here!</a></p>
             </form>
         </div>
         <!-- /.form-box -->
@@ -98,6 +100,7 @@
             cache: false,
             success: function(result){
                 console.log(result);
+                formReset();
 
                 //Show Alert
                 topright_notify(result);
@@ -119,6 +122,14 @@
                 });
             }
         });
+    }
+    //Reset Form Data
+    function formReset(){
+        $("#input-name").val('');
+        $("#input-email").val('');
+        $("#input-username").val('');
+        $("#input-password").val('');
+        $("#input-password_confirmation").val('');
     }
 </script>
 @endsection{{-- /.Inline Js --}}

@@ -15,3 +15,16 @@ function topright_notify(message){
         }
     });
 }
+
+// Sweet Alert
+function showSuccess_redirect(message, url){
+    swal({
+        title: "Success!",
+        text: message,
+        icon: "success",
+        button: "Redirect me now!",
+        timer: 1500,
+    }).then((value) => {
+        document.location.href = url;
+    });
+}
