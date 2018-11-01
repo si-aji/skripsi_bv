@@ -60,10 +60,6 @@
 
     <!-- Require Js -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap -->
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.js') }}"></script>
-    <!-- Popper Js -->
-    <script src="{{ asset('plugins/popper/umd/popper.js') }}"></script>
     <!-- Notify Js -->
     {{--  <script src="{{  asset('js/bootstrap-notify.js')}}"></script>  --}}
     <script src="{{ asset('plugins/bootstrap-notify/notify.js') }}"></script>

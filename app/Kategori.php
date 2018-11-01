@@ -11,4 +11,9 @@ class Kategori extends Model
     protected $fillable = [
         "kategori_kode", "kategori_nama", "kategori_slug"
     ];
+
+    //Set relation with Barang
+    public function barang(){
+        return $this->hasMany('App\Barang', 'kategori_id');
+    }
 }

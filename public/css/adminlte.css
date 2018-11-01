@@ -5716,7 +5716,7 @@ button.close, button.mailbox-attachment-close {
 .modal-dialog {
     position: relative;
     width: auto;
-    margin: 0.5rem;
+    margin: 5rem 0.5rem;
     pointer-events: none;
 }
 
@@ -5856,7 +5856,7 @@ button.close, button.mailbox-attachment-close {
 @media (min-width: 576px) {
     .modal-dialog {
         max-width: 500px;
-        margin: 1.75rem auto;
+        margin: 5rem auto;
     }
     .modal-dialog-centered {
         min-height: calc(100% - (1.75rem * 2));

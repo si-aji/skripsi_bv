@@ -41,8 +41,8 @@
 
                     <div class="card-footer">
                         <div class="form-group text-right">
-                            <a id="formReset" class="btn btn-danger text-white" onclick="formReset()">Reset</a>
-                            <a class="btn btn-primary text-white" onclick="formAction();">Submit</a>
+                            <button type="reset" id="formReset" class="btn btn-danger text-white">Reset</button>
+                            <button type="submit" class="btn btn-primary text-white">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -68,7 +68,6 @@
             </div>
         </div>{{-- /.DataTable Kategori --}}
     </div>
-
 @endsection
 
 {{--  Require Js for this page  --}}
@@ -80,6 +79,7 @@
 @section('inline_js')
 <script>
     $(document).ready(function(){
+        document.title = "BakulVisor | Kategori";
         $("#mn-kategori").addClass('active');
     });
 
@@ -229,8 +229,17 @@
         $("#input-kategori_kode").val(kode);
         $("#input-kategori_nama").val(nama);
     }
+
+    $("#formReset").click(function(e){ //Prevent default Action for Form
+        e.preventDefault();
+        formReset();
+    });
     //Form Reset
     function formReset(){
+        $(".error-block").remove();
+        $(".form-control").removeClass('has-error');
+        $(".input-group-text").removeClass('has-error');
+
         $("#span_title").text(" Form Kategori (Insert)");
         $("#request").val('insert');
         $("#_method").val('POST');

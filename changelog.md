@@ -52,7 +52,17 @@
 - Change structure for sa_bv, notify, animate, etc to template instead of each module
 ```
 
--1 Nov 2018 ()
+-1 Nov 2018 (v.0.4.0)
 ```
+- Add migration for barang module
+- Add model for barang module
+    + set relation with kategori model
+- [Plugins] Modified select2.css
+- [Asset] Modified bootstrap.bundle.js
+- [Asset] Modified adminlte.css (modal)
+- [Module] Add relation to Kategori model
+- [Module] Add other json format to Kategori controller
+- [Functions] Add IDR Currency format (helper)
+- [Functions] Add IDR Currency format (sa_bv.js)
 - 
 ```

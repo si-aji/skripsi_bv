@@ -11,11 +11,20 @@ use Illuminate\Support\Facades\Validator;
 class KategoriController extends Controller
 {
     /**
-     * Data for DataTable (All)
+     * Data for Json Format (All)
      */
     public function kategoriAllJson()
     {
         $list = Kategori::all()->sortBy('kategori_kode');
+        return datatables()
+                ->of($list)
+                ->toJson();
+    }
+    /**
+     * Data for Json Format (Specific by id)
+     */
+    public function kategoriSpecificJson($id){
+        $list = Kategori::all()->where('id', $id);
         return datatables()
                 ->of($list)
                 ->toJson();
@@ -79,7 +88,7 @@ class KategoriController extends Controller
         ]);
         $message = [
             "status" => "success",
-            "message" => "Successfully store ".$request->kategori_nama." added!",
+            "message" => "Successfully add ".$request->kategori_nama." added!",
             "response" => $store,
         ];
         return response()->json($message);

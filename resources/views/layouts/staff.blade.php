@@ -77,7 +77,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" id="mn_barang">
+                        <a href="{{ url('/staff/barang') }}" class="nav-link" id="mn-barang">
                             <i class="nav-icon fa fa-th"></i>
                             <p>Barang</p>
                         </a>
@@ -86,25 +86,25 @@
 
                     <li class="nav-header">DATA</li>{{-- Data --}}
                     <li class="nav-item">
-                        <a href="#" class="nav-link" id="mn-kostumer">
+                        <a href="{{ url('/staff/kostumer') }}" class="nav-link" id="mn-kostumer">
                             <i class="nav-icon fa fa-users"></i>
                             <p>Kostumer</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" id="mn-supplier">
+                        <a href="{{ url('/staff/supplier') }}" class="nav-link" id="mn-supplier">
                             <i class="nav-icon fa fa-truck"></i>
                             <p>Supplier</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" id="mn-karyawan">
+                        <a href="{{ url('/staff/karyawan') }}" class="nav-link" id="mn-karyawan">
                             <i class="nav-icon fa fa-user"></i>
                             <p>Karyawan</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" id="mn-toko">
+                        <a href="{{ url('/staff/toko') }}" class="nav-link" id="mn-toko">
                             <i class="nav-icon fa fa-home"></i>
                             <p>Toko</p>
                         </a>
@@ -209,6 +209,10 @@
 <script src="{{ asset('js/adminlte.js') }}"></script>
 {{--  <script src="{{ asset('js/demo.js') }}"></script>  --}}
 <script src="http://list.siaji.com/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.js') }}"></script>
+<!-- Popper Js -->
+<script src="{{ asset('plugins/popper/umd/popper.js') }}"></script>
 
 <!-- Plugins -->
 <script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script><!-- Sweet Alert -->
