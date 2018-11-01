@@ -2141,7 +2141,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 0.25rem;
 }
 
 .form-text {
@@ -4244,6 +4244,13 @@ input[type="button"].btn-block {
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 0.5rem 0.5rem;
+}
+
+.navbar.fixed-top {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
 }
 
 .navbar > .container,
@@ -9594,6 +9601,7 @@ body,
 
 .content-wrapper {
     background: #fafafa;
+    padding-top: 56px;
 }
 
 .content-wrapper > .content {
@@ -10108,7 +10116,7 @@ body,
 }
 
 .nav-sidebar .nav-header:not(:first-of-type) {
-    padding: 1.7rem 1rem .5rem 1rem;
+    padding: 1rem 1rem 0rem 0rem;
 }
 
 .nav-sidebar .nav-link p {
@@ -10167,7 +10175,7 @@ body,
 
 .sidebar-dark-primary .nav-sidebar > .nav-item.menu-open > .nav-link {
     color: #fff;
-    background-color: rgba(255,255,255,.1);
+    background-color: rgba(255,255,255,.1) !important;
 }
 
 .sidebar-dark-primary .nav-sidebar > .nav-item:hover > .nav-link {
@@ -10177,7 +10185,7 @@ body,
 
 .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
     color: #ffffff;
-    background-color: #007bff;
+    background-color: #007bff !important;
 }
 
 .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-treeview {

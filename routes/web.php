@@ -19,6 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/staff', function(){
-    return view('staff.dashboard.index');
-})->name('staff');
+Route::group(['middleware' => ['auth','web',]], function(){
+    //Staff
+    Route::get('/staff', function(){
+        return view('staff.dashboard.index');
+    })->name('staff');
+
+    Route::resource('/staff/kategori', 'KategoriController'); //Kategori
+    Route::get('/list/kategori', 'KategoriController@kategoriAllJson'); //List Kategori
+});
+

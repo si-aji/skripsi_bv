@@ -72,15 +72,27 @@
 </div>
 @endsection
 
-{{--  Require Js  --}}
-@section('needed_js')
-    <script src="{{ asset('plugins/bootstrap-notify/notify.js') }}"></script>
-    <script src="{{ asset('js/sa_bv.js') }}"></script>
-@endsection
-
 {{-- Inline Js --}}
 @section('inline_js')
 <script>
+
+    $(document).ready(function(){
+        $.notify({
+            icon: "done",
+            title: "<strong>Success</strong>",
+            message: "Coba"
+        }, {
+            type: "success",
+            timer: 150000,
+            delay: 500,
+            newest_on_top: true,
+            placement: {
+                from: "top",
+                align: "right"
+            }
+        });
+    });
+
     $("#registerForm").submit(function(e){ //Prevent default Action for Form
         e.preventDefault();
         formAction();

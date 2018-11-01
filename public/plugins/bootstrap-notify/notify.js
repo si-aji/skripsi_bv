@@ -266,7 +266,7 @@
             switch (this.settings.placement.align) {
                 case "left":
                 case "right":
-                    css[this.settings.placement.align] = this.settings.offset.x + 'px';
+                    css[this.settings.placement.align] = parseInt(this.settings.offset.x)-5 + 'px';
                     break;
                 case "center":
                     css.left = 0;

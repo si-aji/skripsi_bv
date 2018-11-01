@@ -5,7 +5,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1050;
+    z-index: 99999;
     display: none;
     overflow: hidden;
     outline: 0;
@@ -29,6 +29,7 @@
     overflow: hidden;
     padding-left: 60px;
     border: none;
+    z-index: 9999 !important;
     box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(49, 49, 49, 0.4);
 }
 [data-notify="icon"] {

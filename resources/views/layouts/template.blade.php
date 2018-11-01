@@ -28,7 +28,7 @@
         <title>Bakul Visor</title>
 
         <meta name="robots" content="index,follow">
-        <link rel="shortcut icon" href="#"/>
+        <link rel="shortcut icon" href="{{ asset('img/bv/logo_helm.png') }}"/>
 
         <!-- CSS -->
 
@@ -64,8 +64,14 @@
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.js') }}"></script>
     <!-- Popper Js -->
     <script src="{{ asset('plugins/popper/umd/popper.js') }}"></script>
+    <!-- Notify Js -->
+    {{--  <script src="{{  asset('js/bootstrap-notify.js')}}"></script>  --}}
+    <script src="{{ asset('plugins/bootstrap-notify/notify.js') }}"></script>
+
+    <script src="{{ asset('js/sa_bv.js') }}"></script>
     {{--  Needed Js --}}
     @yield('needed_js')
+    @yield('plugins_js')
     @yield('custom_js')
 
     {{-- Inline Js --}}
@@ -82,5 +88,6 @@
             $("#ajax-loading").hide();
         });
     </script>
+    @yield('important_inline_js')
     @yield('inline_js')
 </html>

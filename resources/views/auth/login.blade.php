@@ -51,11 +51,7 @@
 
 {{--  Require Js  --}}
 @section('needed_js')
-    <script src="{{ asset('plugins/bootstrap-notify/notify.js') }}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script><!-- Sweet Alert -->
-
-    <!-- Custom Js -->
-    <script src="{{ asset('js/sa_bv.js') }}"></script>
 @endsection
 
 {{-- Inline Js --}}

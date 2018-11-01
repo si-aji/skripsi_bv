@@ -36,3 +36,23 @@
 - Change login response at Bestmomo\LaravelEmailConfirmation\Traits line 49
 - Change return to json format from Illuminate\Foundation\Auth@logout
 ```
+
+-27 Oct 2018 (v.0.3.0)
+```
+- [Plugins] Add DataTable
+- [Module] Add Kategori Module
+    + Migration (Fix)
+    + Model (Fix)
+    + Controller (Fix)
+    + Insert (Fix)
+    + Update (Fix)
+    + Delete (Fix)
+- [Asset] Change static navbar to fixed top navbar
+- Add middleware for all backend module
+- Change structure for sa_bv, notify, animate, etc to template instead of each module
+```
+
+-1 Nov 2018 ()
+```
+- 
+```
