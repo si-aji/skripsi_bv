@@ -94,7 +94,7 @@ class BarangController extends Controller
         ]);
         $message = [
             "status" => "success",
-            "message" => "Successfully add ".$request->barang_nama." added!",
+            "message" => "Successfully add ".$request->barang_nama." to database!",
             "response" => $store,
         ];
         return response()->json($message);

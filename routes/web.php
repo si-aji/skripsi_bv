@@ -36,5 +36,14 @@ Route::group(['middleware' => ['auth','web',]], function(){
     Route::get('/data/barang/{id}', 'BarangController@barangSpecificJson'); //Data Barang
     Route::get('/data/barang/kategori/{id}', 'BarangController@kategoriSpecificJson'); //Data Barang
 
+    //Kostumer
+    Route::resource('/staff/kostumer', 'KostumerController');
+    Route::get('/list/kostumer', 'KostumerController@kostumerJson'); //List Kostumer (All)
+
+    //Supplier
+    Route::resource('/staff/supplier', 'SupplierController');
+    Route::get('/list/supplier', 'SupplierController@supplierJson'); //List Supplier (All)
+
+
 });
 

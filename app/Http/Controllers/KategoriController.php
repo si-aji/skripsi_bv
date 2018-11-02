@@ -88,7 +88,7 @@ class KategoriController extends Controller
         ]);
         $message = [
             "status" => "success",
-            "message" => "Successfully add ".$request->kategori_nama." added!",
+            "message" => "Successfully add ".$request->kategori_nama." to database!",
             "response" => $store,
         ];
         return response()->json($message);

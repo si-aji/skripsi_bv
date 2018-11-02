@@ -24,7 +24,7 @@
         <div class="col-12 col-lg-4">{{-- Form Barang --}}
             <div class="card">
                 <div class="card-header no-border">
-                    <h3 class="card-title"><i class="fa fa-tags"></i> <span id="span_title">Form Barang (Insert)</span></h3>
+                    <h3 class="card-title"><i class="fa fa-th"></i> <span id="span_title">Form Barang (Insert)</span></h3>
                 </div>
 
                 <form role="form" id="barangForm">
@@ -95,7 +95,7 @@
 
                         <div class="form-group" id="field-barang_detail">
                                 <label for="input-barang_detail">Detail</label>
-                                <textarea placeholder="Detail Barang" class="form-control" rows="5" id="input-barang_detail" name="barang_detail"></textarea>
+                                <textarea placeholder="Detail Barang" class="form-control" id="input-barang_detail" name="barang_detail"></textarea>
                             </div>
                     </div>
 
@@ -111,7 +111,7 @@
         <div class="col-12 col-lg-8">{{-- DataTable Barang --}}
             <div class="card">
                 <div class="card-header no-border">
-                    <h3 class="card-title"><span><i class="fa fa-tags"></i> List Barang</span></h3>
+                    <h3 class="card-title"><span><i class="fa fa-th"></i> List Barang</span></h3>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover table-striped table-bordered" id="barangTable">
@@ -175,10 +175,22 @@
 
     <script src="{{ asset('plugins/iCheck/icheck.js') }}"></script>{{-- iCheck --}}
     <script src="{{ asset('plugins/select2/select2.js') }}"></script>{{-- select2 --}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>{{-- ckeditor 5 --}}
 @endsection
 
 @section('inline_js')
 <script>
+    //Set ckeditor
+    ClassicEditor.create(
+        document.querySelector( '#input-barang_detail' ), {
+            removePlugins: [ "Image", "ImageCaption", "ImageStyle", "ImageToolbar", "ImageUpload" ]
+        }
+    ).then(
+        newEditor => {ckeditor = newEditor;}
+    ).catch(
+        error => {console.error( error );}
+    );
+
     $(document).ready(function(){
         document.title = "BakulVisor | Barang";
         $("#mn-barang").addClass('active');
@@ -435,6 +447,7 @@
         formAction();
     });
     function formAction(){
+        $("#input-barang_detail").val(editorData = ckeditor.getData());
         //Remove All Errors block that exists
         $(".error-block").remove();
         $(".form-control").removeClass('has-error');
@@ -501,7 +514,7 @@
         $("#check-barang_stokStatus").iCheck('uncheck');
         stockUnActive();
 
-        $("#input-barang_detail").val('');
+        $("#input-barang_detail").val(editorData = ckeditor.setData(' '));
 
         $("#input-old_kategori_id").val('');
         $("#input-kategori_id").prop('selectedIndex', '0').change();
@@ -537,7 +550,8 @@
 
 
                 if(result.data[0]['barang_detail'] != "null"){
-                    $("#input-barang_detail").val(result.data[0]['barang_detail']);
+                    $("#input-barang_detail").val(editorData = ckeditor.setData(unescapeHtml(result.data[0]['barang_detail'])));
+                    //console.log("Detail : "+unescapeHtml(result.data[0]['barang_detail']));
                 }
 
                 $("#input-kategori_id").val(result.data[0]['kategori_id']);
