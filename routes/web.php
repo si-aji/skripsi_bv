@@ -44,6 +44,12 @@ Route::group(['middleware' => ['auth','web',]], function(){
     Route::resource('/staff/supplier', 'SupplierController');
     Route::get('/list/supplier', 'SupplierController@supplierJson'); //List Supplier (All)
 
+    //Karyawan
+    Route::resource('/staff/karyawan', 'UserController');
+    Route::get('/list/karyawan', 'UserController@userJson'); //List Toko (All)
 
+    //Toko
+    Route::resource('/staff/toko', 'TokoController');
+    Route::get('/list/toko', 'TokoController@tokoJson'); //List Toko (All)
 });
 

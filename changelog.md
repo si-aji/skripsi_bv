@@ -1,10 +1,27 @@
-- (v.)
+- 4 Nov 201 (v.0.6.0)
 ```
+- [Module] Add migration for Toko
+- [Module] Add model for Toko
+- [Module] Add controller for Toko
+- [Module] Add controller for User(Karyawan)
+- [Plugins] Add tooltip init on template so it can be used globally in front/back end
+- Modify guest (RedirectIfAuthenticated) middleware redirect from /home to /staff
+- Modify (add) exception for confirmation and resend in RegisterController (Traits)
+- Modify user migration so email can be null
+- Modify dashboard (show alert for add an email/verify an email)
+
+*Need to do
+- Add profile
+    + User cannot see their own data on karyawan
+    + User only can modify their email, pass on profile
+    + User cannot modify other user email, username or pass
+- Forget Password
+    + Remove username, so to change password after click on link, user only put new password and everything is done
 ```
 -------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------
--2 Nov 2018 (v.0.5.0)
+- 2 Nov 2018 (v.0.5.0)
 ```
 - [Module] Add migration for Kostumer
 - [Module] Add model for Kostumer
@@ -28,7 +45,7 @@
 -------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------
--1 Nov 2018 (v.0.4.0)
+- 1 Nov 2018 (v.0.4.0)
 ```
 - Add migration for barang module
 - Add model for barang module
@@ -45,7 +62,7 @@
 -------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------
--27 Oct 2018 (v.0.3.0)
+- 27 Oct 2018 (v.0.3.0)
 ```
 - [Plugins] Add DataTable
 - [Module] Add Kategori Module
@@ -62,7 +79,7 @@
 -------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------
--27 Oct 2018 (v.0.2.0)
+- 27 Oct 2018 (v.0.2.0)
 ```
 - [Asset] Add swal function to sa_bv.js
 - [Plugins] Change sweetalert from cdn to local
@@ -81,7 +98,7 @@
 -------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------
--26 Oct 2018 (v.0.1.0)
+- 26 Oct 2018 (v.0.1.0)
 ```
 - [Database] Add username to users table
 - [Plugins] Add animate.css
@@ -98,7 +115,7 @@
 -------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------
--11 Oct 2018
+- 11 Oct 2018
 ```
 - Add Email Verification by [Bestmomo](https://github.com/bestmomo/laravel-email-confirmation)
 - Add AdminLTE 2 (Alpha v2) by [AdminLTE.io](https://adminlte.io/themes/dev/AdminLTE/)

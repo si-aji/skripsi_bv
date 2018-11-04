@@ -16,6 +16,13 @@
     <div class="card">{{-- Register Card --}}
         <div class="card-body login-card-body">
             <div id="alert_section"></div>
+
+            @if (session('confirmation-success'))
+                <div class="alert alert-success">
+                    {{ session('confirmation-success') }}
+                </div>
+            @endif
+
             <p class="login-box-msg">Login to existing Account</p>
 
             <form role="form" id="loginForm">

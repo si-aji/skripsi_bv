@@ -72,6 +72,9 @@
 
     {{-- Inline Js --}}
     <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
         $.ajaxSetup({ {{-- Set csrf token for every ajax request --}}
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
