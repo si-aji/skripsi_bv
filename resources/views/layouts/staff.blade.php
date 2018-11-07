@@ -19,7 +19,7 @@
                 <a href="{{ url('/staff/dashboard') }}" class="nav-link">Dashboard</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{ url('/staff/profile') }}" class="nav-link">Profile</a>
+                <a href="{{ url('/staff/profile') }}" class="nav-link" id="sub-profile">Profile</a>
             </li>
         </ul>{{-- /.Left Navbar --}}
 

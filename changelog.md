@@ -1,4 +1,11 @@
-- 4 Nov 201 (v.0.6.0)
+- 5 Nov 2018 (v.0.7.0) -> Commited at 7 Nov 2018
+```
+- Modify route so register is now disable
+- Fix profile change
+- Add option for reset password (admin/owner)
+```
+
+- 4 Nov 2018 (v.0.6.0)
 ```
 - [Module] Add migration for Toko
 - [Module] Add model for Toko

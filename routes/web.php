@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -47,6 +47,9 @@ Route::group(['middleware' => ['auth','web',]], function(){
     //Karyawan
     Route::resource('/staff/karyawan', 'UserController');
     Route::get('/list/karyawan', 'UserController@userJson'); //List Toko (All)
+    Route::get('/staff/profile', 'UserController@profile'); //Profile
+    Route::put('/staff/profile/update/{karyawan}', 'UserController@profileUpdate'); //Profile Update
+
 
     //Toko
     Route::resource('/staff/toko', 'TokoController');

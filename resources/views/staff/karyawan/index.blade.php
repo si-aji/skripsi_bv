@@ -76,10 +76,23 @@
                                 <th class="all">Username</th>
                                 <th class="desktop">Email</th>
                                 <th class="desktop">Level</th>
+                                <th class="desktop">Status</th>
                                 <th class="desktop">Aksi</th>
                             </tr>
                         </thead>
                     </table>
+                    <div class="card">{{-- Legendary --}}
+                        <div class="card-body">
+                            <span><small>Action Button description</small></span><br>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-warning text-white"><i class="fa fa-edit"></i> Edit User Data</button>
+                                <button class="btn btn-sm btn-danger text-white"><i class="fa fa-ban"></i> Disable User</button>
+                                <button class="btn btn-sm btn-primary text-white"><i class="fa fa-check"></i> Activate User</button>
+                                <button class="btn btn-sm btn-info text-white"><i class="fa fa-arrow-up"></i>/<i class="fa fa-arrow-down"></i> Change User Level</button>
+                                <button class="btn btn-sm btn-warning text-white"><i class="fa fa-refresh"></i> Change User Password to default</button>
+                            </div>
+                        </div>
+                    </div>{{-- Legendary --}}
                 </div>
             </div>
         </div>{{-- /.DataTable Karyawan --}}
@@ -113,6 +126,7 @@
             { data: 'username' },
             { data: null },
             { data: 'level' },
+            { data: 'status' },
             { data: null },
         ],
         columnDefs: [
@@ -138,16 +152,20 @@
                     }
                 }
             }, {
-                targets: [5],
+                targets: [6],
                 render: function(data, type, row) {
                     var id = "'"+data.id+"'";
-                    return generateButton(id);
+                    var name = "'"+data.name+"'";
+                    var username = "'"+data.username+"'";
+                    var level = data.level;
+                    var status = data.status;
+                    return generateButton(id, name, username, level, status);
                 }
             }
         ],
-        pageLength: 10,
+        pageLength: 5,
         aLengthMenu:[5,10,15,25,50],
-        order: [1, 'asc'],
+        order: [[5, 'asc'], [4, 'asc'], [1, 'asc']],
         responsive: {
             details: {
                 type: 'column',
@@ -160,11 +178,26 @@
             cell.innerHTML = i+1;
         });
     }).draw();
-    function generateButton(id){
-        var edit = '<a class="btn btn-warning text-white" onclick="formUpdate('+id+')"></i><i class="fa fa-edit"></i></a>';
-        var hapus = '<a class="btn btn-danger text-white" onclick="formDelete('+id+')"><i class="fa fa-trash"></i></a>';
+    function generateButton(id, name, username, level, status){
+        var edit = '<a class="btn btn-warning text-white" onclick="formUpdate('+id+','+name+','+username+')"></i><i class="fa fa-edit"></i></a>';
+        if(status == "Aktif"){
+            var hapus = '<a class="btn btn-danger text-white" onclick="formDelete('+id+')"><i class="fa fa-ban"></i></a>';
+            if(level == "Admin"){
+                var permintaan = "'downgrade'";
+                var ubahLevel = '<a class="btn btn-info text-white" onclick="formLevel('+id+', '+permintaan+')"><i class="fa fa-arrow-down"></i></a>';
+            } else {
+                var permintaan = "'upgrade'";
+                var ubahLevel = '<a class="btn btn-info text-white" onclick="formLevel('+id+', '+permintaan+')"><i class="fa fa-arrow-up"></i></a>';
+            }
+            var resetPass = '<a class="btn btn-warning text-white" onclick="formResetPass('+id+')"><i class="fa fa-refresh"></i></a>';
+        } else {
+            var hapus = '<a class="btn btn-primary text-white" onclick="formActive('+id+')"><i class="fa fa-check"></i></a>';
+            var ubahLevel = "";
+            var resetPass = "";
 
-        return "<div class='btn-group'>"+edit+hapus+"</div>";
+        }
+
+        return "<div class='btn-group'>"+edit+hapus+ubahLevel+resetPass+"</div>";
     }
 
     $("#karyawanForm").submit(function(e){ //Prevent default Action for Form
@@ -185,7 +218,7 @@
         } else {
             //Update
             var formMethod = $("#_method").val();
-            var url_link = "{{ url('/staff/karyawan') }}/"+$("#karyawan_id").val();
+            var url_link = "{{ url('/staff/karyawan') }}/"+$("#user_id").val();
         }
 
         $.ajax({
@@ -199,7 +232,7 @@
                 //Show alert
                 topright_notify(result.message);
                 //Re-Draw dataTable
-                $("#tokoTable").DataTable().ajax.reload(null, false);
+                $("#karyawanTable").DataTable().ajax.reload(null, false);
                 //ResetForm
                 formReset();
             },
@@ -219,6 +252,181 @@
                 });
             }
         });
+    }
+    function formUpdate(id, name, username){
+        $("#span_title").text(" Form Karyawan (Update)");
+        $("#request").val('update');
+        $("#_method").val('PUT');
+        $("#user_id").val(id);
+
+        //Disable some field
+        $("#input-email").prop('disabled', true);
+        $("#input-password").prop('disabled', true);
+        $("#input-password_confirmation").prop('disabled', true);
+
+        //Set value
+        $("#input-name").val(name);
+        $("#input-username").val(username);
+    }
+    function formDelete(id){
+        var user_id = id;
+        var url_link = '{{ url('staff/karyawan') }}/'+user_id;
+
+        swal({
+            title: "Warning!",
+            text: "This user status will set to Tidak Aktif so he/she cannot login to system, Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((value) => {
+            if (value) {
+                $.ajax({
+                    method: 'POST',
+                    url: url_link,
+                    data: {'_method': 'delete', 'permintaan': 'hapus'},
+                    cache: false,
+                    success: function(result){
+                        console.log(result);
+                        //Re-Draw dataTable
+                        $("#karyawanTable").DataTable().ajax.reload(null, false);
+                        //Show alert
+                        topright_notify(result.message);
+                    },
+                    error: function( jqXHR, textStatus, errorThrown ) {
+                        console.log(jqXHR);
+                    }
+                });
+            }
+        });
+    }
+    function formLevel(id, permintaan){
+        var user_id = id;
+        var url_link = '{{ url('staff/karyawan') }}/'+user_id;
+
+        if(permintaan == "upgrade"){
+            var requestLevel = "Admin";
+        } else {
+            var requestLevel = "Karyawan";
+        }
+
+        swal({
+            title: "Warning!",
+            text: "Are you sure to change this user level to "+requestLevel+"?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((value) => {
+            if (value) {
+                $.ajax({
+                    method: 'POST',
+                    url: url_link,
+                    data: {'_method': 'delete', 'permintaan': permintaan},
+                    cache: false,
+                    success: function(result){
+                        console.log(result);
+                        //Re-Draw dataTable
+                        $("#karyawanTable").DataTable().ajax.reload(null, false);
+                        //Show alert
+                        topright_notify(result.message);
+                    },
+                    error: function( jqXHR, textStatus, errorThrown ) {
+                        console.log(jqXHR);
+                    }
+                });
+            }
+        });
+    }
+    function formResetPass(id){
+        var user_id = id;
+        var url_link = '{{ url('staff/karyawan') }}/'+user_id;
+
+        swal({
+            title: "Warning!",
+            text: "Are you sure to change this user password? type 'reset' in input below to process",
+            content: "input",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((value) => {
+            if(value == "reset"){
+                $.ajax({
+                    method: 'POST',
+                    url: url_link,
+                    data: {'_method': 'delete', 'permintaan': 'reset'},
+                    cache: false,
+                    success: function(result){
+                        console.log(result);
+                        //Re-Draw dataTable
+                        $("#karyawanTable").DataTable().ajax.reload(null, false);
+                        //Show alert
+                        topright_notify(result.message);
+                    },
+                    error: function( jqXHR, textStatus, errorThrown ) {
+                        console.log(jqXHR);
+                    }
+                });
+            } else {
+                swal({
+                    icon: "error",
+                    title: "Failed!",
+                    text: "Invalid, please try again. Please type 'reset' to start the process.",
+                });
+            }
+        });
+    }
+    function formActive(id){
+        var user_id = id;
+        var url_link = '{{ url('staff/karyawan') }}/'+user_id;
+
+        swal({
+            title: "Warning!",
+            text: "This user status will set to Aktif so he/she can login to system, Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((value) => {
+            if (value) {
+                $.ajax({
+                    method: 'POST',
+                    url: url_link,
+                    data: {'_method': 'delete', 'permintaan': 'active'},
+                    cache: false,
+                    success: function(result){
+                        console.log(result);
+                        //Re-Draw dataTable
+                        $("#karyawanTable").DataTable().ajax.reload(null, false);
+                        //Show alert
+                        topright_notify(result.message);
+                    },
+                    error: function( jqXHR, textStatus, errorThrown ) {
+                        console.log(jqXHR);
+                    }
+                });
+            }
+        });
+    }
+    $("#formReset").click(function(e){ //Prevent default Action for Form
+        e.preventDefault();
+        formReset();
+    });
+    function formReset(){
+        $(".error-block").remove();
+        $(".form-control").removeClass('has-error');
+        $(".input-group-text").removeClass('has-error');
+
+        $("#span_title").text('Form Karyawan (Insert)');
+        $("#request").val('insert');
+        $("#_method").val('POST');
+        $("#user_id").val('');
+
+        //Enable some field
+        $("#input-email").prop('disabled', false);
+        $("#input-password").prop('disabled', false);
+        $("#input-password_confirmation").prop('disabled', false);
+
+        //Set value
+        $("#input-name").val('');
+        $("#input-username").val('');
     }
 </script>
 @endsection
