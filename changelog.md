@@ -1,3 +1,23 @@
+- 7 Nov 2018 (v.0.8.0)
+```
+- [Functions][Helper] Add function to generate InvoiceJual
+- [Module][Penjualan] Add migration for penjualan
+    + Relation to Kostumer
+    + Relation to Toko
+- [Module][Penjualan Detail] Add migration for penjualan detail
+    + Relation to Penjualan
+    + Relation to Barang
+- [Plugins] Add Bootstrap DateTimePicker
+- [Plugins] Change PerfectScrollbar from CDN to Local
+- [Asset] Add Momment.js
+
+*Need to Do
+- Buat validasi stok
+    + Jika status stok dibarang aktif, maka dilakukan pengecekan maksimal. Jika tidak aktif maka tidak ada batasan
+- Penjualan Log
+    + Simpan uang berdasarkan tanggal transaksi terjadi
+```
+
 - 5 Nov 2018 (v.0.7.0) -> Commited at 7 Nov 2018
 ```
 - Modify route so register is now disable

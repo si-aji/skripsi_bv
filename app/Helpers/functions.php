@@ -1,6 +1,6 @@
 <?php
 function version(){
-    $version = "v.0.6.0 - develop";
+    $version = "v.0.8.0 - develop";
 
     return $version;
 }
@@ -11,5 +11,11 @@ function generate_gravatar($name){
 function idr_currency($num){
     return "Rp ".number_format((float)$num,0,',','.');
     //return $num;
+}
+
+function invoiceJual(){
+    //Generate Invoice untuk transaksi Jual (Tambah Stok)
+    $ivc = "INVC/JUAL/".date("dmy").'/'.time();
+    return $ivc;
 }
 ?>

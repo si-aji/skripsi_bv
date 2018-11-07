@@ -16,4 +16,8 @@ class Barang extends Model
     public function kategori(){
         return $this->belongsTo('App\Kategori', 'kategori_id');
     }
+    //Set relation with PenjualanDetail
+    public function penjualanDetail(){
+        return $this->hasMany('App\PenjualanDetail', 'barang_id');
+    }
 }

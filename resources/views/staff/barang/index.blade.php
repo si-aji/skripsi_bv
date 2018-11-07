@@ -94,9 +94,9 @@
                         </div>{{-- /.Stok --}}
 
                         <div class="form-group" id="field-barang_detail">
-                                <label for="input-barang_detail">Detail</label>
-                                <textarea placeholder="Detail Barang" class="form-control" id="input-barang_detail" name="barang_detail"></textarea>
-                            </div>
+                            <label for="input-barang_detail">Detail</label>
+                            <textarea placeholder="Detail Barang" class="form-control" id="input-barang_detail" name="barang_detail"></textarea>
+                        </div>
                     </div>
 
                     <div class="card-footer">
@@ -328,7 +328,7 @@
                     });
                 }
             }
-        })
+        });
     }
 
     $("#kategoriForm").submit(function(e){ //Prevent default Action for Form
@@ -558,7 +558,7 @@
                 $("#input-old_kategori_id").val(result.data[0]['kategori_id']);
                 $('#input-kategori_id').trigger('change');
             }
-        })
+        });
     }
     //Untuk hapus
     function formDelete(id){

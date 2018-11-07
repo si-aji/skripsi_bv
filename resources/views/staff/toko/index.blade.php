@@ -65,7 +65,7 @@
                         <div class="form-group" id="field-toko_kontak">{{-- Kontak Toko --}}
                             <label for="input-toko_kontak">Kontak</label>
                             <input type="text" name="toko_kontak" class="form-control" placeholder="Kontak Toko" id="input-toko_kontak">
-                        </div>{{-- /.Nama Kontak --}}
+                        </div>{{-- /.Kontak Toko --}}
                     </div>
 
                     <div class="card-footer">

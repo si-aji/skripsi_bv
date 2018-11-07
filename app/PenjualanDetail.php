@@ -1,0 +1,23 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class PenjualanDetail extends Model
+{
+    protected $table = 'tbl_penjualan_detail';
+
+    protected $fillable = [
+        "penjualan_id", "barang_id", "harga_beli", "harga_jual", "jual_qty", "diskon"
+    ];
+
+    //Set relation with Penjualan
+    public function penjualan(){
+        return $this->belongsTo('App\Penjualan', 'penjualan_id');
+    }
+    //Set relation with Barang
+    public function barang(){
+        return $this->belongsTo('App\Barang', 'barang_id');
+    }
+}

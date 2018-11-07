@@ -17,6 +17,15 @@ class TokoController extends Controller
                 ->of($list)
                 ->toJson();
     }
+    public function tokoTipeJson(Request $request){
+        $list = Toko::where([
+            ['toko_tipe', $request->toko_tipe],
+            ['toko_status', 'Aktif'],
+        ]);
+        return datatables()
+                ->of($list)
+                ->toJson();
+    }
     /**
      * Display a listing of the resource.
      *

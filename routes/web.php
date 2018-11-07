@@ -50,9 +50,13 @@ Route::group(['middleware' => ['auth','web',]], function(){
     Route::get('/staff/profile', 'UserController@profile'); //Profile
     Route::put('/staff/profile/update/{karyawan}', 'UserController@profileUpdate'); //Profile Update
 
-
     //Toko
     Route::resource('/staff/toko', 'TokoController');
     Route::get('/list/toko', 'TokoController@tokoJson'); //List Toko (All)
+    Route::post('/list/toko', 'TokoController@tokoTipeJson'); //List Toko (by List)
+
+    // Transaksi
+    //Penjualan
+    Route::resource('/staff/penjualan', 'PenjualanController');
 });
 

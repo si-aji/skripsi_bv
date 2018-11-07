@@ -128,7 +128,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/UI/icons.html" class="nav-link" id="sub-penjualan_tambah">
+                                <a href="{{ url('/staff/penjualan/create') }}" class="nav-link" id="sub-penjualan_tambah">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>Tambah Penjualan</p>
                                 </a>
@@ -208,11 +208,14 @@
 {{--  <script src="{{ asset('js/app.js') }}"></script>  --}}
 <script src="{{ asset('js/adminlte.js') }}"></script>
 {{--  <script src="{{ asset('js/demo.js') }}"></script>  --}}
-<script src="http://list.siaji.com/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<script src="{{ asset('plugins/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 <!-- Bootstrap -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.js') }}"></script>
 <!-- Popper Js -->
 <script src="{{ asset('plugins/popper/umd/popper.js') }}"></script>
+<!-- Momment Js -->
+<script src="{{ asset('js/momment.js') }}"></script>
+
 
 <!-- Plugins -->
 <script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script><!-- Sweet Alert -->
