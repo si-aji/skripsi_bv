@@ -27,4 +27,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    //Set relation with PenjualanLog
+    public function penjualanLog(){
+        return $this->hasMany('App\PenjualanLog', 'user_id');
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 function version(){
-    $version = "v.0.8.0 - develop";
+    $version = "v.0.9.0 - develop";
 
     return $version;
 }

@@ -1,3 +1,21 @@
+- 8 Nov 2018 (v.0.9.0)
+```
+- [Module][Penjualan Log] Add migration for penjualan Log
+    + Relation to Penjualan
+    + Relation to User
+- [Module][Penjualan Log] Fix
+- [Module][Penjualan] Fix Stok Validation
+    + Cek stokStatus
+        > Jika aktif lakukan validasi
+            - Jika > stok hapus data penjualan dan kembalikan pesan error
+            - Jika < stok simpan ke database
+        > Jika tidak aktif langsung simpan ke database
+- [Migration] Add trigger untuk tambah dan kurang stok efek penjualan
+
+*Need to Do
+- Show error message untuk stok < qty
+```
+
 - 7 Nov 2018 (v.0.8.0)
 ```
 - [Functions][Helper] Add function to generate InvoiceJual

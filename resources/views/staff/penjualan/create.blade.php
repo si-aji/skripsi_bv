@@ -133,7 +133,7 @@
                                         <div class="col-12 col-md-2">{{-- SubTotal --}}
                                             <div class="form-group" id="field_1-subTotal">
                                                 <label for="input_1-subTotal">SubTotal</label>
-                                                <input type="number" name="subTotal[]" class="form-control" id="input_1-subTotal" min="0" placeholder="0" readonly>
+                                                <input type="number" name="subTotal[]" class="form-control subTotal" id="input_1-subTotal" min="0" placeholder="0" readonly>
                                             </div>
                                         </div>{{-- /.SubTotal --}}
                                     </div>
@@ -144,6 +144,46 @@
                             <a class="btn btn-info btn-sm icon-btn mb-2 text-white" id="addMore">
                                 <i class="mdi mdi-plus"></i> Add new Row
                             </a>
+
+                            {{-- Rincian Biaya --}}
+                            <div class="offset-md-6">
+                                <div class="form-group" id="field-pembayaran_tgl">{{-- Pembayaran Tanggal --}}
+                                    <label for="input-pembayaran_tgl">Tanggal Pembayaran</label>
+                                    <input type="text" name="pembayaran_tgl" class="form-control datetimepicker-input" id="input-pembayaran_tgl" data-toggle="datetimepicker" data-target="#input-pembayaran_tgl">
+                                </div>{{-- /.Pembayaran Tanggal --}}
+
+                                <div class="form-group" id="field-jumlah">{{-- Jumlah --}}
+                                    <label for="input-jumlah">Jumlah</label>
+                                    <input type="number" name="subTotal" class="form-control" id="input-jumlah" min="0" placeholder="0" readonly>
+                                </div>{{-- /.Jumlah --}}
+
+                                <div class="form-group" id="field-biaya_lain">{{-- Biaya Lain --}}
+                                    <label for="input-biaya_lain">Biaya Lain</label>
+                                    <input type="number" name="biaya_lain" class="form-control" id="input-biaya_lain" min="0" value="0" placeholder="0" onchange="hitungTotal()">
+                                </div>{{-- /.Jumlah --}}
+
+                                <div class="form-group" id="field-total">{{-- Total --}}
+                                    <label for="input-total">Total</label>
+                                    <input type="number" name="total" class="form-control" id="input-total" min="0" placeholder="0" readonly>
+                                </div>{{-- /.Total --}}
+
+                                <div class="form-group" id="field-bayar">{{-- Bayar --}}
+                                    <label for="input-bayar">Bayar</label>
+                                    <div class="input-group">
+                                        <input type="number" name="bayar" class="form-control" id="input-bayar" min="0" value="0" placeholder="0" onchange="hitungKekurangan()">
+                                        <div class="btn-group">
+                                            <a onclick="bayar('dp')" class="btn btn-info text-white">DP 50%</a>
+                                            <a onclick="bayar('lunas')" class="btn btn-primary text-white">Lunas</a>
+                                        </div>
+                                    </div>
+                                </div>{{-- /.Total --}}
+
+                                <div class="form-group" id="field-kekurangan">{{-- Kekurangan --}}
+                                    <label for="input-kekurangan">Kekurangan</label>
+                                    <input type="number" name="kekurangan" class="form-control" id="input-kekurangan" min="0" placeholder="0" readonly>
+                                </div>{{-- /.Kekurangan --}}
+                            </div>
+                            {{-- /.Rincian Biaya --}}
                         </div>
                     </div>
                 </div>
@@ -304,6 +344,12 @@
             defaultDate: '{{ date("Y-m-d H:i:00") }}',
             maxDate : '{{ date("Y-m-d H:i:00") }}'
         });
+        $('#input-pembayaran_tgl').datetimepicker({
+            useCurrent: false,
+            format: 'YYYY-MM-DD HH:mm',
+            defaultDate: '{{ date("Y-m-d H:i:00") }}',
+            maxDate : '{{ date("Y-m-d H:i:00") }}'
+        });
 
         setBarangDetail('1');
     });
@@ -317,7 +363,7 @@
         e.preventDefault();
         var konten = parseInt($('.transaksi_content').length) + 1;
 
-        $('<div class="mb-2 transaksi_content" id="content-'+awal+'" style="display: none;"><div class="row"><div class="col-12 col-md-4">{{-- Nama Barang --}}<div class="form-group" id="field_'+awal+'-barang_id"><label for="input_'+awal+'-barang_id">Kode Barang</label><select name="barang_id[]" class="form-control select2" id="input_'+awal+'-barang_id" onchange="setBarangDetail('+awal+')"> @foreach ($kategori as $awal_k) <optgroup label="{{ $awal_k['kategori_nama'] }}"> @foreach ($barang as $awal_b) @if($awal_b['kategori_id'] == $awal_k['id']) <option value="{{ $awal_b['id'] }}">{{ $awal_k['kategori_kode'].'-'.$awal_b['barang_kode'].' / '.$awal_b['barang_nama'] }}</option> @endif @endforeach </optgroup> @endforeach </select></div></div>{{-- /.Nama Barang --}}<div class="form-group" id="field_'+awal+'-harga_beli">{{-- Harga Beli --}}<input type="hidden" name="harga_beli[]" class="form-control" id="input_'+awal+'-harga_beli" min="0" placeholder="0"></div>{{-- /.Harga Beli --}}<div class="col-12 col-md-2">{{-- Harga Jual --}}<div class="form-group" id="field_'+awal+'-harga_jual"><label for="input_'+awal+'-harga_jual">Harga Jual</label><input type="number" name="harga_jual[]" class="form-control" id="input_'+awal+'-harga_jual" min="0" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.Harga Jual --}}<div class="col-12 col-md-2">{{-- Diskon --}}<div class="form-group" id="field_'+awal+'-diskon"><label for="input_'+awal+'-diskon">Diskon</label><input type="number" name="diskon[]" class="form-control" id="input_'+awal+'-diskon" min="0" value="0" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.Diskon --}}<div class="col-12 col-md-2">{{-- QTY --}}<div class="form-group" id="field_'+awal+'-qty"><label for="input_'+awal+'-qty">QTY</label><input type="number" name="qty[]" class="form-control" id="input_'+awal+'-qty" min="1" value="1" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.QTY --}}<div class="col-12 col-md-2">{{-- SubTotal --}}<div class="form-group" id="field_'+awal+'-subTotal"><label for="input_'+awal+'-subTotal">SubTotal</label><div class="input-group"><input type="number" name="subTotal[]" class="form-control" id="input_'+awal+'-subTotal" min="0" placeholder="0" readonly><a onclick="removeMore('+awal+')" class="btn text-white btn-danger btnhapus" ><i class="fa fa-trash"></i></a></div></div></div>{{-- /.SubTotal --}}</div><hr class="my-2">').appendTo($("#transaksi_wrapper")).slideDown("slow", "swing");
+        $('<div class="mb-2 transaksi_content" id="content-'+awal+'" style="display: none;"><div class="row"><div class="col-12 col-md-4">{{-- Nama Barang --}}<div class="form-group" id="field_'+awal+'-barang_id"><label for="input_'+awal+'-barang_id">Kode Barang</label><select name="barang_id[]" class="form-control select2" id="input_'+awal+'-barang_id" onchange="setBarangDetail('+awal+')"> @foreach ($kategori as $awal_k) <optgroup label="{{ $awal_k['kategori_nama'] }}"> @foreach ($barang as $awal_b) @if($awal_b['kategori_id'] == $awal_k['id']) <option value="{{ $awal_b['id'] }}">{{ $awal_k['kategori_kode'].'-'.$awal_b['barang_kode'].' / '.$awal_b['barang_nama'] }}</option> @endif @endforeach </optgroup> @endforeach </select></div></div>{{-- /.Nama Barang --}}<div class="form-group" id="field_'+awal+'-harga_beli">{{-- Harga Beli --}}<input type="hidden" name="harga_beli[]" class="form-control" id="input_'+awal+'-harga_beli" min="0" placeholder="0"></div>{{-- /.Harga Beli --}}<div class="col-12 col-md-2">{{-- Harga Jual --}}<div class="form-group" id="field_'+awal+'-harga_jual"><label for="input_'+awal+'-harga_jual">Harga Jual</label><input type="number" name="harga_jual[]" class="form-control" id="input_'+awal+'-harga_jual" min="0" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.Harga Jual --}}<div class="col-12 col-md-2">{{-- Diskon --}}<div class="form-group" id="field_'+awal+'-diskon"><label for="input_'+awal+'-diskon">Diskon</label><input type="number" name="diskon[]" class="form-control" id="input_'+awal+'-diskon" min="0" value="0" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.Diskon --}}<div class="col-12 col-md-2">{{-- QTY --}}<div class="form-group" id="field_'+awal+'-qty"><label for="input_'+awal+'-qty">QTY</label><input type="number" name="qty[]" class="form-control" id="input_'+awal+'-qty" min="1" value="1" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.QTY --}}<div class="col-12 col-md-2">{{-- SubTotal --}}<div class="form-group" id="field_'+awal+'-subTotal"><label for="input_'+awal+'-subTotal">SubTotal</label><div class="input-group"><input type="number" name="subTotal[]" class="form-control subTotal" id="input_'+awal+'-subTotal" min="0" placeholder="0" readonly><a onclick="removeMore('+awal+')" class="btn text-white btn-danger btnhapus" ><i class="fa fa-trash"></i></a></div></div></div>{{-- /.SubTotal --}}</div><hr class="my-2">').appendTo($("#transaksi_wrapper")).slideDown("slow", "swing");
 
         $('.select2-container').remove();
         $('.select2').select2();
@@ -345,7 +391,52 @@
         var hitung = (harga_jual * qty) - diskon;
         //console.log("Hasil Hitung Item "+item+" : "+hitung);
         $("#input_"+item+"-subTotal").val(hitung);
+
+        hitungJumlah();
     }
+    function hitungJumlah(){
+        var jumlah = 0;
+        var jumlahAmount = $(".subTotal").lenght;
+        //console.log("Jumlah Class Amount : "+$("input.amountHarga").length);
+        $(".subTotal").each(function(){
+            if (!Number.isNaN(parseInt(this.value, 10))){
+                //console.log("Perhitungan dijalankan");
+                jumlah += parseInt(this.value, 10);
+                $("#input-jumlah").val(parseInt(jumlah));
+            }
+        });
+        hitungTotal();
+    }
+    function hitungTotal(){
+        var jumlah = parseInt($("#input-jumlah").val());
+        var biayaLain = parseInt($("#input-biaya_lain").val());
+
+        var total = jumlah + biayaLain;
+        $("#input-total").val(total);
+        hitungKekurangan();
+    }
+    function bayar(permintaan){
+        var total = parseInt($("#input-total").val());
+        if(permintaan == 'dp'){
+            //DP 50%
+            var bayar = 0.5 * total;
+            $("#input-bayar").val(bayar);
+        } else {
+            //Lunas
+            var bayar = total;
+            $("#input-bayar").val(bayar);
+        }
+        hitungKekurangan();
+    }
+    function hitungKekurangan(){
+        var total = parseInt($("#input-total").val());
+        var bayar = parseInt($("#input-bayar").val());
+
+        var kekurangan = total - bayar;
+        $("#input-kekurangan").val(kekurangan);
+    }
+
+
     function setBarangDetail(item){
         var barang_id = $("#input_"+item+"-barang_id").val();
 

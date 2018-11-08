@@ -23,6 +23,10 @@ class Penjualan extends Model
 
     //Set relation with PenjualanDetail
     public function penjualanDetail(){
-        return $this->hasMany('App\PenjualanDetail', 'barang_id');
+        return $this->hasMany('App\PenjualanDetail', 'penjualan_id');
+    }
+    //Set relation with PenjualanLog
+    public function penjualanLog(){
+        return $this->hasMany('App\PenjualanLog', 'penjualan_id');
     }
 }
