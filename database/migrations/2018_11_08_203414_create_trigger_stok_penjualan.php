@@ -18,7 +18,7 @@ class CreateTriggerStokPenjualan extends Migration
             BEGIN
                 UPDATE
                 tbl_barang SET
-                    barang_stok = barang_stok - new.jual_qty
+                    barang_stok = CASE WHEN barang_stokStatus = "Aktif" THEN barang_stok - new.jual_qty WHEN barang_stokStatus = "Tidak Aktif" THEN 0 END
                 WHERE
                     id = new.barang_id;
             END

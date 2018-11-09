@@ -18,7 +18,7 @@ class CreateTriggerRollbackPenjualan extends Migration
             BEGIN
                 UPDATE
                 tbl_barang SET
-                    barang_stok = barang_stok + old.jual_qty
+                    barang_stok = CASE WHEN barang_stokStatus = "Aktif" THEN barang_stok + old.jual_qty WHEN barang_stokStatus = "Tidak Aktif" THEN 0 END
                 WHERE
                     id = old.barang_id;
             END

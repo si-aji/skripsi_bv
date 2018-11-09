@@ -122,7 +122,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/UI/general.html" class="nav-link" id="sub-penjualan_list">
+                                <a href="{{ url('/staff/penjualan') }}" class="nav-link" id="sub-penjualan_list">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>List Penjualan</p>
                                 </a>

@@ -28,6 +28,14 @@ function showSuccess_redirect(message, url){
         document.location.href = url;
     });
 }
+function showError(message,){
+    swal({
+        title: "Error!",
+        text: message,
+        icon: "error",
+        button: "Close!",
+    });
+}
 
 // IDR Currency
 function idr_curr(nStr)

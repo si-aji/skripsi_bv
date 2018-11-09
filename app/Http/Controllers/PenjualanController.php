@@ -16,13 +16,53 @@ use Illuminate\Support\Facades\Validator;
 class PenjualanController extends Controller
 {
     /**
+     * Data for Json Format (all)
+     */
+    public function penjualanJson(){
+        $list = Penjualan::with('penjualanDetail', 'penjualanDetail.barang', 'penjualanLog')->get()->map(function($data, $key) {
+            $data->items = (object)[];
+            $barang = array();
+            $total = 0;
+            //Detail
+            foreach($data->penjualanDetail as $detail){
+                $barang[] = $detail->barang->barang_nama." (".$detail->jual_qty.")";
+                $total = $total + ( ($detail->harga_jual * $detail->jual_qty) - $detail->diskon );
+            }
+
+            $biayaLain = 0;
+            $bayar = 0;
+            foreach($data->penjualanLog as $log){
+                $biayaLain = $biayaLain + $log->biaya_lain;
+                $bayar = $bayar + $log->bayar;
+            }
+            $total = $total + $biayaLain;
+
+            $data->items->barang = implode(", ", $barang);
+            $data->items->total = $total;
+            $data->items->biayaLain = $biayaLain;
+            $data->items->bayar = $bayar;
+
+            //Remove unnecessary data
+            unset($data->penjualan_detail);
+            unset($data->penjualanDetail);
+            unset($data->penjualanLog);
+            return $data;
+        });
+
+        return datatables()
+                ->of($list)
+                ->toJson();
+        // return response()->json($list);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return view('staff.penjualan.index');
     }
 
     /**
@@ -80,9 +120,10 @@ class PenjualanController extends Controller
             $items = $request->barang_id;
             //Get Penjualan
             $penjualan = Penjualan::where('penjualan_invoice', $invoice)->get();
+            $item_num = 1;
             foreach($items as $item => $key){
                 //Cek Stok Barang
-                $barang = Barang::where('id', $request->barang_id[$item])->get();
+                $barang = Barang::where('id', $request->barang_id[$item])->get();//Ambil data barang terkait
                 if($barang[0]->barang_stokStatus == "Aktif"){
                     //Jika Stok Aktif
                     if($barang[0]->barang_stok >= $request->qty[$item]){
@@ -97,13 +138,15 @@ class PenjualanController extends Controller
                         ]);
 
                         $status .= ", Penjualan Detail OKE";
+                        $error = false;
                         $result = true;
                     } else {
                         //Stok kurang
-                        $status .= ", Penjualan Detail GAK OKE, barang_id ".$request->barang_id[$item].", stok : ".$barang[0]->barang_stok." | qty : ".$request->qty[$item];
                         $storePenjualanDetail = 0;
-                        $result = false;
 
+                        $status .= ", Penjualan Detail GAGAL, barang_id ".$barang[0]->barang_nama.", stok : ".$barang[0]->barang_stok." | qty : ".$request->qty[$item];
+                        $error = "Gagal pada barang baris ke-".$item_num." (".$barang[0]->barang_nama.") karena sisa stok kurang (Stok : ".$barang[0]->barang_stok.", Permintaan QTY : ".$request->qty[$item].")";
+                        $result = false;
                         //Delete All Data related to this transaction
                         $status .= " | ".$this->destroy($penjualan[0]->id);
                     }
@@ -117,12 +160,15 @@ class PenjualanController extends Controller
                         'diskon' => $request->diskon[$item],
                     ]);
                     $status .= ", Penjualan Detail OKE, tanpa stok. Barang_id ".$request->barang_id[$item];
+                    $error = false;
                     $result = true;
                 }
+
+                $item_num++;
             }
 
             if((bool) $storePenjualanDetail){
-                //Insert Penjualan Log
+                //Insert Penjualan Log jika Penjualan Detail berhasil
                 $storePenjualanLog = PenjualanLog::create([
                     'penjualan_id' => $penjualan[0]->id,
                     'user_id' => Auth::user()->id,
@@ -131,6 +177,7 @@ class PenjualanController extends Controller
                     'bayar' => $request->bayar,
                 ]);
                 $status .= ", Penjualan Log OKE";
+                $error = false;
                 $result = true;
             }
         } else {
@@ -139,7 +186,8 @@ class PenjualanController extends Controller
 
         $message = [
             'status' => $result,
-            "message" => $status,
+            'error' => $error,
+            'message' => $status,
         ];
         return response()->json($message);
     }

@@ -476,6 +476,11 @@
             success: function(result){
                 console.log(result);
 
+                if(result.error != false){
+                    showError(result.error);
+                } else {
+                    console.log("error false");
+                }
                 //Show alert
                 //topright_notify(result.message);
                 //ResetForm
