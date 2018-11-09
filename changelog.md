@@ -1,3 +1,15 @@
+- 9 Nov 2018 (v.0.9.1)
+```
+- Add formated date attribute for Penjualan
+- Add function to show error alert at sa_bv.js
+- Add alert to show error message on Penjualan
+- Modify existing trigger to check if barang_statusStok is active or not. If active then update new stok
+
+*Need to Do
+- Add invoice page
+- Add success message (redirect to invoice page)
+```
+
 - 8 Nov 2018 (v.0.9.0)
 ```
 - [Module][Penjualan Log] Add migration for penjualan Log
