@@ -18,7 +18,7 @@ class CreateTblPenjualan extends Migration
             $table->integer('kostumer_id')->unsigned()->nullable(); //Relation dengan tbl_kostumer (id)
             $table->integer('toko_id')->unsigned(); //Relation dengan tbl_toko (id)
             $table->string('penjualan_invoice');
-            $table->timestamp('penjualan_tgl');
+            $table->timestamp('penjualan_tgl')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->text('penjualan_detail')->nullable();
             $table->timestamps();
         });

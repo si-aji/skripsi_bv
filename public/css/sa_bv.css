@@ -57,3 +57,21 @@
 	width: 100%;
 	height: 5px !important;
 }
+
+/* Invoice Table */
+.nominalSub {
+    background: #6c757d !important;
+    color: #fff;
+}
+.nominalSub > td {
+    border: 0 !important;
+    border-color: #6c757d !important;
+}
+.nominalResult {
+    background: #495057 !important;
+    color: #fff;
+}
+.nominalResult > td {
+    border: 0 !important;
+    border-color: #495057 !important;
+}

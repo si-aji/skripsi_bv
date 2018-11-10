@@ -96,8 +96,9 @@
             }, {
                 targets: [6],
                 render: function(data, type, row) {
-                    var id = "'"+data.id+"'"
-                    return generateButton(id);
+                    var id = "'"+data.id+"'";
+                    var invoice_url = data.invoice_url;
+                    return generateButton(id, invoice_url);
                 }
             }
         ],
@@ -116,11 +117,52 @@
             cell.innerHTML = i+1;
         } );
     }).draw();
-    function generateButton(id, kode, nama){
-        var edit = '<a class="btn btn-warning text-white" onclick="formUpdate('+id+')"><i class="fa fa-edit"></i></a>';
+    function generateButton(id, invoice_url){
+        var edit = '<a href="{{ url("staff/penjualan") }}/'+invoice_url+'/edit" class="btn btn-warning text-white"><i class="fa fa-edit"></i></a>';
+        var show = '<a href="{{ url("staff/penjualan/invoice") }}/'+invoice_url+'" class="btn btn-primary text-white"><i class="fa fa-eye"></i></a>';
         var hapus = '<a class="btn btn-danger text-white" onclick="formDelete('+id+')"><i class="fa fa-trash"></i></a>';
 
-        return "<div class='btn-group'>"+edit+hapus+"</div>";
+        return "<div class='btn-group'>"+edit+show+hapus+"</div>";
+    }
+
+    //Action
+    function formDelete(id){
+        var penjualan_id = id;
+        var url_link = '{{ url('staff/penjualan') }}/'+penjualan_id;
+
+        swal({
+            title: "Warning!",
+            text: "This data will be deleted. All data related to this transaction will be deleted, this action cannot be undo! Please type 'delete' to start process!",
+            icon: "warning",
+            buttons: true,
+            content: "input",
+            dangerMode: true,
+        }).then((value) => {
+            if (value == "delete") {
+                $.ajax({
+                    method: 'POST',
+                    url: url_link,
+                    data: {'_method': 'delete'},
+                    cache: false,
+                    success: function(result){
+                        console.log(result);
+                        //Re-Draw dataTable
+                        $("#penjualanTable").DataTable().ajax.reload(null, false);
+                        //Show alert
+                        topright_notify(result.message);
+                    },
+                    error: function( jqXHR, textStatus, errorThrown ) {
+                        console.log(jqXHR);
+                    }
+                });
+            } else {
+                swal({
+                    icon: "error",
+                    title: "Failed!",
+                    text: "Invalid, please try again. Please type 'delete' to start the process.",
+                });
+            }
+        });
     }
 </script>
 @endsection

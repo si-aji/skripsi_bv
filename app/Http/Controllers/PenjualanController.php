@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Auth;
+use DB;
 
 use App\Barang;
 use App\Kategori;
@@ -20,6 +21,10 @@ class PenjualanController extends Controller
      */
     public function penjualanJson(){
         $list = Penjualan::with('penjualanDetail', 'penjualanDetail.barang', 'penjualanLog')->get()->map(function($data, $key) {
+            //Make formated invoice
+            $data->invoice_url = str_replace('/', '-', $data->penjualan_invoice);
+
+            //Make detail item
             $data->items = (object)[];
             $barang = array();
             $total = 0;
@@ -187,6 +192,7 @@ class PenjualanController extends Controller
         $message = [
             'status' => $result,
             'error' => $error,
+            'invoice' => str_replace('/', '-', $invoice),
             'message' => $status,
         ];
         return response()->json($message);
@@ -198,9 +204,13 @@ class PenjualanController extends Controller
      * @param  \App\Penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function show(Penjualan $penjualan)
+    public function show($invoice)
     {
-        //
+        $id = str_replace('-', '/', $invoice);
+        $penjualan = Penjualan::where('penjualan_invoice', $id)->with('toko', 'kostumer', 'penjualanDetail', 'penjualanDetail.barang', 'penjualanLog')->firstOrFail();
+
+        return view('staff.penjualan.invoice', compact('penjualan'));
+        // return $penjualan;
     }
 
     /**
@@ -209,9 +219,13 @@ class PenjualanController extends Controller
      * @param  \App\Penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Penjualan $penjualan)
+    public function edit($invoice)
     {
-        //
+        $id = str_replace('-', '/', $invoice);
+        $penjualan = Penjualan::where('penjualan_invoice', $id)->with('toko', 'kostumer', 'penjualanDetail', 'penjualanDetail.barang', 'penjualanDetail.barang.kategori', 'penjualanLog')->firstOrFail();
+
+        // return response()->json($penjualan);
+        return view('staff.penjualan.edit', compact('penjualan'));
     }
 
     /**
@@ -223,7 +237,57 @@ class PenjualanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validator($request->all())->validate();
+        $pesan = "";
+
+        $penjualan = Penjualan::findOrFail($id);
+        //Penjualan
+        $penjualan->toko_id = $request->toko_id;
+        $penjualan->kostumer_id = $request->kostumer_id;
+        $penjualan->penjualan_tgl = $request->penjualan_tgl;
+        $penjualan->penjualan_detail = $request->penjualan_detail;
+
+        $isChanged = $penjualan->isDirty();//Check if anything change
+        //$status_penjualan = $penjualan->save();
+
+        if($isChanged){
+            $pesan = 'Successfully updated!';
+        }
+
+        //Detail
+
+        //Log
+        $penjualanLog = PenjualanLog::where('penjualan_id', $id)->get();
+        $biayaLain = 0;
+        $bayar = 0;
+        foreach($penjualanLog as $log){
+            $biayaLain = $biayaLain + $log->biaya_lain;
+            $bayar = $bayar + $log->bayar;
+        }
+
+        $perubahan_biayaLain = $request->biaya_lain - $biayaLain;
+        $perubahan_bayar = $request->bayar - $bayar;
+
+        if($perubahan_biayaLain != 0 || $perubahan_bayar != 0){
+            $storePenjualanLog = PenjualanLog::create([
+                'penjualan_id' => $penjualan->id,
+                'user_id' => Auth::user()->id,
+                'pembayaran_tgl' => $request->pembayaran_tgl,
+                'biaya_lain' => $perubahan_biayaLain,
+                'bayar' => $perubahan_bayar,
+            ]);
+
+            $isChanged = true;
+            $pesan = 'Successfully updated!';
+        }
+
+        $message = [
+            'invoice' => str_replace('/', '-', $penjualan->penjualan_invoice),
+            'isChanged' => $isChanged,
+            'message' => $pesan,
+        ];
+
+        return response()->json($message);
     }
 
     /**

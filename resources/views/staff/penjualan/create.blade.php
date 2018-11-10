@@ -479,7 +479,9 @@
                 if(result.error != false){
                     showError(result.error);
                 } else {
-                    console.log("error false");
+                    //Transaksi Berhasil
+                    //console.log("error false");
+                    showSuccess_redirect(result.message, result.invoice);
                 }
                 //Show alert
                 //topright_notify(result.message);

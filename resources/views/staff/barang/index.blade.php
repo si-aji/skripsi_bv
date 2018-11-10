@@ -262,7 +262,7 @@
             }, {
                 targets: [6],
                 render: function(data, type, row) {
-                    var id = "'"+data.id+"'"
+                    var id = "'"+data.id+"'";
                     return generateButton(id);
                 }
             }
@@ -282,7 +282,7 @@
             cell.innerHTML = i+1;
         } );
     }).draw();
-    function generateButton(id, kode, nama){
+    function generateButton(id){
         var edit = '<a class="btn btn-warning text-white" onclick="formUpdate('+id+')"><i class="fa fa-edit"></i></a>';
         var hapus = '<a class="btn btn-danger text-white" onclick="formDelete('+id+')"><i class="fa fa-trash"></i></a>';
 

@@ -58,6 +58,7 @@ Route::group(['middleware' => ['auth','web',]], function(){
     // Transaksi
     //Penjualan
     Route::resource('/staff/penjualan', 'PenjualanController');
+    Route::get('/staff/penjualan/invoice/{invoice}', 'PenjualanController@show');
     Route::get('/list/penjualan', 'PenjualanController@penjualanJson'); //List Toko (All)
 });
 

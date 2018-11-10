@@ -17,7 +17,7 @@ class CreateTblPenjualanLog extends Migration
             $table->increments('id');
             $table->integer('penjualan_id')->unsigned(); //Relation dengan tbl_penjualan (id)
             $table->integer('user_id')->unsigned(); //Relation dengan user (id)
-            $table->timestamp('pembayaran_tgl');
+            $table->timestamp('pembayaran_tgl')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->integer('biaya_lain');
             $table->integer('bayar');
             $table->timestamps();

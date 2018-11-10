@@ -12,10 +12,14 @@ function idr_currency($num){
     return "Rp ".number_format((float)$num,0,',','.');
     //return $num;
 }
+function formated_date($date){
+    return date("M", strtotime($date))." ".date("d", strtotime($date)).", ".date("Y", strtotime($date))." / ".date("H", strtotime($date)).":".date("i", strtotime($date)).":".date("s", strtotime($date))." WIB";
+}
 
 function invoiceJual(){
     //Generate Invoice untuk transaksi Jual (Tambah Stok)
-    $ivc = "INVC/JUAL/".date("dmy").'/'.time();
+    $generate_number = time() + random_int (9, 199);
+    $ivc = "INVC/JUAL/".date("dmy").'/'.$generate_number;
     return $ivc;
 }
 ?>
