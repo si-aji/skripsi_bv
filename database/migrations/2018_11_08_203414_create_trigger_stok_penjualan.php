@@ -14,7 +14,7 @@ class CreateTriggerStokPenjualan extends Migration
     public function up()
     {
         DB::unprepared('
-        CREATE TRIGGER stok_penjualan AFTER INSERT ON `tbl_penjualan_detail` FOR EACH ROW
+        CREATE TRIGGER stok_penjualan AFTER INSERT ON `tbl_penjualan_item` FOR EACH ROW
             BEGIN
                 UPDATE
                 tbl_barang SET

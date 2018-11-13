@@ -29,7 +29,7 @@ class User extends Authenticatable
     ];
 
     //Set relation with PenjualanLog
-    public function penjualanLog(){
-        return $this->hasMany('App\PenjualanLog', 'user_id');
+    public function penjualanBayar(){
+        return $this->hasMany('App\PenjualanBayar', 'user_id');
     }
 }

@@ -28,12 +28,12 @@ class Penjualan extends Model
         return $this->belongsTo('App\Toko', 'toko_id');
     }
 
-    //Set relation with PenjualanDetail
-    public function penjualanDetail(){
-        return $this->hasMany('App\PenjualanDetail', 'penjualan_id');
+    //Set relation with PenjualanItem
+    public function penjualanItem(){
+        return $this->hasMany('App\PenjualanItem', 'penjualan_id');
     }
-    //Set relation with PenjualanLog
-    public function penjualanLog(){
-        return $this->hasMany('App\PenjualanLog', 'penjualan_id');
+    //Set relation with PenjualanBayar
+    public function penjualanBayar(){
+        return $this->hasMany('App\penjualanBayar', 'penjualan_id');
     }
 }

@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PenjualanLog extends Model
+class PenjualanItem extends Model
 {
-    protected $table = 'tbl_penjualan_log';
+    protected $table = 'tbl_penjualan_item';
 
     protected $fillable = [
-        "penjualan_id", "user_id", "pembayaran_tgl", "biaya_lain", "bayar",
+        "penjualan_id", "barang_id", "harga_beli", "harga_jual", "jual_qty", "diskon"
     ];
 
     //Set relation with Penjualan
@@ -17,7 +17,7 @@ class PenjualanLog extends Model
         return $this->belongsTo('App\Penjualan', 'penjualan_id');
     }
     //Set relation with Barang
-    public function user(){
-        return $this->belongsTo('App\User', 'user_id');
+    public function barang(){
+        return $this->belongsTo('App\Barang', 'barang_id');
     }
 }

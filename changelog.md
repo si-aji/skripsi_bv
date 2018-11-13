@@ -1,3 +1,25 @@
+- 13 Nov 2018 (v.0.10.1)
+```
+- Change penjualanDetail to penjualanItem
+- Change penjualanLog to penjualanBarang
+- Modify tokoJson for dataTable to order by "nama toko"
+- Fix "toko" didn't automatically select when transaction is being edited
+```
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
+- 10 Nov 2018 (v.0.10.0)
+```
+- Add hidden on spesific resuliton
+- Add new function at helper to format date
+- Add redirect (success message) at create Penjualan
+- Add invoice page for penjualan
+- Modify invoiceJual at helper
+- MModify migration for penjualanDetail and penjualanLog (default timestamp)
+```
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
 - 9 Nov 2018 (v.0.9.1)
 ```
 - Add formated date attribute for Penjualan
@@ -9,7 +31,9 @@
 - Add invoice page
 - Add success message (redirect to invoice page)
 ```
+-------------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------------
 - 8 Nov 2018 (v.0.9.0)
 ```
 - [Module][Penjualan Log] Add migration for penjualan Log
@@ -27,7 +51,9 @@
 *Need to Do
 - Show error message untuk stok < qty
 ```
+-------------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------------
 - 7 Nov 2018 (v.0.8.0)
 ```
 - [Functions][Helper] Add function to generate InvoiceJual
@@ -47,14 +73,18 @@
 - Penjualan Log
     + Simpan uang berdasarkan tanggal transaksi terjadi
 ```
+-------------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------------
 - 5 Nov 2018 (v.0.7.0) -> Commited at 7 Nov 2018
 ```
 - Modify route so register is now disable
 - Fix profile change
 - Add option for reset password (admin/owner)
 ```
+-------------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------------
 - 4 Nov 2018 (v.0.6.0)
 ```
 - [Module] Add migration for Toko

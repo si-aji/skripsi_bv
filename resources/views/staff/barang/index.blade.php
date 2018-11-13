@@ -508,8 +508,8 @@
 
         $("#input-old_barang_kode").val('');
         $("#input-barang_nama").val('');
-        $("#input-barang_hBeli").val('');
-        $("#input-barang_hJual").val('');
+        $("#input-barang_hBeli").val('0');
+        $("#input-barang_hJual").val('0');
 
         $("#check-barang_stokStatus").iCheck('uncheck');
         stockUnActive();

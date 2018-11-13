@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTblPenjualanDetail extends Migration
+class CreateTblPenjualanBayar extends Migration
 {
     /**
      * Run the migrations.
@@ -13,28 +13,27 @@ class CreateTblPenjualanDetail extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_penjualan_detail', function (Blueprint $table) {
+        Schema::create('tbl_penjualan_bayar', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('penjualan_id')->unsigned(); //Relation dengan tbl_penjualan (id)
-            $table->integer('barang_id')->unsigned(); //Relation dengan tbl_barang (id)
-            $table->integer('harga_beli');
-            $table->integer('harga_jual');
-            $table->integer('jual_qty');
-            $table->integer('diskon')->default('0');
+            $table->integer('user_id')->unsigned(); //Relation dengan user (id)
+            $table->timestamp('pembayaran_tgl')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->integer('biaya_lain');
+            $table->integer('bayar');
             $table->timestamps();
         });
 
         //Set foreign key
-        Schema::table('tbl_penjualan_detail', function(Blueprint $table){
+        Schema::table('tbl_penjualan_bayar', function(Blueprint $table){
             $table->foreign('penjualan_id')
                 ->references('id')
                 ->on('tbl_penjualan')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->foreign('barang_id')
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('tbl_barang')
+                ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -48,13 +47,13 @@ class CreateTblPenjualanDetail extends Migration
     public function down()
     {
         //Drop foreign
-        Schema::table('tbl_penjualan_detail', function(Blueprint $table){
-            $table->dropForeign('tbl_penjualan_detail_penjualan_id_foreign');
+        Schema::table('tbl_penjualan_bayar', function(Blueprint $table){
+            $table->dropForeign('tbl_penjualan_bayar_penjualan_id_foreign');
         });
         //Drop foreign
-        Schema::table('tbl_penjualan_detail', function(Blueprint $table){
-            $table->dropForeign('tbl_penjualan_detail_barang_id_foreign');
+        Schema::table('tbl_penjualan_bayar', function(Blueprint $table){
+            $table->dropForeign('tbl_penjualan_bayar_user_id_foreign');
         });
-        Schema::dropIfExists('tbl_penjualan_detail');
+        Schema::dropIfExists('tbl_penjualan_bayar');
     }
 }

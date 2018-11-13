@@ -48,8 +48,8 @@
                 </div>
             </div>{{-- /.Informasi Toko --}}
 
+            <div class="col-12 col-md-6">{{-- Informasi Kostumer (Jika ada) dan catatan --}}
             @if($penjualan->kostumer != null)
-            <div class="col-12 col-md-6">{{-- Informasi Kostumer (Jika ada) --}}
                 <div class="form-group">
                     <label class="mb-0">Kostumer</label>
                     <br><span>{{ $penjualan->kostumer->kostumer_nama }}</span>
@@ -68,8 +68,20 @@
                     <br><span>{{ $penjualan->kostumer->kostumer_detail }}</span>
                 </div>
                 @endif
-            </div>{{-- /.Informasi Kostumer (Jika ada) --}}
             @endif
+
+            @if($penjualan->penjualan_detail != '<p>&nbsp;</p>')
+            <div class="form-group">
+                <label class="mb-0">Catatan</label>
+                <br>
+                <div class="card">
+                    <div class="card-body">
+                        {!! $penjualan->penjualan_detail !!}
+                    </div>
+                </div>
+            </div>
+            @endif
+            </div>{{-- /.Informasi Kostumer (Jika ada) dan catatan --}}
         </div>
 
         <div class="row">
@@ -85,11 +97,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @if($penjualan->penjualanDetail != null)
+                    @if($penjualan->penjualanItem != null)
                     @php
                     $total = 0;
                     @endphp
-                        @foreach ($penjualan->penjualanDetail as $item)
+                        @foreach ($penjualan->penjualanItem as $item)
                             @php
                                 $subtotal = ($item->harga_jual * $item->jual_qty) - $item->diskon;
                                 $total = $total + $subtotal;
@@ -112,7 +124,7 @@
                             $biayaLain = 0;
                             $bayar = 0;
                         @endphp
-                        @foreach ($penjualan->penjualanLog as $log)
+                        @foreach ($penjualan->penjualanBayar as $log)
                             @php
                                 $biayaLain = $biayaLain + $log->biaya_lain;
                                 $bayar = $bayar + $log->bayar;

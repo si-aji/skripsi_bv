@@ -12,7 +12,7 @@ class TokoController extends Controller
      * Data for Json Format (all)
      */
     public function tokoJson(){
-        $list = Toko::where('toko_status', 'Aktif');
+        $list = Toko::where('toko_status', 'Aktif')->orderBy('toko_nama');
         return datatables()
                 ->of($list)
                 ->toJson();
@@ -21,7 +21,7 @@ class TokoController extends Controller
         $list = Toko::where([
             ['toko_tipe', $request->toko_tipe],
             ['toko_status', 'Aktif'],
-        ]);
+        ])->orderBy('toko_nama');
         return datatables()
                 ->of($list)
                 ->toJson();

@@ -419,6 +419,10 @@
         $("#_method").val('POST');
         $("#user_id").val('');
 
+
+        $("#input-password").val('');
+        $("#input-password_confirmation").val('');
+
         //Enable some field
         $("#input-email").prop('disabled', false);
         $("#input-password").prop('disabled', false);

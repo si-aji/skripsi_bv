@@ -97,12 +97,12 @@
                         <div class="card-body">
                             <div id="transaksi_wrapper">{{-- Item Penjualan --}}
                                 @php $i = 1; @endphp
-                                @foreach ($penjualan->penjualanDetail as $item)
+                                @foreach ($penjualan->penjualanItem as $item)
                                 <div class="row">
                                     <div class="col-12 col-md-4">{{-- Nama Barang --}}
                                         <div class="form-group" id="field_{{ $i }}-barang_id">
                                             <label for="input_{{ $i }}-barang_id">Kode Barang</label>
-                                            <input type="hidden" name="barang_id" class="form-control" id="input_{{ $i }}-barang_id" value="{{ $item->barang_id }}" readonly>
+                                            <input type="hidden" name="barang_id[]" class="form-control" id="input_{{ $i }}-barang_id" value="{{ $item->barang_id }}" readonly>
                                             <input type="text" name="barang_nama" class="form-control" id="input_{{ $i }}-barang_nama" value="{{ $item->barang->kategori->kategori_kode.'-'.$item->barang->barang_kode.' / '.$item->barang->barang_nama }}" readonly>
                                         </div>
                                     </div>{{-- Nama Barang --}}
@@ -144,7 +144,7 @@
                                 $biayaLain = 0;
                                 $bayar = 0;
                             @endphp
-                            @foreach ($penjualan->penjualanLog as $log)
+                            @foreach ($penjualan->penjualanBayar as $log)
                                 @php
                                     $biayaLain = $biayaLain + $log->biaya_lain;
                                     $bayar = $bayar + $log->bayar;
@@ -199,7 +199,7 @@
 
     <div class="card-footer">
         <div class="form-group text-right">
-            <button type="reset" id="formReset" class="btn btn-danger text-white">Reset</button>
+            <button type="reset" id="penjualanReset" class="btn btn-danger text-white">Reset</button>
             <button type="submit" class="btn btn-primary text-white">Submit</button>
         </div>
     </div>
@@ -272,7 +272,7 @@
 
         //Set subJumlah per item
         @php $i = 1; @endphp
-        @foreach ($penjualan->penjualanDetail as $item)
+        @foreach ($penjualan->penjualanItem as $item)
         itemSubTotal('{{ $i }}');
             @php  $i++; @endphp
         @endforeach
@@ -292,7 +292,7 @@
     }
     function hitungJumlah(){
         var jumlah = 0;
-        var jumlahAmount = $(".subTotal").lenght;
+        var jumlahAmount = $(".subTotal").length;
         //console.log("Jumlah Class Amount : "+$("input.amountHarga").length);
         $(".subTotal").each(function(){
             if (!Number.isNaN(parseInt(this.value, 10))){
@@ -356,13 +356,15 @@
             success: function(result){
                 console.log(result);
 
-                if(result.isChange){
-                    showSuccess_redirect(result.message, result.invoice);
+                if(jQuery.inArray(true, result.isChanged) > -1){
+                    showSuccess_redirect(result.message, "{{ url('/staff/penjualan') }}/"+result.invoice);
                 } else {
-                    showError('Nothing changed');
+                    if(!result.status){
+                        showError(result.message);
+                    } else {
+                        showError('Nothing changed');
+                    }
                 }
-                //Show alert
-                //topright_notify(result.message);
                 //ResetForm
                 //formReset();
             },
@@ -382,6 +384,33 @@
                 });
             }
         });
+    }
+    $("#penjualanReset").click(function(e){ //Prevent default Action for Form
+        e.preventDefault();
+        penjualanReset();
+    });
+    function penjualanReset(){
+        if(confirm('Are you sure you want to reset form?')) {
+            //Reset Toko
+            if("{{ $penjualan->toko->toko_tipe }}" == "Offline"){
+                $("#tipe_offline").prop('checked', true);
+                $("#tipe_offline").iCheck('update');
+            } else {
+                $("#tipe_online").prop('checked', true);
+                $("#tipe_online").iCheck('update');
+            }
+            loadTokoData();
+            $("#input-toko_id").val("{{ $penjualan->toko_id }}").change();
+            //Reset Kostumer
+            $("#input-kostumer_id").val('{{ $penjualan->kostumer_id }}').change();
+
+            //Reset Timepicker
+            $('#input-penjualan_tgl').data('datetimepicker').date('{{ $penjualan->penjualan_tgl }}');
+            $('#input-pembayaran_tgl').data('datetimepicker').date('{{ date("Y-m-d H:i:00") }}');
+
+            //Reset detail
+            $("#input-penjualan_detail").val(editorData = ckeditor.setData(unescapeHtml("{{ $penjualan->penjualan_detail }}")));
+        }
     }
     //End of Transaction
 
@@ -444,10 +473,10 @@
 
     //This is for Toko
     $("#tipe_offline").on('ifChecked', function(){
-        loadTokoData();
+        @if($penjualan->toko->toko_tipe == "Offline") loadTokoData('{{ $penjualan->toko_id }}'); @else loadTokoData(); @endif
     });
     $("#tipe_online").on('ifChecked', function(){
-        loadTokoData();
+        @if($penjualan->toko->toko_tipe == "Online") loadTokoData('{{ $penjualan->toko_id }}'); @else loadTokoData(); @endif
     });
     function loadTokoData(selected_toko){
         //Untuk mendapatkan data toko
@@ -464,7 +493,7 @@
                 if(result != null && $("#input-toko_id").children('option').length){
                     //console.log("Select2 terisi");
                     $.each(result.data, function(key, result){
-                        //console.log("Result : "+JSON.stringify(result));
+                        //console.log("Result Isi : "+JSON.stringify(result));
                         var selectData = {
                             id: result['id'],
                             text: result['toko_nama']
@@ -473,14 +502,14 @@
                         //Cek apakah opsi sudah ada di select2
                         if(!$('#input-toko_id').find("option[value='" + result['id'] + "']").length){
                             //console.log(result['kategori_nama']+" belum ada");
-                            var newOption = new Option(selectData.text, selectData.id, true, true);
+                            var newOption = new Option(selectData.text, selectData.id, false, false);
                             $('#input-toko_id').append(newOption).trigger('change');
                         }
                     });
                 } else {
                     //console.log("Select2 kosong");
                     $.each(result.data, function(key, result){
-                        //console.log("Result : "+JSON.stringify(result));
+                        //console.log("Result Kosong : "+JSON.stringify(result));
                         var selectData = {
                             id: result['id'],
                             text: result['toko_nama']
@@ -491,8 +520,13 @@
                 }
 
                 //Untuk set sesuai data DB
-                if(selected_toko != ""){
+                if(selected_toko != undefined){
+                    //console.log("Set Sesuai DB, selected : "+selected_toko);
                     $('#input-toko_id').val(selected_toko).trigger('change');
+                } else {
+                    //console.log("Set Index 0");
+                    //Set index 0 as selected
+                    $('#input-toko_id').prop('selectedIndex', '0').trigger('change');
                 }
             }
         });

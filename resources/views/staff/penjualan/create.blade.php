@@ -192,7 +192,7 @@
 
         <div class="card-footer">
             <div class="form-group text-right">
-                <button type="reset" id="formReset" class="btn btn-danger text-white">Reset</button>
+                <button type="reset" id="penjualanReset" class="btn btn-danger text-white">Reset</button>
                 <button type="submit" class="btn btn-primary text-white">Submit</button>
             </div>
         </div>
@@ -363,7 +363,7 @@
         e.preventDefault();
         var konten = parseInt($('.transaksi_content').length) + 1;
 
-        $('<div class="mb-2 transaksi_content" id="content-'+awal+'" style="display: none;"><div class="row"><div class="col-12 col-md-4">{{-- Nama Barang --}}<div class="form-group" id="field_'+awal+'-barang_id"><label for="input_'+awal+'-barang_id">Kode Barang</label><select name="barang_id[]" class="form-control select2" id="input_'+awal+'-barang_id" onchange="setBarangDetail('+awal+')"> @foreach ($kategori as $awal_k) <optgroup label="{{ $awal_k['kategori_nama'] }}"> @foreach ($barang as $awal_b) @if($awal_b['kategori_id'] == $awal_k['id']) <option value="{{ $awal_b['id'] }}">{{ $awal_k['kategori_kode'].'-'.$awal_b['barang_kode'].' / '.$awal_b['barang_nama'] }}</option> @endif @endforeach </optgroup> @endforeach </select></div></div>{{-- /.Nama Barang --}}<div class="form-group" id="field_'+awal+'-harga_beli">{{-- Harga Beli --}}<input type="hidden" name="harga_beli[]" class="form-control" id="input_'+awal+'-harga_beli" min="0" placeholder="0"></div>{{-- /.Harga Beli --}}<div class="col-12 col-md-2">{{-- Harga Jual --}}<div class="form-group" id="field_'+awal+'-harga_jual"><label for="input_'+awal+'-harga_jual">Harga Jual</label><input type="number" name="harga_jual[]" class="form-control" id="input_'+awal+'-harga_jual" min="0" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.Harga Jual --}}<div class="col-12 col-md-2">{{-- Diskon --}}<div class="form-group" id="field_'+awal+'-diskon"><label for="input_'+awal+'-diskon">Diskon</label><input type="number" name="diskon[]" class="form-control" id="input_'+awal+'-diskon" min="0" value="0" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.Diskon --}}<div class="col-12 col-md-2">{{-- QTY --}}<div class="form-group" id="field_'+awal+'-qty"><label for="input_'+awal+'-qty">QTY</label><input type="number" name="qty[]" class="form-control" id="input_'+awal+'-qty" min="1" value="1" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.QTY --}}<div class="col-12 col-md-2">{{-- SubTotal --}}<div class="form-group" id="field_'+awal+'-subTotal"><label for="input_'+awal+'-subTotal">SubTotal</label><div class="input-group"><input type="number" name="subTotal[]" class="form-control subTotal" id="input_'+awal+'-subTotal" min="0" placeholder="0" readonly><a onclick="removeMore('+awal+')" class="btn text-white btn-danger btnhapus" ><i class="fa fa-trash"></i></a></div></div></div>{{-- /.SubTotal --}}</div><hr class="my-2">').appendTo($("#transaksi_wrapper")).slideDown("slow", "swing");
+        $('<div class="mb-2 transaksi_content konten_tambahan" id="content-'+awal+'" style="display: none;"><div class="row"><div class="col-12 col-md-4">{{-- Nama Barang --}}<div class="form-group" id="field_'+awal+'-barang_id"><label for="input_'+awal+'-barang_id">Kode Barang</label><select name="barang_id[]" class="form-control select2" id="input_'+awal+'-barang_id" onchange="setBarangDetail('+awal+')"> @foreach ($kategori as $awal_k) <optgroup label="{{ $awal_k['kategori_nama'] }}"> @foreach ($barang as $awal_b) @if($awal_b['kategori_id'] == $awal_k['id']) <option value="{{ $awal_b['id'] }}">{{ $awal_k['kategori_kode'].'-'.$awal_b['barang_kode'].' / '.$awal_b['barang_nama'] }}</option> @endif @endforeach </optgroup> @endforeach </select></div></div>{{-- /.Nama Barang --}}<div class="form-group" id="field_'+awal+'-harga_beli">{{-- Harga Beli --}}<input type="hidden" name="harga_beli[]" class="form-control" id="input_'+awal+'-harga_beli" min="0" placeholder="0"></div>{{-- /.Harga Beli --}}<div class="col-12 col-md-2">{{-- Harga Jual --}}<div class="form-group" id="field_'+awal+'-harga_jual"><label for="input_'+awal+'-harga_jual">Harga Jual</label><input type="number" name="harga_jual[]" class="form-control" id="input_'+awal+'-harga_jual" min="0" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.Harga Jual --}}<div class="col-12 col-md-2">{{-- Diskon --}}<div class="form-group" id="field_'+awal+'-diskon"><label for="input_'+awal+'-diskon">Diskon</label><input type="number" name="diskon[]" class="form-control" id="input_'+awal+'-diskon" min="0" value="0" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.Diskon --}}<div class="col-12 col-md-2">{{-- QTY --}}<div class="form-group" id="field_'+awal+'-qty"><label for="input_'+awal+'-qty">QTY</label><input type="number" name="qty[]" class="form-control" id="input_'+awal+'-qty" min="1" value="1" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.QTY --}}<div class="col-12 col-md-2">{{-- SubTotal --}}<div class="form-group" id="field_'+awal+'-subTotal"><label for="input_'+awal+'-subTotal">SubTotal</label><div class="input-group"><input type="number" name="subTotal[]" class="form-control subTotal" id="input_'+awal+'-subTotal" min="0" placeholder="0" readonly><a onclick="removeMore('+awal+')" class="btn text-white btn-danger btnhapus" ><i class="fa fa-trash"></i></a></div></div></div>{{-- /.SubTotal --}}</div><hr class="my-2">').appendTo($("#transaksi_wrapper")).slideDown("slow", "swing");
 
         $('.select2-container').remove();
         $('.select2').select2();
@@ -377,7 +377,7 @@
         if(confirm('Are you sure you want to delete this element?')) {
             $("#content-"+id).slideUp(function(){
                 $(this).remove();
-                //hitungTotal();
+                hitungJumlah();
             });
         }
     }
@@ -396,7 +396,10 @@
     }
     function hitungJumlah(){
         var jumlah = 0;
-        var jumlahAmount = $(".subTotal").lenght;
+        var jumlahAmount = $('.subTotal').length;
+
+        //console.log("Hitung Jumlah Running. Jumlah field : "+jumlahAmount);
+
         //console.log("Jumlah Class Amount : "+$("input.amountHarga").length);
         $(".subTotal").each(function(){
             if (!Number.isNaN(parseInt(this.value, 10))){
@@ -480,11 +483,8 @@
                     showError(result.error);
                 } else {
                     //Transaksi Berhasil
-                    //console.log("error false");
                     showSuccess_redirect(result.message, result.invoice);
                 }
-                //Show alert
-                //topright_notify(result.message);
                 //ResetForm
                 //formReset();
             },
@@ -504,6 +504,39 @@
                 });
             }
         });
+    }
+    $("#penjualanReset").click(function(e){ //Prevent default Action for Form
+        e.preventDefault();
+        penjualanReset();
+    });
+    function penjualanReset(){
+        if(confirm('Are you sure you want to reset form?')) {
+            $(".konten_tambahan").slideUp(function(){
+                $(this).remove();
+                //Reset perhitungan
+                hitungJumlah();
+            });
+            //Reset toko
+            $("#tipe_offline").prop('checked', true);
+            $("#tipe_offline").iCheck('update');
+            loadTokoData();
+            $("#input-toko_id").prop('selectedIndex', '0').change();
+
+            //Reset Kostumer
+            $("#input-kostumer_id").prop('selectedIndex', '0').change();
+
+            //Reset item
+            $("#input_1-barang_id").prop('selectedIndex', '0').change();
+            $("#input_1-qty").val('1');
+            setBarangDetail('1');
+
+            //Reset Timepicker
+            $('#input-penjualan_tgl').data('datetimepicker').date('{{ date("Y-m-d H:i:00") }}');
+            $('#input-pembayaran_tgl').data('datetimepicker').date('{{ date("Y-m-d H:i:00") }}');
+
+            //Reset detail
+            $("#input-penjualan_detail").val(editorData = ckeditor.setData(' '));
+        }
     }
     //.This is for Penjualan
 
