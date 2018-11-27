@@ -115,19 +115,19 @@
                                         <div class="col-12 col-md-2">{{-- Harga Jual --}}
                                             <div class="form-group" id="field_1-harga_jual">
                                                 <label for="input_1-harga_jual">Harga Jual</label>
-                                                <input type="number" name="harga_jual[]" class="form-control" id="input_1-harga_jual" min="0" placeholder="0" onchange="itemSubTotal('1')">
+                                                <input type="number" name="harga_jual[]" class="form-control" id="input_1-harga_jual" min="0" placeholder="0" onchange="itemSubTotal('1')" required>
                                             </div>
                                         </div>{{-- /.Harga Jual --}}
                                         <div class="col-12 col-md-2">{{-- Diskon --}}
                                             <div class="form-group" id="field_1-diskon">
                                                 <label for="input_1-diskon">Diskon</label>
-                                                <input type="number" name="diskon[]" class="form-control" id="input_1-diskon" min="0" value="0" placeholder="0" onchange="itemSubTotal('1')">
+                                                <input type="number" name="diskon[]" class="form-control" id="input_1-diskon" min="0" value="0" placeholder="0" onchange="itemSubTotal('1')" required>
                                             </div>
                                         </div>{{-- /.Diskon --}}
                                         <div class="col-12 col-md-2">{{-- QTY --}}
                                             <div class="form-group" id="field_1-qty">
                                                 <label for="input_1-qty">QTY</label>
-                                                <input type="number" name="qty[]" class="form-control" id="input_1-qty" min="1" value="1" placeholder="0" onchange="itemSubTotal('1')">
+                                                <input type="number" name="qty[]" class="form-control" id="input_1-qty" min="1" value="1" placeholder="0" onchange="itemSubTotal('1')" required>
                                             </div>
                                         </div>{{-- /.QTY --}}
                                         <div class="col-12 col-md-2">{{-- SubTotal --}}
@@ -251,44 +251,44 @@
 
 {{--  Modal for Kostumer  --}}
 <div class="modal fade" id="modalKostumer" tabindex="-1" role="dialog" aria-labelledby="labelKostumer" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="labelKostumer">Form Tambah Kostumer</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form role="form" id="kostumerForm">{{-- Form Start --}}
-                        <div class="form-group" id="field-kostumer_nama">{{-- Kostumer Nama --}}
-                            <label for="input-kostumer_nama">Nama Kostumer</label>
-                            <input type="text" name="kostumer_nama" class="form-control" placeholder="Nama Kostumer" id="input-kostumer_nama">
-                        </div>{{-- /.Kostumer Nama --}}
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="labelKostumer">Form Tambah Kostumer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="kostumerForm">{{-- Form Start --}}
+                    <div class="form-group" id="field-kostumer_nama">{{-- Kostumer Nama --}}
+                        <label for="input-kostumer_nama">Nama Kostumer</label>
+                        <input type="text" name="kostumer_nama" class="form-control" placeholder="Nama Kostumer" id="input-kostumer_nama">
+                    </div>{{-- /.Kostumer Nama --}}
 
-                        <div class="form-group" id="field-kostumer_kontak">{{-- Kostumer Kontak --}}
-                            <label for="input-kostumer_kontak">Kontak</label>
-                            <input type="text" name="kostumer_kontak" class="form-control" placeholder="Kontak (Line, WA, Instagram, dll)" id="input-kostumer_kontak">
-                        </div>{{-- /.Kostumer Kontak --}}
+                    <div class="form-group" id="field-kostumer_kontak">{{-- Kostumer Kontak --}}
+                        <label for="input-kostumer_kontak">Kontak</label>
+                        <input type="text" name="kostumer_kontak" class="form-control" placeholder="Kontak (Line, WA, Instagram, dll)" id="input-kostumer_kontak">
+                    </div>{{-- /.Kostumer Kontak --}}
 
-                        <div class="form-group" id="field-kostumer_detail">{{-- Kostumer Detail --}}
-                            <label for="input-kostumer_detail">Detail</label>
-                            <input type="text" name="kostumer_detail" class="form-control" placeholder="Detail (Catatan)" id="input-kostumer_detail">
-                        </div>{{-- /.Kostumer Detail --}}
+                    <div class="form-group" id="field-kostumer_detail">{{-- Kostumer Detail --}}
+                        <label for="input-kostumer_detail">Detail</label>
+                        <input type="text" name="kostumer_detail" class="form-control" placeholder="Detail (Catatan)" id="input-kostumer_detail">
+                    </div>{{-- /.Kostumer Detail --}}
 
-                        <div class="form-group text-right">
-                            <button type="reset" id="kostumerReset" class="btn btn-danger text-white">Reset</button>
-                            <button type="submit" class="btn btn-primary text-white">Submit</button>
-                        </div>
-                    </form>{{-- Form Start --}}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                </div>
+                    <div class="form-group text-right">
+                        <button type="reset" id="kostumerReset" class="btn btn-danger text-white">Reset</button>
+                        <button type="submit" class="btn btn-primary text-white">Submit</button>
+                    </div>
+                </form>{{-- Form Start --}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-    {{--  /.Modal for Kostumer  --}}
+</div>
+{{--  /.Modal for Kostumer  --}}
 @endsection
 
 {{--  Require Js for this page  --}}
@@ -363,7 +363,7 @@
         e.preventDefault();
         var konten = parseInt($('.transaksi_content').length) + 1;
 
-        $('<div class="mb-2 transaksi_content konten_tambahan" id="content-'+awal+'" style="display: none;"><div class="row"><div class="col-12 col-md-4">{{-- Nama Barang --}}<div class="form-group" id="field_'+awal+'-barang_id"><label for="input_'+awal+'-barang_id">Kode Barang</label><select name="barang_id[]" class="form-control select2" id="input_'+awal+'-barang_id" onchange="setBarangDetail('+awal+')"> @foreach ($kategori as $awal_k) <optgroup label="{{ $awal_k['kategori_nama'] }}"> @foreach ($barang as $awal_b) @if($awal_b['kategori_id'] == $awal_k['id']) <option value="{{ $awal_b['id'] }}">{{ $awal_k['kategori_kode'].'-'.$awal_b['barang_kode'].' / '.$awal_b['barang_nama'] }}</option> @endif @endforeach </optgroup> @endforeach </select></div></div>{{-- /.Nama Barang --}}<div class="form-group" id="field_'+awal+'-harga_beli">{{-- Harga Beli --}}<input type="hidden" name="harga_beli[]" class="form-control" id="input_'+awal+'-harga_beli" min="0" placeholder="0"></div>{{-- /.Harga Beli --}}<div class="col-12 col-md-2">{{-- Harga Jual --}}<div class="form-group" id="field_'+awal+'-harga_jual"><label for="input_'+awal+'-harga_jual">Harga Jual</label><input type="number" name="harga_jual[]" class="form-control" id="input_'+awal+'-harga_jual" min="0" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.Harga Jual --}}<div class="col-12 col-md-2">{{-- Diskon --}}<div class="form-group" id="field_'+awal+'-diskon"><label for="input_'+awal+'-diskon">Diskon</label><input type="number" name="diskon[]" class="form-control" id="input_'+awal+'-diskon" min="0" value="0" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.Diskon --}}<div class="col-12 col-md-2">{{-- QTY --}}<div class="form-group" id="field_'+awal+'-qty"><label for="input_'+awal+'-qty">QTY</label><input type="number" name="qty[]" class="form-control" id="input_'+awal+'-qty" min="1" value="1" placeholder="0" onchange="itemSubTotal('+awal+')"></div></div>{{-- /.QTY --}}<div class="col-12 col-md-2">{{-- SubTotal --}}<div class="form-group" id="field_'+awal+'-subTotal"><label for="input_'+awal+'-subTotal">SubTotal</label><div class="input-group"><input type="number" name="subTotal[]" class="form-control subTotal" id="input_'+awal+'-subTotal" min="0" placeholder="0" readonly><a onclick="removeMore('+awal+')" class="btn text-white btn-danger btnhapus" ><i class="fa fa-trash"></i></a></div></div></div>{{-- /.SubTotal --}}</div><hr class="my-2">').appendTo($("#transaksi_wrapper")).slideDown("slow", "swing");
+        $('<div class="mb-2 transaksi_content konten_tambahan" id="content-'+awal+'" style="display: none;"><div class="row"><div class="col-12 col-md-4">{{-- Nama Barang --}}<div class="form-group" id="field_'+awal+'-barang_id"><label for="input_'+awal+'-barang_id">Kode Barang</label><select name="barang_id[]" class="form-control select2" id="input_'+awal+'-barang_id" onchange="setBarangDetail('+awal+')"> @foreach ($kategori as $awal_k) <optgroup label="{{ $awal_k['kategori_nama'] }}"> @foreach ($barang as $awal_b) @if($awal_b['kategori_id'] == $awal_k['id']) <option value="{{ $awal_b['id'] }}">{{ $awal_k['kategori_kode'].'-'.$awal_b['barang_kode'].' / '.$awal_b['barang_nama'] }}</option> @endif @endforeach </optgroup> @endforeach </select></div></div>{{-- /.Nama Barang --}}<div class="form-group" id="field_'+awal+'-harga_beli">{{-- Harga Beli --}}<input type="hidden" name="harga_beli[]" class="form-control" id="input_'+awal+'-harga_beli" min="0" placeholder="0"></div>{{-- /.Harga Beli --}}<div class="col-12 col-md-2">{{-- Harga Jual --}}<div class="form-group" id="field_'+awal+'-harga_jual"><label for="input_'+awal+'-harga_jual">Harga Jual</label><input type="number" name="harga_jual[]" class="form-control" id="input_'+awal+'-harga_jual" min="0" placeholder="0" onchange="itemSubTotal('+awal+')" required></div></div>{{-- /.Harga Jual --}}<div class="col-12 col-md-2">{{-- Diskon --}}<div class="form-group" id="field_'+awal+'-diskon"><label for="input_'+awal+'-diskon">Diskon</label><input type="number" name="diskon[]" class="form-control" id="input_'+awal+'-diskon" min="0" value="0" placeholder="0" onchange="itemSubTotal('+awal+')" required></div></div>{{-- /.Diskon --}}<div class="col-12 col-md-2">{{-- QTY --}}<div class="form-group" id="field_'+awal+'-qty"><label for="input_'+awal+'-qty">QTY</label><input type="number" name="qty[]" class="form-control" id="input_'+awal+'-qty" min="1" value="1" placeholder="0" onchange="itemSubTotal('+awal+')" required></div></div>{{-- /.QTY --}}<div class="col-12 col-md-2">{{-- SubTotal --}}<div class="form-group" id="field_'+awal+'-subTotal"><label for="input_'+awal+'-subTotal">SubTotal</label><div class="input-group"><input type="number" name="subTotal[]" class="form-control subTotal" id="input_'+awal+'-subTotal" min="0" placeholder="0" readonly><a onclick="removeMore('+awal+')" class="btn text-white btn-danger btnhapus" ><i class="fa fa-trash"></i></a></div></div></div>{{-- /.SubTotal --}}</div><hr class="my-2">').appendTo($("#transaksi_wrapper")).slideDown("slow", "swing");
 
         $('.select2-container').remove();
         $('.select2').select2();

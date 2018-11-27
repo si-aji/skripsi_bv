@@ -28,7 +28,7 @@ function showSuccess_redirect(message, url){
         document.location.href = url;
     });
 }
-function showError(message,){
+function showError(message){
     swal({
         title: "Error!",
         text: message,

@@ -12,7 +12,7 @@ class KostumerController extends Controller
      * Data for Json Format (all)
      */
     public function kostumerJson(){
-        $list = Kostumer::all();
+        $list = Kostumer::all()->sortBy('kostumer_nama');
         return datatables()
                 ->of($list)
                 ->toJson();

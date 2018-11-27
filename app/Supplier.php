@@ -11,4 +11,9 @@ class Supplier extends Model
     protected $fillable = [
         "supplier_nama", "supplier_kontak", "supplier_detail", "supplier_status"
     ];
+
+    //Set relation with pembelian
+    public function pembelian(){
+        return $this->hasMany('App\Pembelian', 'supplier_id');
+    }
 }

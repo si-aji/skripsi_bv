@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use Auth;
-use DB;
 
 use App\Barang;
 use App\Kategori;
@@ -93,6 +92,8 @@ class PenjualanController extends Controller
         return Validator::make($data, [
             'toko_id' => 'required',
             'penjualan_tgl' => 'required',
+            'pembayaran_tgl' => 'required',
+            'bayar' => 'required',
         ]);
     }
     /**
@@ -104,7 +105,7 @@ class PenjualanController extends Controller
     public function store(Request $request)
     {
         $this->validator($request->all())->validate();
-        $invoice = invoiceJual();
+        $invoice = generateInvoice('Jual');
         $status = "";
         $result = "";
 
@@ -339,6 +340,9 @@ class PenjualanController extends Controller
         }
 
         if(in_array(true, $isChanged)){
+            $penjualan = Penjualan::findOrFail($id);
+            $penjualan->updated_at = now();
+
             $pesan = 'Successfully updated!';
         } else {
             $pesan = 'Nothing changed!';

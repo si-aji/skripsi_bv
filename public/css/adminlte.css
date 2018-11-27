@@ -4249,7 +4249,7 @@ input[type="button"].btn-block {
 .navbar.fixed-top {
     position: fixed;
     top: 0;
-    z-index: 9999;
+    z-index: 1030;
     width: 100%;
 }
 
@@ -5703,7 +5703,7 @@ button.close, button.mailbox-attachment-close {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1050;
+    z-index: 1150;
     display: none;
     overflow: hidden;
     outline: 0;
@@ -5778,7 +5778,7 @@ button.close, button.mailbox-attachment-close {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1040;
+    z-index: 1140;
     background-color: #000;
 }
 
@@ -6557,6 +6557,7 @@ button.label-info:focus {
 
 .bg-warning, .alert-warning, .label-warning {
     background-color: #ffc107 !important;
+    color: #fff !important;
 }
 
 a.bg-warning:hover, a.alert-warning:hover, a.label-warning:hover, a.bg-warning:focus, a.alert-warning:focus, a.label-warning:focus,
@@ -13946,7 +13947,7 @@ a.text-muted:hover {
 .bg-warning a,
 .alert-warning a,
 .label-warning a {
-    color: #1F2D3D !important;
+    color: #fff !important;
 }
 
 .bg-danger, .alert-danger,

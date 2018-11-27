@@ -60,5 +60,11 @@ Route::group(['middleware' => ['auth','web',]], function(){
     Route::resource('/staff/penjualan', 'PenjualanController');
     Route::get('/staff/penjualan/invoice/{invoice}', 'PenjualanController@show');
     Route::get('/list/penjualan', 'PenjualanController@penjualanJson'); //List Toko (All)
+    //Pembelian
+    Route::resource('/staff/pembelian', 'PembelianController');
+    Route::get('/staff/pembelian/invoice/{invoice}', 'PembelianController@show');
+    Route::get('/list/pembelian', 'PembelianController@pembelianJson'); //List Toko (All)
+
+
 });
 

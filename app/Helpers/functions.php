@@ -15,11 +15,22 @@ function idr_currency($num){
 function formated_date($date){
     return date("M", strtotime($date))." ".date("d", strtotime($date)).", ".date("Y", strtotime($date))." / ".date("H", strtotime($date)).":".date("i", strtotime($date)).":".date("s", strtotime($date))." WIB";
 }
+function only_date($date){
+    return date("M", strtotime($date))." ".date("d", strtotime($date)).", ".date("Y", strtotime($date));
+}
 
-function invoiceJual(){
+function generateInvoice($request){
+    $tipe = "";
+
+    if($request == "Beli"){
+        $tipe = "BELI";
+    } else if($request == "Jual"){
+        $tipe = "JUAL";
+    }
+
     //Generate Invoice untuk transaksi Jual (Tambah Stok)
     $generate_number = time() + random_int (9, 199);
-    $ivc = "INVC/JUAL/".date("dmy").'/'.$generate_number;
+    $ivc = "INVC/".$tipe."/".date("dmy").'/'.$generate_number;
     return $ivc;
 }
 ?>

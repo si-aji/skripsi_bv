@@ -51,28 +51,14 @@
                                     </div>
                                 </div>{{-- Tipe Transaksi --}}
 
-                                <div class="row">
-                                    <div class="col-9 col-md-10">
-                                        <select name="toko_id" class="form-control select2" id="input-toko_id"></select>
-                                    </div>
-                                    <div class="col-3 col-md-2">
-                                        <a data-toggle="modal" data-target="#modalToko" class="btn btn-primary text-white w-100"><i class="fa fa-plus"></i></a>
-                                    </div>
-                                </div>
+                                <select name="toko_id" class="form-control select2" id="input-toko_id"></select>
                             </div>{{-- /.Toko --}}
 
                             <div class="form-group" id="field-kostumer_id">{{-- Kostumer --}}
                                 <label for="input-kostumer_id">Kostumer <i class="fa fa-question-circle-o" data-toggle="tooltip" data-placement="right" title="" data-original-title="Didn't find your Customer? Add it first with blue + Button"></i></label>
-                                <div class="row">
-                                    <div class="col-9 col-md-10">
-                                        <select name="kostumer_id" class="form-control select2" id="input-kostumer_id">
-                                            <option value="">- None -</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-3 col-md-2">
-                                        <a data-toggle="modal" data-target="#modalKostumer" class="btn btn-primary text-white w-100"><i class="fa fa-plus"></i></a>
-                                    </div>
-                                </div>
+                                <select name="kostumer_id" class="form-control select2" id="input-kostumer_id">
+                                    <option value="">- None -</option>
+                                </select>
                             </div>{{-- /.Kostumer --}}
 
                             <div class="form-group" id="field-penjualan_tgl">{{-- Penjualan Tanggal --}}

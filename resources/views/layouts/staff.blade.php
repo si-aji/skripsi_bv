@@ -145,13 +145,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/UI/general.html" class="nav-link"  id="sub-pembelian_list">
+                                <a href="{{ url('/staff/pembelian') }}" class="nav-link"  id="sub-pembelian_list">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>List Pembelian</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/UI/icons.html" class="nav-link" id="sub-pembelian_tambah">
+                                <a href="{{ url('/staff/pembelian/create') }}" class="nav-link" id="sub-pembelian_tambah">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>Tambah Pembelian</p>
                                 </a>

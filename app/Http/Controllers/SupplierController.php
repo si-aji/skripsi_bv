@@ -12,7 +12,7 @@ class SupplierController extends Controller
      * Data for Json Format (all)
      */
     public function supplierJson(){
-        $list = Supplier::where('supplier_status', 'Aktif');
+        $list = Supplier::where('supplier_status', 'Aktif')->orderBy('supplier_nama');
         return datatables()
                 ->of($list)
                 ->toJson();

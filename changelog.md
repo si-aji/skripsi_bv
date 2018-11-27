@@ -1,3 +1,16 @@
+-------------------------------------------------------------------------------------
+- 27 Nov 2018 (v.0.11.0)
+```
+- Add new module Pembelian (Pembelian, Pembelian Item, Pembelian Bayar)
+- Add new function at helper (for print only date)
+- Add migration for Pembelian module and Trigger
+- Add pembayaran timeline for each Penjualan and Pembelian bayar
+- Modify Kostumer, Penjualan, and Supplier to sort by each id
+- Modify adminlte.css for bg-warning text to white
+```
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
 - 13 Nov 2018 (v.0.10.1)
 ```
 - Change penjualanDetail to penjualanItem
