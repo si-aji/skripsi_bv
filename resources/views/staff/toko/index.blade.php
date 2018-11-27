@@ -178,7 +178,7 @@
         ],
         pageLength: 10,
         aLengthMenu:[5,10,15,25,50],
-        order: [1, 'asc'],
+        order: [2, 'asc'],
         responsive: {
             details: {
                 type: 'column',

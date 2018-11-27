@@ -119,6 +119,7 @@
                             <tr>
                                 <th>No</th>
                                 <th class="desktop">Kode</th>
+                                <th class="desktop">ID</th>
                                 <th class="all">Nama Barang</th>
                                 <th class="desktop">Harga Beli</th>
                                 <th class="desktop">Harga Jual</th>
@@ -222,6 +223,7 @@
         columns: [
             { data: null },
             { data: null },
+            { data: null },
             { data: 'barang_nama' },
             { data: null },
             { data: null },
@@ -236,22 +238,28 @@
             }, {
                 targets: [1],
                 render: function(data, type, row) {
-                    return data.kategori['kategori_kode']+"-"+data['barang_kode'];
+                    return data.kategori['kategori_kode'];
                 }
-            }, {
-                targets: [3],
+            },
+            {
+                targets: [2],
+                render: function(data, type, row) {
+                    return data['barang_kode'];
+                }
+            },{
+                targets: [4],
                 render: function(data, type, row) {
                     var angka = parseInt(data['barang_hBeli']);
                     return idr_curr(angka);
                 }
             }, {
-                targets: [4],
+                targets: [5],
                 render: function(data, type, row) {
                     var angka = parseInt(data['barang_hJual']);
                     return idr_curr(angka);
                 }
             }, {
-                targets: [5],
+                targets: [6],
                 render: function(data, type, row) {
                     if(data['barang_stokStatus'] == "Aktif"){
                         return data['barang_stok'];
@@ -260,7 +268,7 @@
                     }
                 }
             }, {
-                targets: [6],
+                targets: [7],
                 render: function(data, type, row) {
                     var id = "'"+data.id+"'";
                     return generateButton(id);

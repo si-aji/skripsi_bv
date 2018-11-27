@@ -60,7 +60,7 @@ class KostumerController extends Controller
     {
         $this->validator($request->all())->validate();
         $store = Kostumer::create([
-            'kostumer_nama' => $request->kostumer_nama,
+            'kostumer_nama' => ucwords($request->kostumer_nama),
             'kostumer_kontak' => $request->kostumer_kontak,
             'kostumer_detail' => $request->kostumer_detail,
         ]);
@@ -106,7 +106,7 @@ class KostumerController extends Controller
         $this->validator($request->all())->validate();
 
         $kostumer = Kostumer::findOrFail($id);
-        $kostumer->kostumer_nama = $request->kostumer_nama;
+        $kostumer->kostumer_nama = ucwords($request->kostumer_nama);
         $kostumer->kostumer_kontak = $request->kostumer_kontak;
         $kostumer->kostumer_detail = $request->kostumer_detail;
 

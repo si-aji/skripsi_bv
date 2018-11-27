@@ -59,12 +59,18 @@ Route::group(['middleware' => ['auth','web',]], function(){
     //Penjualan
     Route::resource('/staff/penjualan', 'PenjualanController');
     Route::get('/staff/penjualan/invoice/{invoice}', 'PenjualanController@show');
-    Route::get('/list/penjualan', 'PenjualanController@penjualanJson'); //List Toko (All)
+    Route::get('/list/penjualan', 'PenjualanController@penjualanJson'); //List Penjualan (All)
+    Route::post('/list/penjualan', 'PenjualanController@penjualanFilterJson'); //List Penjualan (with Filter)
+    Route::post('/list/penjualan/date', 'PenjualanController@penjualanDateBasedJson'); //List Penjualan (Based on Date)
     //Pembelian
     Route::resource('/staff/pembelian', 'PembelianController');
     Route::get('/staff/pembelian/invoice/{invoice}', 'PembelianController@show');
-    Route::get('/list/pembelian', 'PembelianController@pembelianJson'); //List Toko (All)
+    Route::get('/list/pembelian', 'PembelianController@pembelianJson'); //List Pembelian (All)
 
-
+    // Analisa
+    //Apriori
+    Route::get('/staff/analisa/apriori', function(){
+        return view('staff.analisa.apriori.apriori');
+    });
 });
 

@@ -159,6 +159,14 @@
                         </ul>
                     </li>{{-- /.Pembelian --}}
                     {{--  /.Transaksi  --}}
+
+                    <li class="nav-header">Analisa</li>{{-- Analisa --}}
+                    <li class="nav-item">
+                        <a href="{{ url('/staff/analisa/apriori') }}" class="nav-link" id="mn-apriori">
+                            <i class="nav-icon fa fa-circle-o"></i>
+                            <p>Apriori</p>
+                        </a>
+                    </li>
                 </ul>
             </nav><!-- /.Sidebar Menu -->
         </div><!-- /.Sidebar -->

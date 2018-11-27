@@ -13,3 +13,4 @@ yarn-error.log
 .env
 .phpunit.result.cache
 upload_101118.zip
+/z_backup

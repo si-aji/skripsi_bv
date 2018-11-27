@@ -60,7 +60,7 @@ class SupplierController extends Controller
     {
         $this->validator($request->all())->validate();
         $store = Supplier::create([
-            'supplier_nama' => $request->supplier_nama,
+            'supplier_nama' => ucwords($request->supplier_nama),
             'supplier_kontak' => $request->supplier_kontak,
             'supplier_detail' => $request->supplier_detail,
         ]);
@@ -106,7 +106,7 @@ class SupplierController extends Controller
         $this->validator($request->all())->validate();
 
         $supplier = Supplier::findOrFail($id);
-        $supplier->supplier_nama = $request->supplier_nama;
+        $supplier->supplier_nama = ucwords($request->supplier_nama);
         $supplier->supplier_kontak = $request->supplier_kontak;
         $supplier->supplier_detail = $request->supplier_detail;
 

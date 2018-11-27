@@ -59,6 +59,94 @@ class PenjualanController extends Controller
         // return response()->json($list);
     }
 
+    public function penjualanFilterJson(Request $request){
+        $query = Penjualan::query();
+
+        if($request->filter_tanggal == "Y"){
+            $query = $query->whereBetween('penjualan_tgl', [$request->tanggal_mulai, $request->tanggal_akhir]);
+        }
+
+        $list = $query->with('penjualanItem', 'penjualanItem.barang', 'penjualanBayar')->get()->map(function($data, $key) {
+            //Make formated invoice
+            $data->invoice_url = str_replace('/', '-', $data->penjualan_invoice);
+
+            //Make detail item
+            $data->items = (object)[];
+            $barang = array();
+            $total = 0;
+            //Detail
+            foreach($data->penjualanItem as $detail){
+                $barang[] = $detail->barang->barang_nama." (".$detail->jual_qty.")";
+                $total = $total + ( ($detail->harga_jual * $detail->jual_qty) - $detail->diskon );
+            }
+
+            $biayaLain = 0;
+            $bayar = 0;
+            foreach($data->penjualanBayar as $log){
+                $biayaLain = $biayaLain + $log->biaya_lain;
+                $bayar = $bayar + $log->bayar;
+            }
+            $total = $total + $biayaLain;
+
+            $data->items->barang = implode(", ", $barang);
+            $data->items->total = $total;
+            $data->items->biayaLain = $biayaLain;
+            $data->items->bayar = $bayar;
+
+            //Remove unnecessary data
+            unset($data->penjualan_detail);
+            unset($data->penjualanItem);
+            unset($data->penjualanBayar);
+            return $data;
+        });
+
+        return datatables()
+                ->of($list)
+                ->toJson();
+        // return response()->json($list);
+    }
+
+    public function penjualanDateBasedJson(Request $request){
+        $list = Penjualan::whereBetween('penjualan_tgl', [$request->tanggal_mulai, $request->tanggal_akhir])->with('penjualanItem', 'penjualanItem.barang', 'penjualanBayar')->get()->map(function($data, $key) {
+            //Make formated invoice
+            $data->invoice_url = str_replace('/', '-', $data->penjualan_invoice);
+
+            //Make detail item
+            $data->items = (object)[];
+            $barang = array();
+            $total = 0;
+            //Detail
+            foreach($data->penjualanItem as $detail){
+                $barang[] = $detail->barang->barang_nama." (".$detail->jual_qty.")";
+                $total = $total + ( ($detail->harga_jual * $detail->jual_qty) - $detail->diskon );
+            }
+
+            $biayaLain = 0;
+            $bayar = 0;
+            foreach($data->penjualanBayar as $log){
+                $biayaLain = $biayaLain + $log->biaya_lain;
+                $bayar = $bayar + $log->bayar;
+            }
+            $total = $total + $biayaLain;
+
+            $data->items->barang = implode(", ", $barang);
+            $data->items->total = $total;
+            $data->items->biayaLain = $biayaLain;
+            $data->items->bayar = $bayar;
+
+            //Remove unnecessary data
+            unset($data->penjualan_detail);
+            unset($data->penjualanItem);
+            unset($data->penjualanBayar);
+            return $data;
+        });
+
+        return datatables()
+                ->of($list)
+                ->toJson();
+        // return response()->json($list);
+    }
+
     /**
      * Display a listing of the resource.
      *

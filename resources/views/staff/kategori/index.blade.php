@@ -129,9 +129,9 @@
     }).draw();
     function generateButton(id, kode, nama){
         var edit = '<a class="btn btn-warning text-white" onclick="formUpdate('+id+','+kode+','+nama+')"><i class="fa fa-edit"></i></a>';
-        var hapus = '<a class="btn btn-danger text-white" onclick="formDelete('+id+')"><i class="fa fa-trash"></i></a>';
+        //var hapus = '<a class="btn btn-danger text-white" onclick="formDelete('+id+')"><i class="fa fa-trash"></i></a>';
 
-        return "<div class='btn-group'>"+edit+hapus+"</div>";
+        return "<div class='btn-group'>"+edit+"</div>";
     }
 
     $("#kategoriForm").submit(function(e){ //Prevent default Action for Form
