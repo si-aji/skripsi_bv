@@ -36,6 +36,10 @@ Route::group(['middleware' => ['auth','web',]], function(){
     Route::get('/data/barang/{id}', 'BarangController@barangSpecificJson'); //Data Barang
     Route::get('/data/barang/kategori/{id}', 'BarangController@kategoriSpecificJson'); //Data Barang
 
+    //Paket
+    Route::resource('/staff/paket', 'PaketController');
+    Route::get('/list/paket', 'PaketController@paketJson');
+
     //Kostumer
     Route::resource('/staff/kostumer', 'KostumerController');
     Route::get('/list/kostumer', 'KostumerController@kostumerJson'); //List Kostumer (All)
@@ -62,6 +66,11 @@ Route::group(['middleware' => ['auth','web',]], function(){
     Route::get('/list/penjualan', 'PenjualanController@penjualanJson'); //List Penjualan (All)
     Route::post('/list/penjualan', 'PenjualanController@penjualanFilterJson'); //List Penjualan (with Filter)
     Route::post('/list/penjualan/date', 'PenjualanController@penjualanDateBasedJson'); //List Penjualan (Based on Date)
+    //Apriori
+    Route::post('/penjualan/apriori', 'AprioriController@cSatu');
+    Route::post('/penjualan/apriori/dua', 'AprioriController@cDua');
+    Route::post('/penjualan/apriori/tiga', 'AprioriController@cTiga');
+
     //Pembelian
     Route::resource('/staff/pembelian', 'PembelianController');
     Route::get('/staff/pembelian/invoice/{invoice}', 'PembelianController@show');

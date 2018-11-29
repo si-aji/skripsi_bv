@@ -34,6 +34,6 @@ class Penjualan extends Model
     }
     //Set relation with PenjualanBayar
     public function penjualanBayar(){
-        return $this->hasMany('App\penjualanBayar', 'penjualan_id');
+        return $this->hasMany('App\PenjualanBayar', 'penjualan_id');
     }
 }

@@ -430,6 +430,7 @@ class PenjualanController extends Controller
         if(in_array(true, $isChanged)){
             $penjualan = Penjualan::findOrFail($id);
             $penjualan->updated_at = now();
+            $penjualan->save();
 
             $pesan = 'Successfully updated!';
         } else {

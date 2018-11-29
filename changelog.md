@@ -1,4 +1,14 @@
 -------------------------------------------------------------------------------------
+- 29 Nov 2018 (v.0.12.0)
+```
+- Add Paket and PaketItem module
+- Add Apriori rules (for 3 itemset)
+    + Minus conf calculation
+- Modify PenjualanController to update update_at data
+```
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
 - 27 Nov 2018 (v.0.11.1)
 ```
 - Add backup file for Penjualan

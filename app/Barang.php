@@ -24,4 +24,8 @@ class Barang extends Model
     public function pembelianItem(){
         return $this->hasMany('App\PembelianItem', 'barang_id');
     }
+    //Set relation with PaketItem
+    public function paketItem(){
+        return $this->hasMany('App\PaketItem', 'barang_id');
+    }
 }

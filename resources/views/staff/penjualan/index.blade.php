@@ -98,7 +98,7 @@
     <script src="{{ asset('plugins/iCheck/icheck.js') }}"></script>{{-- iCheck --}}
 
     <script src="{{ asset('plugins/dataTables/datatables.js') }}"></script>{{-- DataTable --}}
-    <script src="{{ asset('plugins/dataTables/Responsive-2.2.1/js/datatables.responsive.js') }}"></script>{{-- DataTable Responsive --}}
+    <script src="{{ asset('plugins/dataTables/Responsive-2.2.1/js/dataTables.responsive.js') }}"></script>{{-- DataTable Responsive --}}
 
     <script src="{{ asset('plugins/datetimePicker/js/tempusdominus-bootstrap-4.js') }}"></script>{{-- dateTimePicker --}}
 @endsection

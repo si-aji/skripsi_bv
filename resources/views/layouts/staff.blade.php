@@ -82,6 +82,12 @@
                             <p>Barang</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/staff/paket') }}" class="nav-link" id="mn-paket">
+                            <i class="nav-icon fa fa-suitcase"></i>
+                            <p>Paket</p>
+                        </a>
+                    </li>
                     {{-- /.Produk --}}
 
                     <li class="nav-header">DATA</li>{{-- Data --}}
