@@ -33,12 +33,16 @@ Route::group(['middleware' => ['auth','web',]], function(){
     //Barang
     Route::resource('/staff/barang', 'BarangController');
     Route::get('/list/barang', 'BarangController@barangJson'); //List Barang (All)
+    Route::get('/data/barang/select', 'BarangController@barangSelectTwoJson'); //Select 2 Barang
     Route::get('/data/barang/{id}', 'BarangController@barangSpecificJson'); //Data Barang
     Route::get('/data/barang/kategori/{id}', 'BarangController@kategoriSpecificJson'); //Data Barang
 
     //Paket
     Route::resource('/staff/paket', 'PaketController');
     Route::get('/list/paket', 'PaketController@paketJson');
+    Route::get('/data/paket/select', 'PaketController@paketSelectTwoJson'); //Select 2 Paket
+    Route::get('/data/paket/{id}', 'PaketController@paketSpecificJson'); //Data Paket
+
 
     //Kostumer
     Route::resource('/staff/kostumer', 'KostumerController');

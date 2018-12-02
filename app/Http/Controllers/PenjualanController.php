@@ -10,6 +10,9 @@ use App\Penjualan;
 use App\PenjualanItem;
 use App\PenjualanBayar;
 
+use App\Paket;
+use App\PaketItem;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -196,6 +199,7 @@ class PenjualanController extends Controller
         $invoice = generateInvoice('Jual');
         $status = "";
         $result = "";
+        $list_paketItem = "";
 
         $storePenjualan = Penjualan::create([
             'toko_id' => $request->toko_id,
@@ -212,57 +216,78 @@ class PenjualanController extends Controller
 
             //Get an array from field Penjualan Detail
             $items = $request->barang_id;
-            //Get Penjualan
-            $penjualan = Penjualan::where('penjualan_invoice', $invoice)->get();
+            $penjualan = Penjualan::where('penjualan_invoice', $invoice)->firstOrFail(); //Get Penjualan
             $item_num = 1;
-            foreach($items as $item => $key){//Cek Stok Barang
-                $barang = Barang::where('id', $request->barang_id[$item])->get();//Ambil data barang terkait
-                if($barang[0]->barang_stokStatus == "Aktif"){ //Jika Stok Aktif
-                    if($barang[0]->barang_stok >= $request->qty[$item]){ //Jika stok lebih
+            foreach($items as $item => $key){//Perulangan Item
+                $request_diskon = $request->diskon[$item];
+                //Cek apakah Paket / Barang satuan
+                if($request->statusPaket[$item] == "checked"){
+                    //Jika paket
+                    $list_paketItem = paketItem::where('paket_id', $request->barang_id[$item])->get();
+
+                    foreach($list_paketItem as $paketItem){
+                        $barang = Barang::where('id', $paketItem->barang_id)->firstOrFail();
+                        $paket = Paket::where('id', $paketItem->paket_id)->firstOrFail();
+
+                        if($barang->barang_stokStatus == "Aktif"){ //Check Status
+                            if($barang->barang_stok >= $request->qty[$item]){ //Jika stok >= permintaan
+                                $storepenjualanItem = penjualanItem::create([
+                                    'penjualan_id' => $penjualan->id,
+                                    'barang_id' => $barang->id,
+                                    'paket_id' => $paketItem->paket_id,
+                                    'harga_beli' => $barang->barang_hBeli,
+                                    'harga_jual' => $paketItem->barang_hJual,
+                                    'jual_qty' => $request->qty[$item],
+                                    'diskon' => $request_diskon,
+                                ]);
+                            } else {
+                                $status = "(Baris item ke-".$item_num.") Kesalahan pada ".$barang->barang_nama." (Paket : ".$paket->paket_nama."), stok : ".$barang->barang_stok." | permintaan : ".$request->qty[$item];
+                                $this->destroy($penjualan->id);
+                                return response()->json($status);
+                            }
+                        } else {
+                            $storepenjualanItem = penjualanItem::create([
+                                'penjualan_id' => $penjualan->id,
+                                'barang_id' => $barang->id,
+                                'paket_id' => $paketItem->paket_id,
+                                'harga_beli' => $barang->barang_hBeli,
+                                'harga_jual' => $paketItem->barang_hJual,
+                                'jual_qty' => $request->qty[$item],
+                                'diskon' => $request_diskon,
+                            ]);
+                        }
+
+                        $request_diskon = 0;
+                    }
+                } else {
+                    //Jika barang satuan
+                    $barang = Barang::where('id', $request->barang_id[$item])->firstOrFail();
+
+                    if($barang->barang_stokStatus == "Aktif"){ //Check Status
+                        if($barang->barang_stok >= $request->qty[$item]){ //Jika stok >= permintaan
+                            $storepenjualanItem = penjualanItem::create([
+                                'penjualan_id' => $penjualan->id,
+                                'barang_id' => $barang->id,
+                                'harga_beli' => $barang->barang_hBeli,
+                                'harga_jual' => $barang->barang_hJual,
+                                'jual_qty' => $request->qty[$item],
+                                'diskon' => $request->diskon[$item],
+                            ]);
+                        } else {
+                            $status = "(Baris item ke-".$item_num.") Kesalahan pada barang".$barang->barang_nama.", stok : ".$barang->barang_stok." | qty : ".$request->qty[$item];
+                            $this->destroy($penjualan->id);
+                            return response()->json($status);
+                        }
+                    } else {
                         $storepenjualanItem = penjualanItem::create([
-                            'penjualan_id' => $penjualan[0]->id,
-                            'barang_id' => $request->barang_id[$item],
-                            'harga_beli' => $request->harga_beli[$item],
-                            'harga_jual' => $request->harga_jual[$item],
+                            'penjualan_id' => $penjualan->id,
+                            'barang_id' => $barang->id,
+                            'harga_beli' => $barang->barang_hBeli,
+                            'harga_jual' => $barang->barang_hJual,
                             'jual_qty' => $request->qty[$item],
                             'diskon' => $request->diskon[$item],
                         ]);
-
-                        $status = "Item Penjualan Berhasil";
-                        $error = false;
-                        $result = true;
-                    } else {
-                        //Stok kurang
-                        $storepenjualanItem = 0;
-
-                        $status = "(Baris item ke-".$item_num.") Kesalahan pada barang ".$barang[0]->barang_nama.", stok : ".$barang[0]->barang_stok." | qty : ".$request->qty[$item];
-                        $error = "Gagal pada barang baris ke-".$item_num." (".$barang[0]->barang_nama.") karena sisa stok kurang (Stok : ".$barang[0]->barang_stok.", Permintaan QTY : ".$request->qty[$item].")";
-                        $result = false;
-                        //Delete All Data related to this transaction
-                        $this->destroy($penjualan[0]->id);
-
-                        //Force stop process and send an error
-                        $message = [
-                            'result' => $result,
-                            'error' => $error,
-                            'invoice' => '',
-                            'message' => $status,
-                        ];
-                        return response()->json($message);
                     }
-                } else {
-                    $storepenjualanItem = penjualanItem::create([
-                        'penjualan_id' => $penjualan[0]->id,
-                        'barang_id' => $request->barang_id[$item],
-                        'harga_beli' => $request->harga_beli[$item],
-                        'harga_jual' => $request->harga_jual[$item],
-                        'jual_qty' => $request->qty[$item],
-                        'diskon' => $request->diskon[$item],
-                    ]);
-
-                    $status = "Item Penjualan Berhasil";
-                    $error = false;
-                    $result = true;
                 }
                 $item_num++;
             }
@@ -270,7 +295,7 @@ class PenjualanController extends Controller
             if((bool) $storepenjualanItem){
                 //Insert Penjualan Log jika Penjualan Detail berhasil
                 $storepenjualanBayar = penjualanBayar::create([
-                    'penjualan_id' => $penjualan[0]->id,
+                    'penjualan_id' => $penjualan->id,
                     'user_id' => Auth::user()->id,
                     'pembayaran_tgl' => $request->pembayaran_tgl,
                     'biaya_lain' => $request->biaya_lain,
@@ -286,11 +311,11 @@ class PenjualanController extends Controller
 
         $message = [
             'result' => $result,
-            'error' => $error,
             'invoice' => str_replace('/', '-', $invoice),
             'message' => $status,
         ];
         return response()->json($message);
+        // return response()->json($request);
     }
 
     /**

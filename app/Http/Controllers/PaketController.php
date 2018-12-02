@@ -34,6 +34,52 @@ class PaketController extends Controller
                 ->toJson();
         // return response()->json($list);
     }
+    public function paketSelectTwoJson(){
+        $array = array();
+        $array_item = array();
+        $barang = array();
+        $list_paket = Paket::where('paket_status', 'Aktif')->with('paketItem', 'paketItem.barang')->orderBy('paket_nama')->get();
+
+        foreach($list_paket as $paket){
+            $data = (object) [];
+            $data->id = 0;
+            $data->text = $paket->paket_nama;
+            foreach($paket->paketItem as $paketItem){
+                // array_push($array_barang, $paketItem->barang->barang_nama);
+                $barang[] = ucwords($paketItem->barang->barang_nama);
+            }
+            //$data->text = implode(', ', $barang);
+
+            $data_item = (object) [];
+            $data_item->id = $paket->id;
+            $data_item->text = implode(', ', $barang);
+
+            array_push($array_item, $data_item); //Push data untuk children select 2
+            $data->children = $array_item;
+
+            array_push($array, $data);
+
+            unset($barang);
+            unset($array_item);
+            $barang = array();
+            $array_item = array();
+        }
+
+        return response()->json($array);
+    }
+    public function paketSpecificJson($id){
+        $list = Paket::where('id', $id)->with('paketItem')->get()->map(function($data, $key) {
+            $data->barang_hJual = (object)[];
+
+            $data->barang_hJual = $data->paket_harga;
+            $data->barang_hBeli = "0";
+
+            return $data;
+        });
+        return datatables()
+                ->of($list)
+                ->toJson();
+    }
 
     /**
      * Display a listing of the resource.

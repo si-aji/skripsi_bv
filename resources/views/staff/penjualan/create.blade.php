@@ -93,20 +93,22 @@
                             <div id="transaksi_wrapper">{{-- Item Penjualan --}}
                                 <div class="mb-2 transaksi_content" id="content-1">
                                     <div class="row">
-                                        <div class="col-12 col-md-4">{{-- Nama Barang --}}
+                                        <div class="col-12 col-md-5">{{-- Nama Barang --}}
                                             <div class="form-group" id="field_1-barang_id">
-                                                <label for="input_1-barang_id">Kode Barang</label>
-                                                <select name="barang_id[]" class="form-control select2" id="input_1-barang_id" onchange="setBarangDetail('1')">
-                                                    @foreach ($kategori as $item_k)
-                                                    <optgroup label="{{ $item_k['kategori_nama'] }}">
-                                                        @foreach ($barang as $item_b)
-                                                            @if($item_b['kategori_id'] == $item_k['id'])
-                                                            <option value="{{ $item_b['id'] }}">{{ $item_k['kategori_kode'].'-'.$item_b['barang_kode'].' / '.$item_b['barang_nama'] }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </optgroup>
-                                                    @endforeach
-                                                </select>
+                                                <label for="input_1-barang_id">Kode Barang <i class="fa fa-question-circle-o" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tick at checkbox to change for Paket"></i></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <label class="mb-0">
+                                                                <input type="checkbox" name="checkPaket[]" id="input_1-checkPaket" onchange="setSelectTwo('1')"> Paket
+                                                                <input type="hidden" name="statusPaket[]" id="input_1-statusPaket" value="unchecked">
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                    <select name="barang_id[]" class="form-control select2" id="input_1-barang_id" onchange="setBarangDetail('1')">
+
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>{{-- /.Nama Barang --}}
                                         <div class="form-group" id="field_1-harga_beli">{{-- Harga Beli --}}
@@ -118,7 +120,7 @@
                                                 <input type="number" name="harga_jual[]" class="form-control" id="input_1-harga_jual" min="0" placeholder="0" onchange="itemSubTotal('1')" required>
                                             </div>
                                         </div>{{-- /.Harga Jual --}}
-                                        <div class="col-12 col-md-2">{{-- QTY --}}
+                                        <div class="col-12 col-md-1">{{-- QTY --}}
                                             <div class="form-group" id="field_1-qty">
                                                 <label for="input_1-qty">QTY</label>
                                                 <input type="number" name="qty[]" class="form-control" id="input_1-qty" min="1" value="1" placeholder="0" onchange="itemSubTotal('1')" required>
@@ -322,11 +324,13 @@
         $("#tipe_offline").prop('checked', true);
         $("#tipe_offline").iCheck('update');
 
-        //Set for select2
+        //Init for select2
         $('.select2').select2();
+        setSelectTwo('1');
         //Set for Toko select2
         loadTokoData();
         loadKostumerData();
+
         //Set for iCheck
         $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
@@ -350,8 +354,6 @@
             defaultDate: '{{ date("Y-m-d H:i:00") }}',
             maxDate : '{{ date("Y-m-d H:i:00") }}'
         });
-
-        setBarangDetail('1');
     });
 
     //This is for item Penjualan
@@ -363,12 +365,13 @@
         e.preventDefault();
         var konten = parseInt($('.transaksi_content').length) + 1;
 
-        $('<div class="mb-2 transaksi_content konten_tambahan" id="content-'+awal+'" style="display: none;"><div class="row"><div class="col-12 col-md-4">{{-- Nama Barang --}}<div class="form-group" id="field_'+awal+'-barang_id"><label for="input_'+awal+'-barang_id">Kode Barang</label><select name="barang_id[]" class="form-control select2" id="input_'+awal+'-barang_id" onchange="setBarangDetail('+awal+')"> @foreach ($kategori as $awal_k) <optgroup label="{{ $awal_k['kategori_nama'] }}"> @foreach ($barang as $awal_b) @if($awal_b['kategori_id'] == $awal_k['id']) <option value="{{ $awal_b['id'] }}">{{ $awal_k['kategori_kode'].'-'.$awal_b['barang_kode'].' / '.$awal_b['barang_nama'] }}</option> @endif @endforeach </optgroup> @endforeach </select></div></div>{{-- /.Nama Barang --}}<div class="form-group" id="field_'+awal+'-harga_beli">{{-- Harga Beli --}}<input type="hidden" name="harga_beli[]" class="form-control" id="input_'+awal+'-harga_beli" min="0" placeholder="0"></div>{{-- /.Harga Beli --}}<div class="col-12 col-md-2">{{-- Harga Jual --}}<div class="form-group" id="field_'+awal+'-harga_jual"><label for="input_'+awal+'-harga_jual">Harga Jual</label><input type="number" name="harga_jual[]" class="form-control" id="input_'+awal+'-harga_jual" min="0" placeholder="0" onchange="itemSubTotal('+awal+')" required></div></div>{{-- /.Harga Jual --}}<div class="col-12 col-md-2">{{-- QTY --}}<div class="form-group" id="field_'+awal+'-qty"><label for="input_'+awal+'-qty">QTY</label><input type="number" name="qty[]" class="form-control" id="input_'+awal+'-qty" min="1" value="1" placeholder="0" onchange="itemSubTotal('+awal+')" required></div></div>{{-- /.QTY --}}<div class="col-12 col-md-2">{{-- Diskon --}}<div class="form-group" id="field_'+awal+'-diskon"><label for="input_'+awal+'-diskon">Diskon</label><input type="number" name="diskon[]" class="form-control" id="input_'+awal+'-diskon" min="0" value="0" placeholder="0" onchange="itemSubTotal('+awal+')" required></div></div>{{-- /.Diskon --}}<div class="col-12 col-md-2">{{-- SubTotal --}}<div class="form-group" id="field_'+awal+'-subTotal"><label for="input_'+awal+'-subTotal">SubTotal</label><div class="input-group"><input type="number" name="subTotal[]" class="form-control subTotal" id="input_'+awal+'-subTotal" min="0" placeholder="0" readonly><a onclick="removeMore('+awal+')" class="btn text-white btn-danger btnhapus" ><i class="fa fa-trash"></i></a></div></div></div>{{-- /.SubTotal --}}</div><hr class="my-2">').appendTo($("#transaksi_wrapper")).slideDown("slow", "swing");
+        //$('<div class="mb-2 transaksi_content konten_tambahan" id="content-'+awal+'" style="display: none;"><div class="row"><div class="col-12 col-md-4">{{-- Nama Barang --}}<div class="form-group" id="field_'+awal+'-barang_id"><label for="input_'+awal+'-barang_id">Kode Barang</label><select name="barang_id[]" class="form-control select2" id="input_'+awal+'-barang_id" onchange="setBarangDetail('+awal+')"> @foreach ($kategori as $awal_k) <optgroup label="{{ $awal_k['kategori_nama'] }}"> @foreach ($barang as $awal_b) @if($awal_b['kategori_id'] == $awal_k['id']) <option value="{{ $awal_b['id'] }}">{{ $awal_k['kategori_kode'].'-'.$awal_b['barang_kode'].' / '.$awal_b['barang_nama'] }}</option> @endif @endforeach </optgroup> @endforeach </select></div></div>{{-- /.Nama Barang --}}<div class="form-group" id="field_'+awal+'-harga_beli">{{-- Harga Beli --}}<input type="hidden" name="harga_beli[]" class="form-control" id="input_'+awal+'-harga_beli" min="0" placeholder="0"></div>{{-- /.Harga Beli --}}<div class="col-12 col-md-2">{{-- Harga Jual --}}<div class="form-group" id="field_'+awal+'-harga_jual"><label for="input_'+awal+'-harga_jual">Harga Jual</label><input type="number" name="harga_jual[]" class="form-control" id="input_'+awal+'-harga_jual" min="0" placeholder="0" onchange="itemSubTotal('+awal+')" required></div></div>{{-- /.Harga Jual --}}<div class="col-12 col-md-2">{{-- QTY --}}<div class="form-group" id="field_'+awal+'-qty"><label for="input_'+awal+'-qty">QTY</label><input type="number" name="qty[]" class="form-control" id="input_'+awal+'-qty" min="1" value="1" placeholder="0" onchange="itemSubTotal('+awal+')" required></div></div>{{-- /.QTY --}}<div class="col-12 col-md-2">{{-- Diskon --}}<div class="form-group" id="field_'+awal+'-diskon"><label for="input_'+awal+'-diskon">Diskon</label><input type="number" name="diskon[]" class="form-control" id="input_'+awal+'-diskon" min="0" value="0" placeholder="0" onchange="itemSubTotal('+awal+')" required></div></div>{{-- /.Diskon --}}<div class="col-12 col-md-2">{{-- SubTotal --}}<div class="form-group" id="field_'+awal+'-subTotal"><label for="input_'+awal+'-subTotal">SubTotal</label><div class="input-group"><input type="number" name="subTotal[]" class="form-control subTotal" id="input_'+awal+'-subTotal" min="0" placeholder="0" readonly><a onclick="removeMore('+awal+')" class="btn text-white btn-danger btnhapus" ><i class="fa fa-trash"></i></a></div></div></div>{{-- /.SubTotal --}}</div><hr class="my-2">').appendTo($("#transaksi_wrapper")).slideDown("slow", "swing");
+        $('<div class="mb-2 transaksi_content konten_tambahan" id="content-'+awal+'" style="display: none;"><div class="row"><div class="col-12 col-md-5">{{-- Nama Barang --}}<div class="form-group" id="field_'+awal+'-barang_id"><label for="input_'+awal+'-barang_id">Kode Barang <i class="fa fa-question-circle-o" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tick at checkbox to change for Paket"></i></label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text"><label class="mb-0"><input type="checkbox" name="checkPaket[]" id="input_'+awal+'-checkPaket" onchange="setSelectTwo('+awal+')" value="checked"> Paket<input type="hidden" name="statusPaket[]" id="input_'+awal+'-statusPaket" value="unchecked"></label></span></div><select name="barang_id[]" class="form-control select2" id="input_'+awal+'-barang_id" onchange="setBarangDetail('+awal+')"></select></div></div></div>{{-- /.Nama Barang --}}<div class="form-group" id="field_'+awal+'-harga_beli">{{-- Harga Beli --}}<input type="hidden" name="harga_beli[]" class="form-control" id="input_'+awal+'-harga_beli" min="0" placeholder="0"></div>{{-- /.Harga Beli --}}<div class="col-12 col-md-2">{{-- Harga Jual --}}<div class="form-group" id="field_'+awal+'-harga_jual"><label for="input_'+awal+'-harga_jual">Harga Jual</label><input type="number" name="harga_jual[]" class="form-control" id="input_'+awal+'-harga_jual" min="0" placeholder="0" onchange="itemSubTotal('+awal+')" required></div></div>{{-- /.Harga Jual --}}<div class="col-12 col-md-1">{{-- QTY --}}<div class="form-group" id="field_'+awal+'-qty"><label for="input_'+awal+'-qty">QTY</label><input type="number" name="qty[]" class="form-control" id="input_'+awal+'-qty" min="1" value="1" placeholder="0" onchange="itemSubTotal('+awal+')" required></div></div>{{-- /.QTY --}}<div class="col-12 col-md-2">{{-- Diskon --}}<div class="form-group" id="field_'+awal+'-diskon"><label for="input_'+awal+'-diskon">Diskon</label><input type="number" name="diskon[]" class="form-control" id="input_'+awal+'-diskon" min="0" value="0" placeholder="0" onchange="itemSubTotal('+awal+')" required></div></div>{{-- /.Diskon --}}<div class="col-12 col-md-2">{{-- SubTotal --}}<div class="form-group" id="field_'+awal+'-subTotal"><label for="input_'+awal+'-subTotal">SubTotal</label><div class="input-group"><input type="number" name="subTotal[]" class="form-control subTotal" id="input_'+awal+'-subTotal" min="0" placeholder="0" readonly><a onclick="removeMore('+awal+')" class="btn text-white btn-danger btnhapus" ><i class="fa fa-trash"></i></a></div></div></div>{{-- /.SubTotal --}}</div><hr class="my-2"></div>').appendTo($("#transaksi_wrapper")).slideDown("slow", "swing");
 
         $('.select2-container').remove();
         $('.select2').select2();
         $(this).find(".select2").prop('selectedIndex', 0).change();
-        setBarangDetail(awal);
+        setSelectTwo(awal);
         awal++;
     });
     function removeMore(id){
@@ -381,7 +384,6 @@
             });
         }
     }
-
 
     function itemSubTotal(item){
         var harga_jual = parseInt($("#input_"+item+"-harga_jual").val());
@@ -439,16 +441,52 @@
         $("#input-kekurangan").val(kekurangan);
     }
 
-
-    function setBarangDetail(item){
-        var barang_id = $("#input_"+item+"-barang_id").val();
+    function setSelectTwo(item){
+        if($("#input_"+item+"-checkPaket").is(':checked')){
+            $("#input_"+item+"-statusPaket").val('checked');
+            var link_url = "{{ url('/data/paket/select') }}";
+            //console.log("Paket is Checked");
+        } else {
+            $("#input_"+item+"-statusPaket").val('unchecked');
+            var link_url = "{{ url('/data/barang/select') }}";
+            //console.log("Paket not Checked");
+        }
 
         $.ajax({
             method: "GET",
-            url: "{{ url('/data/barang/') }}/"+barang_id,
+            url: link_url,
+            success: function(result){
+                var data_select = result;
+                //console.log(data_select);
+                $('#input_'+item+'-barang_id').empty(); //Kosongkan select2
+                $('#input_'+item+'-barang_id').select2({ data: data_select }); //Set data ke select2
+                $("#input_"+item+"-barang_id").prop('selectedIndex', '0').change();
+            }
+        });
+    }
+
+    function setBarangDetail(item){
+        $("#input_"+item+"-harga_jual").prop('readonly', false);
+        var barang_id = $("#input_"+item+"-barang_id").val();
+
+        if($("#input_"+item+"-checkPaket").is(':checked')){
+            var link_url = "{{ url('/data/paket/') }}/"+barang_id;
+            //console.log("Paket is Checked");
+        } else {
+            var link_url = "{{ url('/data/barang/') }}/"+barang_id;
+            //console.log("Paket not Checked");
+        }
+
+        $.ajax({
+            method: "GET",
+            url: link_url,
             success: function(result){
                 $("#input_"+item+"-harga_beli").val(result.data[0]['barang_hBeli']);
                 $("#input_"+item+"-harga_jual").val(result.data[0]['barang_hJual']);
+
+                if($("#input_"+item+"-checkPaket").is(':checked')){
+                    $("#input_"+item+"-harga_jual").prop('readonly', true);
+                }
 
                 itemSubTotal(item);
             }
@@ -479,12 +517,12 @@
             success: function(result){
                 console.log(result);
 
-                if(result.error != false){
-                    showError(result.error);
-                } else {
+                //if(result.error != false){
+                //    showError(result.error);
+                //} else {
                     //Transaksi Berhasil
-                    showSuccess_redirect(result.message, result.invoice);
-                }
+                //    showSuccess_redirect(result.message, result.invoice);
+                //}
                 //ResetForm
                 //formReset();
             },

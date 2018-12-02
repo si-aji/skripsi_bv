@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Barang;
+use App\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,6 +17,37 @@ class BarangController extends Controller
         return datatables()
                 ->of($list)
                 ->toJson();
+    }
+    /**
+     * Data for Json Format (select2 - for select barang at penjualanItem)
+     */
+    public function barangSelectTwoJson(){
+        $array = array();
+        $array_barang = array();
+        $list_kategori = Kategori::all()->sortBy('kategori_kode');
+        foreach($list_kategori as $kategori){
+            $data = (object) [];
+            $data->id = 0;
+            $data->text = $kategori->kategori_nama;
+
+            $list = Barang::where([
+                ['kategori_id', $kategori->id],
+                ['barang_status', 'Aktif']
+            ])->get();
+            foreach($list as $barang){
+                $data_barang = (object) [];
+                $data_barang->id = $barang->id;
+                $data_barang->text = $barang->barang_nama;
+
+                array_push($array_barang, $data_barang); //Push data untuk children select 2
+            }
+            $data->children = $array_barang;
+            array_push($array, $data);
+
+            unset($array_barang); //Unset data pada array_barang
+            $array_barang = array(); //Re-init array data_barang
+        }
+        return response()->json($array);
     }
     /**
      * Data for Json Format (Specific by id)
