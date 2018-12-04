@@ -313,6 +313,7 @@ class PenjualanController extends Controller
             'result' => $result,
             'invoice' => str_replace('/', '-', $invoice),
             'message' => $status,
+            'error' => false,
         ];
         return response()->json($message);
         // return response()->json($request);
@@ -327,7 +328,7 @@ class PenjualanController extends Controller
     public function show($invoice)
     {
         $id = str_replace('-', '/', $invoice);
-        $penjualan = Penjualan::where('penjualan_invoice', $id)->with('toko', 'kostumer', 'penjualanItem', 'penjualanItem.barang', 'penjualanBayar')->firstOrFail();
+        $penjualan = Penjualan::where('penjualan_invoice', $id)->with('toko', 'kostumer', 'penjualanItem', 'penjualanItem.barang', 'penjualanItem.paket', 'penjualanBayar')->firstOrFail();
 
         return view('staff.penjualan.invoice', compact('penjualan'));
         // return $penjualan;
@@ -342,7 +343,7 @@ class PenjualanController extends Controller
     public function edit($invoice)
     {
         $id = str_replace('-', '/', $invoice);
-        $penjualan = Penjualan::where('penjualan_invoice', $id)->with('toko', 'kostumer', 'penjualanItem', 'penjualanItem.barang', 'penjualanItem.barang.kategori', 'penjualanBayar')->firstOrFail();
+        $penjualan = Penjualan::where('penjualan_invoice', $id)->with('toko', 'kostumer', 'penjualanItem', 'penjualanItem.barang', 'penjualanItem.paket', 'penjualanItem.barang.kategori', 'penjualanBayar')->firstOrFail();
 
         // return response()->json($penjualan);
         return view('staff.penjualan.edit', compact('penjualan'));

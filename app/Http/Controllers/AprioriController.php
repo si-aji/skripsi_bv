@@ -45,7 +45,7 @@ class AprioriController extends Controller
                         ON b.id = pi.barang_id
                 WHERE
                     p.penjualan_tgl BETWEEN '".$request->tanggal_mulai."' AND '".$request->tanggal_akhir."'
-                GROUP BY pi.barang_id
+                GROUP BY pi.barang_id, b.barang_nama
         ");
 
         // return response()->json($data);
@@ -53,7 +53,7 @@ class AprioriController extends Controller
     }
 
     public function cDua(Request $request){
-        // $result = array();
+        $result = array();
 
         $barang = array();
         $belian = array();
@@ -102,7 +102,7 @@ class AprioriController extends Controller
                         ON b.id = pi.barang_id
                 WHERE
                     p.penjualan_tgl BETWEEN '".$request->tanggal_mulai."' AND '".$request->tanggal_akhir."'
-                GROUP BY pi.barang_id
+                GROUP BY pi.barang_id, b.barang_nama
         ");
 
         // $data_belian = DB::select("
@@ -185,6 +185,7 @@ class AprioriController extends Controller
     }
 
     public function cTiga(Request $request){
+        $result = array();
         $barang = array();
         $belian = array();
         $total_transaksi = 0;
@@ -210,7 +211,7 @@ class AprioriController extends Controller
                         ON b.id = pi.barang_id
                 WHERE
                     p.penjualan_tgl BETWEEN '".$request->tanggal_mulai."' AND '".$request->tanggal_akhir."'
-                GROUP BY pi.barang_id
+                GROUP BY pi.barang_id, b.barang_nama
         ");
         foreach($dataBarang as $item){
             $total_transaksi = $item->total;

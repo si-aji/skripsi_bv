@@ -186,7 +186,7 @@
                     }
                 },
             ],
-            pageLength: 10,
+            pageLength: 5,
             aLengthMenu:[5,10,15,25,50],
             order: [3, 'desc'],
             responsive: {
@@ -251,7 +251,7 @@
                     }
                 },
             ],
-            pageLength: 10,
+            pageLength: 5,
             aLengthMenu:[5,10,15,25,50],
             order: [2, 'desc'],
             responsive: {
@@ -316,7 +316,7 @@
                     }
                 },
             ],
-            pageLength: 10,
+            pageLength: 5,
             aLengthMenu:[5,10,15,25,50],
             order: [2, 'desc'],
             responsive: {

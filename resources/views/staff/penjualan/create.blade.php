@@ -517,12 +517,12 @@
             success: function(result){
                 console.log(result);
 
-                //if(result.error != false){
-                //    showError(result.error);
-                //} else {
+                if(result.error != false){
+                    showError(result.error);
+                } else {
                     //Transaksi Berhasil
-                //    showSuccess_redirect(result.message, result.invoice);
-                //}
+                    showSuccess_redirect(result.message, result.invoice);
+                }
                 //ResetForm
                 //formReset();
             },

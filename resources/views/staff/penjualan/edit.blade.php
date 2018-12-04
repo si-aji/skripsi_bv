@@ -88,8 +88,17 @@
                                     <div class="col-12 col-md-4">{{-- Nama Barang --}}
                                         <div class="form-group" id="field_{{ $i }}-barang_id">
                                             <label for="input_{{ $i }}-barang_id">Kode Barang</label>
+                                            @if($item->paket_id != null)
+                                            @php
+                                                $kode = "[".$item->paket->paket_nama."]";
+                                            @endphp
+                                            @else
+                                            @php
+                                                $kode = $item->barang->kategori->kategori_kode.'-'.$item->barang->barang_kode;
+                                            @endphp
+                                            @endif
                                             <input type="hidden" name="barang_id[]" class="form-control" id="input_{{ $i }}-barang_id" value="{{ $item->barang_id }}" readonly>
-                                            <input type="text" name="barang_nama" class="form-control" id="input_{{ $i }}-barang_nama" value="{{ $item->barang->kategori->kategori_kode.'-'.$item->barang->barang_kode.' / '.$item->barang->barang_nama }}" readonly>
+                                            <input type="text" name="barang_nama" class="form-control" id="input_{{ $i }}-barang_nama" value="{{ $kode.' / '.$item->barang->barang_nama }}" readonly>
                                         </div>
                                     </div>{{-- Nama Barang --}}
                                     <div class="form-group" id="field_{{ $i }}-harga_beli">{{-- Harga Beli --}}
