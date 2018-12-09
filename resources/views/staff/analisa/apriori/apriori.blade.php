@@ -45,7 +45,7 @@
                     <div class="form-group">
                         <label for="input-tanggal_akhir">Min. Support</label>
                         <div class="input-group">
-                            <input type="number" name="min_support" class="form-control" value="3" min="0" id="input-min_support">
+                            <input type="number" name="min_support" class="form-control" value="50" min="0" id="input-min_support">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     %
@@ -54,6 +54,20 @@
                         </div>
                     </div>
                 </div>{{-- /.Minimal Support --}}
+
+                <div class="col-12 col-lg-6">{{-- Minimal Conf --}}
+                    <div class="form-group">
+                        <label for="input-tanggal_akhir">Min. Confidence</label>
+                        <div class="input-group">
+                            <input type="number" name="min_confidence" class="form-control" value="70" min="0" id="input-min_confidence">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    %
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>{{-- /.Minimal Conf --}}
             </div>
         </form>
 
@@ -101,7 +115,7 @@
             <div class="col-12 col-lg-6">{{-- 3 Itemset --}}
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">I-2 (Itemset 2)</h5>
+                        <h5 class="card-title">I-3 (Itemset 3)</h5>
                     </div>
                     <div class="card-body">
                         <table class="table table-striped table-hover table-bordered" id="itemsetTiga">
@@ -117,6 +131,49 @@
                     </div>
                 </div>
             </div>{{-- /.3 Itemset --}}
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-6">{{-- Confidence --}}
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Confidence Item Set 2</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped table-hover table-bordered" id="confTwo">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Item</th>
+                                    <th>Support X U Y</th>
+                                    <th>Support X</th>
+                                    <th>Confidence</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>{{-- /.Confidence --}}
+            <div class="col-12 col-lg-6">{{-- Confidence --}}
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Confidence Item Set 3</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped table-hover table-bordered" id="confThree">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Item</th>
+                                    <th>Support X U Y</th>
+                                    <th>Support X</th>
+                                    <th>Confidence</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>{{-- /.Confidence --}}
         </div>
     </div>
 </div>
@@ -140,14 +197,14 @@
         $('#input-tanggal_mulai').datetimepicker({
             useCurrent: false,
             format: 'YYYY-MM-DD HH:mm',
-            defaultDate: '{{ date("Y-08-1 00:00:00") }}',
+            defaultDate: '{{ date("Y-12-1 00:00:00") }}',
             maxDate : '{{ date("Y-m-d H:i:00") }}'
         });
         $('#input-tanggal_akhir').datetimepicker({
             useCurrent: false,
             format: 'YYYY-MM-DD HH:mm',
-            defaultDate: '{{ date("Y-08-31 H:i:00") }}',
-            minDate : '{{ date("Y-08-1 H:i:00") }}',
+            defaultDate: '{{ date("Y-12-d H:i:00") }}',
+            minDate : '{{ date("Y-12-1 H:i:00") }}',
             maxDate : '{{ date("Y-m-d H:i:00") }}'
         });
 
@@ -181,7 +238,6 @@
                         var total = parseFloat(data.total);
 
                         var support = Math.round(jumlah * 100)/total;
-                        //var support = jumlah/total;
                         return support.toFixed(2)+"%";
                     }
                 },
@@ -203,7 +259,10 @@
 
                 var minsupport = parseFloat($("#input-min_support").val());
 
-                if(support > minsupport){
+                console.log("Total Item Set 1 : "+total);
+
+
+                if(support >= minsupport){
                     $(row).addClass('bg-success');
                 }
             }
@@ -246,7 +305,10 @@
                         var total = parseFloat(data.total);
 
                         var support = Math.round(jumlah * 100)/total;
-                        //var support = jumlah/total;
+
+                        console.log("Total Item Set 2 : "+total);
+
+                        console.log("Jumlah : "+jumlah);
                         return support.toFixed(2)+"%";
                     }
                 },
@@ -268,7 +330,7 @@
 
                 var minsupport = parseFloat($("#input-min_support").val());
 
-                if(support > minsupport){
+                if(support >= minsupport){
                     $(row).addClass('bg-success');
                 }
             }
@@ -333,7 +395,7 @@
 
                 var minsupport = parseFloat($("#input-min_support").val());
 
-                if(support > minsupport){
+                if(support >= minsupport){
                     $(row).addClass('bg-success');
                 }
             }
@@ -344,18 +406,178 @@
             } );
         }).draw();
 
+        var tConf = $("#confTwo").DataTable({
+            responsive: true,
+            processing: true,
+            autoWidth: true,
+            ajax: {
+                method: "POST",
+                data: function(d){
+                    d.tanggal_mulai = document.getElementById("input-tanggal_mulai").value,
+                    d.tanggal_akhir = document.getElementById("input-tanggal_akhir").value,
+                    d.min_support = document.getElementById("input-min_support").value,
+                    d.min_conf = document.getElementById("input-min_confidence").value
+                },
+                url: "{{ url('penjualan/apriori/conf/dua') }}",
+            },
+            columns: [
+                { data: null },
+                { data: 'item' },
+                { data: null },
+                { data: null },
+                { data: null },
+            ],
+            columnDefs: [
+                {
+                    targets: [0],
+                    searchable: false,
+                    orderable: false,
+                }, {
+                    targets: [2],
+                    render: function(data, type, row) {
+
+                        return data.support_xuy+"%";
+                    }
+                }, {
+                    targets: [3],
+                    render: function(data, type, row) {
+
+                        return data.support_x+"%";
+                    }
+                }, {
+                    targets: [4],
+                    render: function(data, type, row) {
+
+                        return data.conf+"%";
+                    }
+                },
+            ],
+            pageLength: 5,
+            aLengthMenu:[5,10,15,25,50],
+            order: [4, 'desc'],
+            responsive: {
+                details: {
+                    type: 'column',
+                    target: 'tr'
+                }
+            },
+            createdRow: function( row, data, dataIndex ) {
+                //console.log(JSON.stringify(data));
+
+                var support = data.support_xuy;
+                var minsupport = parseFloat($("#input-min_support").val());
+                var conf = data.conf;
+                var min_confidence = parseFloat($("#input-min_confidence").val());
+
+                if((support >= minsupport) && (conf >= min_confidence)){
+                    $(row).addClass('bg-success');
+                } else if((support >= minsupport) && (conf < min_confidence)){
+                    $(row).addClass('bg-danger');
+                } else if((support < minsupport) && (conf >= min_confidence)){
+                    $(row).addClass('bg-warning');
+                }
+            }
+        });
+        tConf.on( 'order.dt search.dt', function () {
+            tConf.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        }).draw();
+
+        var tConfThree = $("#confThree").DataTable({
+            responsive: true,
+            processing: true,
+            autoWidth: true,
+            ajax: {
+                method: "POST",
+                data: function(d){
+                    d.tanggal_mulai = document.getElementById("input-tanggal_mulai").value,
+                    d.tanggal_akhir = document.getElementById("input-tanggal_akhir").value,
+                    d.min_support = document.getElementById("input-min_support").value,
+                    d.min_conf = document.getElementById("input-min_confidence").value
+                },
+                url: "{{ url('penjualan/apriori/conf/tiga') }}",
+            },
+            columns: [
+                { data: null },
+                { data: 'item' },
+                { data: null },
+                { data: null },
+                { data: null },
+            ],
+            columnDefs: [
+                {
+                    targets: [0],
+                    searchable: false,
+                    orderable: false,
+                }, {
+                    targets: [2],
+                    render: function(data, type, row) {
+
+                        return data.support_xuy+"%";
+                    }
+                }, {
+                    targets: [3],
+                    render: function(data, type, row) {
+
+                        return data.support_x+"%";
+                    }
+                }, {
+                    targets: [4],
+                    render: function(data, type, row) {
+
+                        return data.conf+"%";
+                    }
+                },
+            ],
+            pageLength: 5,
+            aLengthMenu:[5,10,15,25,50],
+            //order: [4, 'desc'],
+            responsive: {
+                details: {
+                    type: 'column',
+                    target: 'tr'
+                }
+            },
+            createdRow: function( row, data, dataIndex ) {
+                //console.log(JSON.stringify(data));
+
+                var support = data.support_xuy;
+                var minsupport = parseFloat($("#input-min_support").val());
+                var conf = data.conf;
+                var min_confidence = parseFloat($("#input-min_confidence").val());
+
+                if((support >= minsupport) && (conf >= min_confidence)){
+                    $(row).addClass('bg-success');
+                } else if((support >= minsupport) && (conf < min_confidence)){
+                    $(row).addClass('bg-danger');
+                } else if((support < minsupport) && (conf >= min_confidence)){
+                    $(row).addClass('bg-warning');
+                }
+            }
+        });
+        tConfThree.on( 'order.dt search.dt', function () {
+            tConfThree.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        }).draw();
+
         //Linked 2 datetimepicker
         $("#input-tanggal_mulai").on("change.datetimepicker", function (e) {
             $('#input-tanggal_akhir').datetimepicker('minDate', e.date);
             tSatu.ajax.reload();
             tDua.ajax.reload();
             tTiga.ajax.reload();
+            tConf.ajax.reload();
+            tConfThree.ajax.reload();
         });
         $("#input-tanggal_akhir").on("change.datetimepicker", function (e) {
             $('#input-tanggal_mulai').datetimepicker('maxDate', e.date);
             tSatu.ajax.reload();
             tDua.ajax.reload();
             tTiga.ajax.reload();
+            tConf.ajax.reload();
+            tConfThree.ajax.reload();
         });
 
         //Linked to Min Support
@@ -364,6 +586,15 @@
             tSatu.ajax.reload();
             tDua.ajax.reload();
             tTiga.ajax.reload();
+            tConf.ajax.reload();
+            tConfThree.ajax.reload();
+        });
+
+        //Linked to Min Confidence
+        $("#input-min_confidence").on('change', function(e){
+            //console.log("Min Confidence Change to : "+$(this).val());
+            tConf.ajax.reload();
+            tConfThree.ajax.reload();
         });
     });
 </script>

@@ -1,4 +1,23 @@
 -------------------------------------------------------------------------------------
+- 9 Des 2018 (v.0.14.0)
+```
+- Add Apriori Function
+    > Support
+        + 1 Itemset
+        + 2 Itemset
+        + 3 Itemset
+    > Confidence
+        + Conf for 2 Itemset
+        + Conf for 3 Itemset
+> To Do
+    + Add Apriori Setting to DataBase
+    + Show Confusion Matrix Calculation to View
+> Bugs
+    + Sometimes system encounter "No application encryption key has been specified" error
+```
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
 - 2 Des 2018 (v.0.13.0-Beta)
 ```
 - Implement paket untuk penjualan

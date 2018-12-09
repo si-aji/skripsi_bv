@@ -74,6 +74,10 @@ Route::group(['middleware' => ['auth','web',]], function(){
     Route::post('/penjualan/apriori', 'AprioriController@cSatu');
     Route::post('/penjualan/apriori/dua', 'AprioriController@cDua');
     Route::post('/penjualan/apriori/tiga', 'AprioriController@cTiga');
+    //Apriori - Conf
+    Route::post('/penjualan/apriori/conf/dua', 'AprioriController@getTwoConf');
+    Route::post('/penjualan/apriori/conf/tiga', 'AprioriController@getThreeConf');
+
 
     //Pembelian
     Route::resource('/staff/pembelian', 'PembelianController');
