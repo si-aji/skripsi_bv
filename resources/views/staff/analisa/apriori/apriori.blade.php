@@ -69,6 +69,14 @@
                     </div>
                 </div>{{-- /.Minimal Conf --}}
             </div>
+
+            <div class="form-group text-center text-md-right">
+                <div class="btn-group mt-2">
+                    <button class="btn btn-info">Default</button>
+                    <button class="btn btn-danger">Reset</button>
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+            </div>
         </form>
 
         <hr>

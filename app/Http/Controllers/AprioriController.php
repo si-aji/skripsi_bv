@@ -233,11 +233,11 @@ class AprioriController extends Controller
             if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $tp++;
             } else if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) < $request->min_conf)){
-                $tn++;
+                $fn++;
             } else if(($support_xuy < $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $fp++;
             } else {
-                $fn++;
+                $tn++;
             }
             $one = array(
                 "item" => $arr[$k][0]." => ".$arr[$k][1],
@@ -259,11 +259,11 @@ class AprioriController extends Controller
             if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $tp++;
             } else if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) < $request->min_conf)){
-                $tn++;
+                $fn++;
             } else if(($support_xuy < $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $fp++;
             } else {
-                $fn++;
+                $tn++;
             }
             $two = array(
                 "item" => $arr[$k][1]." => ".$arr[$k][0],
@@ -326,11 +326,11 @@ class AprioriController extends Controller
             if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $tp++;
             } else if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) < $request->min_conf)){
-                $tn++;
+                $fn++;
             } else if(($support_xuy < $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $fp++;
             } else {
-                $fn++;
+                $tn++;
             }
             $array = array(
                 "item" => $arr[$k][0]." - ".$arr[$k][1]." => ".$arr[$k][2],
@@ -352,11 +352,11 @@ class AprioriController extends Controller
             if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $tp++;
             } else if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) < $request->min_conf)){
-                $tn++;
+                $fn++;
             } else if(($support_xuy < $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $fp++;
             } else {
-                $fn++;
+                $tn++;
             }
             $array = array(
                 "item" => $arr[$k][2]." => ".$arr[$k][0]." - ".$arr[$k][1],
@@ -379,11 +379,11 @@ class AprioriController extends Controller
             if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $tp++;
             } else if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) < $request->min_conf)){
-                $tn++;
+                $fn++;
             } else if(($support_xuy < $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $fp++;
             } else {
-                $fn++;
+                $tn++;
             }
             $array = array(
                 "item" => $arr[$k][0]." - ".$arr[$k][2]." => ".$arr[$k][1],
@@ -405,11 +405,11 @@ class AprioriController extends Controller
             if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $tp++;
             } else if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) < $request->min_conf)){
-                $tn++;
+                $fn++;
             } else if(($support_xuy < $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $fp++;
             } else {
-                $fn++;
+                $tn++;
             }
             $array = array(
                 "item" => $arr[$k][1]." => ".$arr[$k][0]." - ".$arr[$k][2],
@@ -432,11 +432,11 @@ class AprioriController extends Controller
             if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $tp++;
             } else if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) < $request->min_conf)){
-                $tn++;
+                $fn++;
             } else if(($support_xuy < $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $fp++;
             } else {
-                $fn++;
+                $tn++;
             }
             $array = array(
                 "item" => $arr[$k][1]." - ".$arr[$k][2]." => ".$arr[$k][0],
@@ -459,11 +459,11 @@ class AprioriController extends Controller
             if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $tp++;
             } else if(($support_xuy >= $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) < $request->min_conf)){
-                $tn++;
+                $fn++;
             } else if(($support_xuy < $request->min_support) && (round(($support_xuy / $support_x) * 100, 2) >= $request->min_conf)){
                 $fp++;
             } else {
-                $fn++;
+                $tn++;
             }
             $array = array(
                 "item" => $arr[$k][0]." => ".$arr[$k][1]." - ".$arr[$k][2],
