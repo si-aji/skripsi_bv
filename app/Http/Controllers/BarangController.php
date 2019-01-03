@@ -19,6 +19,19 @@ class BarangController extends Controller
                 ->toJson();
     }
     /**
+     * Data for Json Format (all)
+     */
+    public function barangStokJson(){
+        $list = Barang::where([
+            ['barang_status', 'Aktif'],
+            ['barang_stokStatus', 'Aktif'],
+            ['barang_stok', '<', 5],
+        ])->with('kategori');
+        return datatables()
+                ->of($list)
+                ->toJson();
+    }
+    /**
      * Data for Json Format (select2 - for select barang at penjualanItem)
      */
     public function barangSelectTwoJson(){

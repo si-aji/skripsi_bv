@@ -4145,7 +4145,7 @@ input[type="button"].btn-block {
 
 .nav-link {
     display: block;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.6rem;
 }
 
 .nav-link:hover, .nav-link:focus {
@@ -10100,6 +10100,12 @@ body,
     display: inline-block;
 }
 
+.user-panel .user-button {
+    margin-top: 1rem !important;
+    -webkit-transition: opacity 0.5s ease, margin-top 0.5s ease;;
+    transition: opacity 0.5s ease, margin-top 0.5s ease;;
+}
+
 .user-panel img {
     width: 2.1rem;
     height: auto;
@@ -11446,6 +11452,12 @@ body,
     .sidebar-mini.sidebar-collapse .main-sidebar .user-panel .image {
         float: none;
     }
+    .sidebar-mini.sidebar-collapse .main-sidebar .user-panel .user-button {
+        opacity: 0;
+        margin-top: -2.1rem !important;
+        -webkit-transition: opacity 0.5s ease, margin-top 0.5s ease;
+        transition: opacity 0.5s ease, margin-top 0.5s ease;
+    }
     .sidebar-mini.sidebar-collapse .main-sidebar:hover {
         width: 250px;
     }
@@ -11461,6 +11473,12 @@ body,
         opacity: 1;
         margin-left: 0;
         display: inline-block;
+    }
+    .sidebar-mini.sidebar-collapse .main-sidebar:hover .user-panel .user-button {
+        opacity: 1;
+        margin-top: 1rem !important;
+        -webkit-transition: opacity 0.5s ease, margin-top 0.5s ease;
+        transition: opacity 0.5s ease, margin-top 0.5s ease;
     }
     .sidebar-mini.sidebar-collapse .main-sidebar:hover .brand-image {
         margin-right: .5rem;

@@ -21,9 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth','web',]], function(){
     // Staff
-    Route::get('/staff', function(){
-        return view('staff.dashboard.index');
-    })->name('staff');
+    Route::get('/staff', 'DashboardController@index')->name('staff');
 
     // Kategori
     Route::resource('/staff/kategori', 'KategoriController');
@@ -33,6 +31,7 @@ Route::group(['middleware' => ['auth','web',]], function(){
     // Barang
     Route::resource('/staff/barang', 'BarangController');
     Route::get('/list/barang', 'BarangController@barangJson'); //List Barang (All)
+    Route::get('/list/barang/stok', 'BarangController@barangStokJson'); //List Barang (All)
     Route::get('/data/barang/select', 'BarangController@barangSelectTwoJson'); //Select 2 Barang
     Route::get('/data/barang/{id}', 'BarangController@barangSpecificJson'); //Data Barang
     Route::get('/data/barang/kategori/{id}', 'BarangController@kategoriSpecificJson'); //Data Barang

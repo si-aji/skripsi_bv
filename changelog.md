@@ -1,4 +1,13 @@
 -------------------------------------------------------------------------------------
+- 3 Jan 2019 (v.0.15.0)
+```
+- Change dashboard view from router to Controller
+- Add Shortcut, Barang Stok and Barang to Dashboard
+- Optimize user-control in adminlte.css
+```
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
 - 2 Jan 2019 (v.0.14.2)
 ```
 - Optimize Matrix Confusion for "divided by zero" error

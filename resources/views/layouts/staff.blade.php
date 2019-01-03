@@ -52,7 +52,7 @@
                     </div>
                 </div>
 
-                <div class="btn-group mt-3">
+                <div class="btn-group user-button">
                     <a href="#" class="btn btn-primary text-white w-100">Profile</a>
                     <a href="#" onclick="logOut();" class="btn btn-danger text-white w-100">Log Out</a>
                 </div>
