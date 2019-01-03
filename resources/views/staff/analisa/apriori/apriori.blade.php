@@ -45,7 +45,8 @@
                     <div class="form-group">
                         <label for="input-tanggal_akhir">Min. Support</label>
                         <div class="input-group">
-                            <input type="number" name="min_support" class="form-control" value="50" min="0" id="input-min_support">
+                            <input type="number" name="min_support" class="form-control" value="{{ $apriori->min_support }}" min="0" id="input-min_support">
+                            <input type="hidden" name="old-min_support" class="form-control" value="{{ $apriori->min_support }}" min="0" id="old_input-min_support">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     %
@@ -59,7 +60,8 @@
                     <div class="form-group">
                         <label for="input-tanggal_akhir">Min. Confidence</label>
                         <div class="input-group">
-                            <input type="number" name="min_confidence" class="form-control" value="70" min="0" id="input-min_confidence">
+                            <input type="number" name="min_confidence" class="form-control" value="{{ $apriori->min_confidence }}" min="0" id="input-min_confidence">
+                            <input type="hidden" name="old-min_confidence" class="form-control" value="{{ $apriori->min_confidence }}" id="old_input-min_confidence">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     %
@@ -72,9 +74,10 @@
 
             <div class="form-group text-center text-md-right">
                 <div class="btn-group mt-2">
-                    <button class="btn btn-info">Default</button>
-                    <button class="btn btn-danger">Reset</button>
-                    <button class="btn btn-primary">Submit</button>
+                    <button class="btn btn-info" id="btn-default">Default</button>
+                    <button class="btn btn-danger" type="reset" id="btn-reset">Reset</button>
+                    <button class="btn btn-success" id="btn-save" disabled>Save</button>
+                    <button class="btn btn-primary" type="submit" id="btn-submit">Submit</button>
                 </div>
             </div>
         </form>
@@ -88,6 +91,11 @@
                         <h5 class="card-title">I-1 (Itemset 1)</h5>
                     </div>
                     <div class="card-body">
+                        <div class="callout callout-warning mx-2 d-none" id="alert-itemsetSatu">
+                            <h5>Not Enough Data</h5>
+                            <p>Sorry, the data needed is not enough.</p>
+                        </div>
+
                         <table class="table table-striped table-hover table-bordered" id="itemsetSatu">
                             <thead>
                                 <tr>
@@ -107,6 +115,11 @@
                         <h5 class="card-title">I-2 (Itemset 2)</h5>
                     </div>
                     <div class="card-body">
+                        <div class="callout callout-warning mx-2 d-none" id="alert-itemsetDua">
+                            <h5>Not Enough Data</h5>
+                            <p>Sorry, the data needed is not enough.</p>
+                        </div>
+
                         <table class="table table-striped table-hover table-bordered" id="itemsetDua">
                             <thead>
                                 <tr>
@@ -126,6 +139,11 @@
                         <h5 class="card-title">I-3 (Itemset 3)</h5>
                     </div>
                     <div class="card-body">
+                        <div class="callout callout-warning mx-2 d-none" id="alert-itemsetTiga">
+                            <h5>Not Enough Data</h5>
+                            <p>Sorry, the data needed is not enough.</p>
+                        </div>
+
                         <table class="table table-striped table-hover table-bordered" id="itemsetTiga">
                             <thead>
                                 <tr>
@@ -148,6 +166,11 @@
                         <h5 class="card-title">Confidence Item Set 2</h5>
                     </div>
                     <div class="card-body">
+                        <div class="callout callout-warning mx-2 d-none" id="alert-confTwo">
+                            <h5>Not Enough Data</h5>
+                            <p>Sorry, the data needed is not enough.</p>
+                        </div>
+
                         <table class="table table-striped table-hover table-bordered" id="confTwo">
                             <thead>
                                 <tr>
@@ -159,6 +182,47 @@
                                 </tr>
                             </thead>
                         </table>
+
+                        <div class="alert alert-info mt-2 mx-2 d-none" id="cm_confTwo">{{-- Confusion Matrix for Two Item Set Confidence --}}
+                            <h5><i class="icon fa fa-info"></i> Confusion Matrix Calculation</h5>
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Didn't find your Store? Add it first with blue + Button"></i> Accuracy</span>
+                                        </div>
+                                        <input type="number" id="cm_confTwo-accuracy" class="form-control bg-white" readonly>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text px-2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Didn't find your Store? Add it first with blue + Button"></i> Recall</span>
+                                        </div>
+                                        <input type="number" id="cm_confTwo-recall" class="form-control bg-white" readonly>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text px-2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" data-original-title="Didn't find your Store? Add it first with blue + Button"></i> Precision</span>
+                                        </div>
+                                        <input type="number" id="cm_confTwo-precision" class="form-control bg-white" readonly>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text px-2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>{{-- /.Confusion Matrix for Two Item Set Confidence --}}
                     </div>
                 </div>
             </div>{{-- /.Confidence --}}
@@ -168,6 +232,11 @@
                         <h5 class="card-title">Confidence Item Set 3</h5>
                     </div>
                     <div class="card-body">
+                        <div class="callout callout-warning mx-2 d-none" id="alert-confThree">
+                            <h5>Not Enough Data</h5>
+                            <p>Sorry, the data needed is not enough.</p>
+                        </div>
+
                         <table class="table table-striped table-hover table-bordered" id="confThree">
                             <thead>
                                 <tr>
@@ -179,6 +248,47 @@
                                 </tr>
                             </thead>
                         </table>
+
+                        <div class="alert alert-info mt-2 mx-2 d-none" id="cm_confThree">{{-- Confusion Matrix for Three Item Set Confidence --}}
+                            <h5><i class="icon fa fa-info"></i> Confusion Matrix Calculation</h5>
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Didn't find your Store? Add it first with blue + Button"></i> Accuracy</span>
+                                        </div>
+                                        <input type="number" id="cm_confThree-accuracy" class="form-control bg-white" readonly>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text px-2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Didn't find your Store? Add it first with blue + Button"></i> Recall</span>
+                                        </div>
+                                        <input type="number" id="cm_confThree-recall" class="form-control bg-white" readonly>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text px-2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" data-original-title="Didn't find your Store? Add it first with blue + Button"></i> Precision</span>
+                                        </div>
+                                        <input type="number" id="cm_confThree-precision" class="form-control bg-white" readonly>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text px-2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>{{-- /.Confusion Matrix for Three Item Set Confidence --}}
                     </div>
                 </div>
             </div>{{-- /.Confidence --}}
@@ -205,15 +315,15 @@
         $('#input-tanggal_mulai').datetimepicker({
             useCurrent: false,
             format: 'YYYY-MM-DD HH:mm',
-            defaultDate: '{{ date("Y-12-1 00:00:00") }}',
-            maxDate : '{{ date("Y-m-d H:i:00") }}'
+            defaultDate: moment('{{ date("Y-m-1 00:00:00") }}', 'YYYY-MM-DD HH:mm'),
+            maxDate : moment('{{ date("Y-m-d H:i:00") }}', 'YYYY-MM-DD HH:mm')
         });
         $('#input-tanggal_akhir').datetimepicker({
             useCurrent: false,
             format: 'YYYY-MM-DD HH:mm',
-            defaultDate: '{{ date("Y-12-d H:i:00") }}',
-            minDate : '{{ date("Y-12-1 H:i:00") }}',
-            maxDate : '{{ date("Y-m-d H:i:00") }}'
+            defaultDate: moment('{{ date("Y-m-d H:i:s") }}', 'YYYY-MM-DD HH:mm'),
+            minDate : moment('{{ date("Y-m-1 00:00:00") }}', 'YYYY-MM-DD HH:mm'),
+            maxDate : moment('{{ date("Y-m-d H:i:s") }}', 'YYYY-MM-DD HH:mm')
         });
 
         var tSatu = $("#itemsetSatu").DataTable({
@@ -223,10 +333,32 @@
             ajax: {
                 method: "POST",
                 data: function(d){
-                    d.tanggal_mulai = document.getElementById("input-tanggal_mulai").value,
-                    d.tanggal_akhir = document.getElementById("input-tanggal_akhir").value
+                    var tgl_mulai = $("#input-tanggal_mulai").val();
+                    var tgl_akhir = $("#input-tanggal_akhir").val();
+                    var reqData = { tanggal_mulai: tgl_mulai, tanggal_akhir: tgl_akhir };
+                    return reqData;
                 },
                 url: "{{ url('penjualan/apriori') }}",
+            },
+            drawCallback: function(settings) {
+                $.ajax({
+                    method: "POST",
+                    data: {
+                        'tanggal_mulai': $("#input-tanggal_mulai").val(),
+                        'tanggal_akhir': $("#input-tanggal_akhir").val(),
+                    },
+                    url: "{{ url('penjualan/apriori') }}",
+                    cache: false,
+                    success: function(result){
+                        //console.log(result);
+                        if(result.recordsTotal == 0){
+                            $("#alert-itemsetSatu").slideDown(function(){
+                                $(this).removeClass('d-none');
+                                $(this).addClass('d-block');
+                            });
+                        }
+                    }
+                });
             },
             columns: [
                 { data: null },
@@ -267,8 +399,7 @@
 
                 var minsupport = parseFloat($("#input-min_support").val());
 
-                console.log("Total Item Set 1 : "+total);
-
+                //console.log("Total Item Set 1 : "+total);
 
                 if(support >= minsupport){
                     $(row).addClass('bg-success');
@@ -288,11 +419,34 @@
             ajax: {
                 method: "POST",
                 data: function(d){
-                    d.min_support = document.getElementById("input-min_support").value,
-                    d.tanggal_mulai = document.getElementById("input-tanggal_mulai").value,
-                    d.tanggal_akhir = document.getElementById("input-tanggal_akhir").value
+                    var tgl_mulai = $("#input-tanggal_mulai").val();
+                    var tgl_akhir = $("#input-tanggal_akhir").val();
+                    var min_supp = $("#input-min_support").val();
+                    var reqData = { tanggal_mulai: tgl_mulai, tanggal_akhir: tgl_akhir, min_support: min_supp };
+                    return reqData;
                 },
                 url: "{{ url('penjualan/apriori/dua') }}",
+            },
+            drawCallback: function(settings) {
+                $.ajax({
+                    method: "POST",
+                    data: {
+                        'tanggal_mulai': $("#input-tanggal_mulai").val(),
+                        'tanggal_akhir': $("#input-tanggal_akhir").val(),
+                        'min_support': $("#input-min_support").val(),
+                    },
+                    url: "{{ url('penjualan/apriori/dua') }}",
+                    cache: false,
+                    success: function(result){
+                        //console.log(result);
+                        if(result.recordsTotal == 0){
+                            $("#alert-itemsetDua").slideDown(function(){
+                                $(this).removeClass('d-none');
+                                $(this).addClass('d-block');
+                            });
+                        }
+                    }
+                });
             },
             columns: [
                 { data: null },
@@ -314,9 +468,8 @@
 
                         var support = Math.round(jumlah * 100)/total;
 
-                        console.log("Total Item Set 2 : "+total);
-
-                        console.log("Jumlah : "+jumlah);
+                        //console.log("Total Item Set 2 : "+total);
+                        //console.log("Jumlah : "+jumlah);
                         return support.toFixed(2)+"%";
                     }
                 },
@@ -356,11 +509,34 @@
             ajax: {
                 method: "POST",
                 data: function(d){
-                    d.min_support = document.getElementById("input-min_support").value,
-                    d.tanggal_mulai = document.getElementById("input-tanggal_mulai").value,
-                    d.tanggal_akhir = document.getElementById("input-tanggal_akhir").value
+                    var tgl_mulai = $("#input-tanggal_mulai").val();
+                    var tgl_akhir = $("#input-tanggal_akhir").val();
+                    var min_supp = $("#input-min_support").val();
+                    var reqData = { tanggal_mulai: tgl_mulai, tanggal_akhir: tgl_akhir, min_support: min_supp };
+                    return reqData;
                 },
                 url: "{{ url('penjualan/apriori/tiga') }}",
+            },
+            drawCallback: function(settings) {
+                $.ajax({
+                    method: "POST",
+                    data: {
+                        'tanggal_mulai': $("#input-tanggal_mulai").val(),
+                        'tanggal_akhir': $("#input-tanggal_akhir").val(),
+                        'min_support': $("#input-min_support").val(),
+                    },
+                    url: "{{ url('penjualan/apriori/tiga') }}",
+                    cache: false,
+                    success: function(result){
+                        //console.log(result);
+                        if(result.recordsTotal == 0){
+                            $("#alert-itemsetTiga").slideDown(function(){
+                                $(this).removeClass('d-none');
+                                $(this).addClass('d-block');
+                            });
+                        }
+                    }
+                });
             },
             columns: [
                 { data: null },
@@ -421,12 +597,63 @@
             ajax: {
                 method: "POST",
                 data: function(d){
-                    d.tanggal_mulai = document.getElementById("input-tanggal_mulai").value,
-                    d.tanggal_akhir = document.getElementById("input-tanggal_akhir").value,
-                    d.min_support = document.getElementById("input-min_support").value,
-                    d.min_conf = document.getElementById("input-min_confidence").value
+                    var tgl_mulai = $("#input-tanggal_mulai").val();
+                    var tgl_akhir = $("#input-tanggal_akhir").val();
+                    var min_supp = $("#input-min_support").val();
+                    var min_confidence = $("#input-min_confidence").val();
+                    var reqData = { tanggal_mulai: tgl_mulai, tanggal_akhir: tgl_akhir, min_support: min_supp, min_conf: min_confidence };
+                    return reqData;
                 },
-                url: "{{ url('penjualan/apriori/conf/dua') }}",
+                url: "{{ url('penjualan/apriori/conf_dua') }}",
+            },
+            drawCallback: function(settings) {
+                $.ajax({
+                    method: "POST",
+                    data: {
+                        'tanggal_mulai': $("#input-tanggal_mulai").val(),
+                        'tanggal_akhir': $("#input-tanggal_akhir").val(),
+                        'min_support': $("#input-min_support").val(),
+                        'min_conf': $("#input-min_confidence").val()
+                    },
+                    url: "{{ url('penjualan/apriori/conf_dua') }}",
+                    cache: false,
+                    success: function(result){
+                        //console.log(result);
+                        if(result.recordsTotal == 0){
+                            $("#alert-confTwo").slideDown(function(){
+                                $(this).removeClass('d-none');
+                                $(this).addClass('d-block');
+                            });
+
+                            $("#cm_confTwo").slideDown(function(){
+                                $(this).removeClass('d-block');
+                                $(this).addClass('d-none');
+                            });
+                            $("#cm_confTwo-accuracy").val(0);
+                            $("#cm_confTwo-recall").val(0);
+                            $("#cm_confTwo-precision").val(0);
+                        } else {
+                            $("#cm_confTwo").slideDown(function(){
+                                $(this).removeClass('d-none');
+                                $(this).addClass('d-block');
+                            });
+
+                            var accuracy = ((result.TP + result.TN)/(result.TP + result.TN + result.FP + result.FN)) * 100;
+                            var recall = (result.TP/(result.TP + result.FN)) * 100;
+                            var precision = (result.TP/(result.TP + result.FP)) * 100;
+
+                            if(isNaN(recall)){
+                                if(result.TP == 0){
+                                    recall = 0;
+                                }
+                            }
+
+                            $("#cm_confTwo-accuracy").val(accuracy.toFixed(2));
+                            $("#cm_confTwo-recall").val(recall.toFixed(2));
+                            $("#cm_confTwo-precision").val(precision.toFixed(2));
+                        }
+                    }
+                });
             },
             columns: [
                 { data: null },
@@ -443,20 +670,17 @@
                 }, {
                     targets: [2],
                     render: function(data, type, row) {
-
-                        return data.support_xuy+"%";
+                        return parseFloat(data.support_xuy).toFixed(2)+"%";
                     }
                 }, {
                     targets: [3],
                     render: function(data, type, row) {
-
-                        return data.support_x+"%";
+                        return parseFloat(data.support_x).toFixed(2)+"%";
                     }
                 }, {
                     targets: [4],
                     render: function(data, type, row) {
-
-                        return data.conf+"%";
+                        return parseFloat(data.conf).toFixed(2)+"%";
                     }
                 },
             ],
@@ -499,12 +723,67 @@
             ajax: {
                 method: "POST",
                 data: function(d){
-                    d.tanggal_mulai = document.getElementById("input-tanggal_mulai").value,
-                    d.tanggal_akhir = document.getElementById("input-tanggal_akhir").value,
-                    d.min_support = document.getElementById("input-min_support").value,
-                    d.min_conf = document.getElementById("input-min_confidence").value
+                    var tgl_mulai = $("#input-tanggal_mulai").val();
+                    var tgl_akhir = $("#input-tanggal_akhir").val();
+                    var min_supp = $("#input-min_support").val();
+                    var min_confidence = $("#input-min_confidence").val();
+                    var reqData = { tanggal_mulai: tgl_mulai, tanggal_akhir: tgl_akhir, min_support: min_supp, min_conf: min_confidence };
+                    return reqData;
                 },
-                url: "{{ url('penjualan/apriori/conf/tiga') }}",
+                url: "{{ url('penjualan/apriori/conf_tiga') }}",
+            },
+            drawCallback: function(settings) {
+                $.ajax({
+                    method: "POST",
+                    data: {
+                        'tanggal_mulai': $("#input-tanggal_mulai").val(),
+                        'tanggal_akhir': $("#input-tanggal_akhir").val(),
+                        'min_support': $("#input-min_support").val(),
+                        'min_conf': $("#input-min_confidence").val()
+                    },
+                    url: "{{ url('penjualan/apriori/conf_tiga') }}",
+                    cache: false,
+                    success: function(result){
+                        //console.log(result);
+                        if(result.recordsTotal == 0){
+                            $("#alert-confThree").slideDown(function(){
+                                $(this).removeClass('d-none');
+                                $(this).addClass('d-block');
+                            });
+
+                            $("#cm_confThree").slideDown(function(){
+                                $(this).removeClass('d-block');
+                                $(this).addClass('d-none');
+                            });
+                            $("#cm_confThree-accuracy").val(0);
+                            $("#cm_confThree-recall").val(0);
+                            $("#cm_confThree-precision").val(0);
+                        }else {
+                            $("#cm_confThree").slideDown(function(){
+                                $(this).removeClass('d-none');
+                                $(this).addClass('d-block');
+                            });
+
+                            var accuracy = ((result.TP + result.TN)/(result.TP + result.TN + result.FP + result.FN)) * 100;
+                            var recall = (result.TP/(result.TP + result.FN)) * 100;
+                            var precision = (result.TP/(result.TP + result.FP)) * 100;
+
+                            if(isNaN(recall)){
+                                if(result.TP == 0){
+                                    recall = 0;
+                                }
+                            }
+
+                            console.log("Akurasi : "+accuracy);
+                            console.log("Recall : "+recall);
+                            console.log("Presisi : "+precision);
+
+                            $("#cm_confThree-accuracy").val(parseFloat(accuracy).toFixed(2));
+                            $("#cm_confThree-recall").val(parseFloat(recall).toFixed(2));
+                            $("#cm_confThree-precision").val(parseFloat(precision).toFixed(2));
+                        }
+                    }
+                });
             },
             columns: [
                 { data: null },
@@ -521,20 +800,17 @@
                 }, {
                     targets: [2],
                     render: function(data, type, row) {
-
-                        return data.support_xuy+"%";
+                        return parseFloat(data.support_xuy).toFixed(2)+"%";
                     }
                 }, {
                     targets: [3],
                     render: function(data, type, row) {
-
-                        return data.support_x+"%";
+                        return parseFloat(data.support_x).toFixed(2)+"%";
                     }
                 }, {
                     targets: [4],
                     render: function(data, type, row) {
-
-                        return data.conf+"%";
+                        return parseFloat(data.conf).toFixed(2)+"%";
                     }
                 },
             ],
@@ -573,7 +849,7 @@
         //Linked 2 datetimepicker
         $("#input-tanggal_mulai").on("change.datetimepicker", function (e) {
             $('#input-tanggal_akhir').datetimepicker('minDate', e.date);
-            tSatu.ajax.reload();
+            $("#itemsetSatu").DataTable().ajax.reload();
             tDua.ajax.reload();
             tTiga.ajax.reload();
             tConf.ajax.reload();
@@ -588,19 +864,96 @@
             tConfThree.ajax.reload();
         });
 
-        //Linked to Min Support
         $("#input-min_support").on('change', function(e){
-            //console.log("Min Support Change to : "+$(this).val());
+            if(($("#input-min_confidence").val() != $("#old_input-min_confidence").val()) || ($("#input-min_support").val() != $("#old_input-min_support").val())){
+                $("#btn-save").prop('disabled', false);
+            } else {
+                $("#btn-save").prop('disabled', true);
+            }
+        });
+        $("#input-min_confidence").on('change', function(e){
+            if(($("#input-min_confidence").val() != $("#old_input-min_confidence").val()) || ($("#input-min_support").val() != $("#old_input-min_support").val())){
+                $("#btn-save").prop('disabled', false);
+            } else {
+                $("#btn-save").prop('disabled', true);
+            }
+        });
+        //On Form Submit
+        $("#aprioriForm").submit(function(e){
+            e.preventDefault();
             tSatu.ajax.reload();
             tDua.ajax.reload();
             tTiga.ajax.reload();
             tConf.ajax.reload();
             tConfThree.ajax.reload();
         });
+        $("#btn-save").click(function(){
+            var formMethod = "PUT";
+            var url_link = "{{ url('/staff/analisa/apriori').'/1' }}";
 
-        //Linked to Min Confidence
-        $("#input-min_confidence").on('change', function(e){
-            //console.log("Min Confidence Change to : "+$(this).val());
+            $.ajax({
+                method: formMethod,
+                url: url_link,
+                data: $("#aprioriForm").serialize(),
+                cache: false,
+                success: function(result){
+                    //console.log(result);
+                    $("#old_input-min_support").val(result.old_support);
+                    $("#old_input-min_confidence").val(result.old_confidence);
+                    $("#btn-save").prop('disabled', true);
+                    //Show alert
+                    topright_notify(result.message);
+
+                    tSatu.ajax.reload();
+                    tDua.ajax.reload();
+                    tTiga.ajax.reload();
+                    tConf.ajax.reload();
+                    tConfThree.ajax.reload();
+                },
+                error: function( jqXHR, textStatus, errorThrown ) {
+                    console.log(jqXHR);
+                }
+            });
+        });
+        $("#btn-default").click(function(e){
+            var formMethod = "delete";
+            var url_link = "{{ url('/staff/analisa/apriori').'/1' }}";
+
+            $.ajax({
+                method: formMethod,
+                url: url_link,
+                data: $("#aprioriForm").serialize(),
+                cache: false,
+                success: function(result){
+                    //console.log(result);
+                    $("#input-min_support").val(result.old_support);
+                    $("#old_input-min_support").val(result.old_support);
+                    $("#input-min_confidence").val(result.old_confidence);
+                    $("#old_input-min_confidence").val(result.old_confidence);
+                    $("#btn-save").prop('disabled', true);
+                    //Show alert
+                    topright_notify(result.message);
+
+                    tSatu.ajax.reload();
+                    tDua.ajax.reload();
+                    tTiga.ajax.reload();
+                    tConf.ajax.reload();
+                    tConfThree.ajax.reload();
+                },
+                error: function( jqXHR, textStatus, errorThrown ) {
+                    console.log(jqXHR);
+                }
+            });
+        });
+        $("#btn-reset").click(function(e){
+            e.preventDefault();
+
+            $("#input-min_support").val('{{ $apriori->min_support }}');
+            $("#input-min_confidence").val('{{ $apriori->min_confidence }}');
+
+            tSatu.ajax.reload();
+            tDua.ajax.reload();
+            tTiga.ajax.reload();
             tConf.ajax.reload();
             tConfThree.ajax.reload();
         });

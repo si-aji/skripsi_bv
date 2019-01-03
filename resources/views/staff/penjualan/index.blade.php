@@ -124,15 +124,15 @@
     $('#input-tanggal_mulai').datetimepicker({
         useCurrent: false,
         format: 'YYYY-MM-DD HH:mm',
-        defaultDate: '{{ date("Y-m-1 00:00:00") }}',
-        maxDate : '{{ date("Y-m-d H:i:00") }}'
+        defaultDate: moment('{{ date("Y-m-1 00:00:00") }}', 'YYYY-MM-DD HH:mm'),
+        maxDate : moment('{{ date("Y-m-d H:i:s") }}', 'YYYY-MM-DD HH:mm')
     });
     $('#input-tanggal_akhir').datetimepicker({
         useCurrent: false,
         format: 'YYYY-MM-DD HH:mm',
-        defaultDate: '{{ date("Y-m-d H:i:00") }}',
-        minDate : '{{ date("Y-m-1 H:i:00") }}',
-        maxDate : '{{ date("Y-m-d H:i:00") }}'
+        defaultDate: moment('{{ date("Y-m-d H:i:s") }}', 'YYYY-MM-DD HH:mm'),
+        minDate : moment('{{ date("Y-m-1 00:00:00") }}', 'YYYY-MM-DD HH:mm'),
+        maxDate : moment('{{ date("Y-m-d H:i:s") }}', 'YYYY-MM-DD HH:mm')
     });
 
     var tpenjualan = $("#penjualanTable").DataTable({

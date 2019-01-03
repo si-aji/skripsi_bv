@@ -118,6 +118,7 @@
             },
             error: function( jqXHR, textStatus, errorThrown ) {
                 //console.log(jqXHR);
+                $("#input-password").val('');
 
                 //Print All Error text
                 $.each(jqXHR.responseJSON.errors, function(key, result) {

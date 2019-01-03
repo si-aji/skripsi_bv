@@ -1,12 +1,18 @@
 -------------------------------------------------------------------------------------
+- 2 Jan 2019 (v.0.14.2)
+```
+- Optimize Matrix Confusion for "divided by zero" error
+- Optimize Apriori Algorith to check required data before processing it (If it less than the require, return error message)
+- Optimize Datetimepicker format to moment.js (Because traditional format is deprecated)
+```
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
 - 20 Des 2018 (v.0.14.1)
 ```
 [Develop]
 - Make small change on Confusion Matrix
 - Add button to run an action (didn't complete yet)
-
-[Skripsi]
-- Make new Branch for Skripsi
 ```
 -------------------------------------------------------------------------------------
 
