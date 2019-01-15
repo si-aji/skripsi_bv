@@ -58,6 +58,11 @@
 	height: 5px !important;
 }
 
+/* Index */
+.brand_image img {
+    width: 100%;
+}
+
 /* Invoice Table */
 .nominalSub {
     background: #6c757d !important;
