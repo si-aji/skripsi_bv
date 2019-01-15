@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use DB;
 
@@ -21,7 +22,7 @@ class AprioriController extends Controller
      */
     public function index()
     {
-        $apriori = Apriori::firstOrFail();
+        $apriori = Apriori::first();
         return view('staff.analisa.apriori.apriori', compact('apriori'));
     }
 
@@ -40,6 +41,31 @@ class AprioriController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $apriori = Apriori::create([
+            'id' => 1,
+            'min_support' => $request->min_support,
+            'min_confidence' => $request->min_confidence
+        ]);
+
+        $message = [
+            'status' => 'success',
+            'message' => 'Apriori settings successfully stored!',
+            'old_support' => $request->min_support,
+            'old_confidence' => $request->min_confidence,
+            'response' => $apriori,
+        ];
+        return response()->json($message);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -49,19 +75,26 @@ class AprioriController extends Controller
     public function update(Request $request, $id)
     {
         $this->validator($request->all())->validate();
+        
+        try{
+            $apriori = Apriori::findOrFail($id); 
+            
+            $apriori->min_support = $request->min_support;
+            $apriori->min_confidence = $request->min_confidence;
 
-        $apriori = Apriori::findOrFail($id);
-        $apriori->min_support = $request->min_support;
-        $apriori->min_confidence = $request->min_confidence;
+            $message = [
+                'status' => 'success',
+                'message' => 'Apriori settings successfully updated!',
+                'old_support' => $request->min_support,
+                'old_confidence' => $request->min_confidence,
+                'response' => $apriori->save(),
+            ];
+            return response()->json($message);
+        } catch(ModelNotFoundException $e){
+            return $this->store($request);
+        }
 
-        $message = [
-            'status' => 'success',
-            'message' => 'Apriori settings successfully updated!',
-            'old_support' => $request->min_support,
-            'old_confidence' => $request->min_confidence,
-            'response' => $apriori->save(),
-        ];
-        return response()->json($message);
+        
     }
 
     /**

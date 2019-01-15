@@ -1,4 +1,13 @@
 -------------------------------------------------------------------------------------
+- 15 Jan 2019 (v.0.16.0)
+```
+- Fix user traits, so cloned file from github didn't need change trait if user want to login using username instead email
+- Fix Apriori setting (when Apriori table is empty, instead update AprioriController will store new data)
+- Fix Apriori setting value on View (when Apriori table is empty, show default value)
+```
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
 - 3 Jan 2019 (v.0.15.0)
 ```
 - Change dashboard view from router to Controller

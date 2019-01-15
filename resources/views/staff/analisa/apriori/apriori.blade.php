@@ -18,6 +18,18 @@
     </ol>
 @endsection{{-- Content Header --}}
 
+@if($apriori)
+    @php
+        $min_support = $apriori->min_support;
+        $min_confidence = $apriori->min_confidence;
+    @endphp
+@else
+    @php
+        $min_support = 50;
+        $min_confidence = 70;
+    @endphp
+@endif
+
 @section('staff_content')
 <div class="card">
     <div class="card-header no-border">
@@ -45,8 +57,8 @@
                     <div class="form-group">
                         <label for="input-tanggal_akhir">Min. Support</label>
                         <div class="input-group">
-                            <input type="number" name="min_support" class="form-control" value="{{ $apriori->min_support }}" min="0" id="input-min_support">
-                            <input type="hidden" name="old-min_support" class="form-control" value="{{ $apriori->min_support }}" min="0" id="old_input-min_support">
+                            <input type="number" name="min_support" class="form-control" value="{{ $min_support }}" min="0" id="input-min_support">
+                            <input type="hidden" name="old-min_support" class="form-control" value="{{ $min_support }}" min="0" id="old_input-min_support">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     %
@@ -60,8 +72,8 @@
                     <div class="form-group">
                         <label for="input-tanggal_akhir">Min. Confidence</label>
                         <div class="input-group">
-                            <input type="number" name="min_confidence" class="form-control" value="{{ $apriori->min_confidence }}" min="0" id="input-min_confidence">
-                            <input type="hidden" name="old-min_confidence" class="form-control" value="{{ $apriori->min_confidence }}" id="old_input-min_confidence">
+                            <input type="number" name="min_confidence" class="form-control" value="{{ $min_confidence }}" min="0" id="input-min_confidence">
+                            <input type="hidden" name="old-min_confidence" class="form-control" value="{{ $min_confidence }}" id="old_input-min_confidence">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     %
@@ -948,8 +960,8 @@
         $("#btn-reset").click(function(e){
             e.preventDefault();
 
-            $("#input-min_support").val('{{ $apriori->min_support }}');
-            $("#input-min_confidence").val('{{ $apriori->min_confidence }}');
+            $("#input-min_support").val('{{ $min_support }}');
+            $("#input-min_confidence").val('{{ $min_confidence }}');
 
             tSatu.ajax.reload();
             tDua.ajax.reload();

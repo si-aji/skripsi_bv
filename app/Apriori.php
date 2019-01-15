@@ -9,6 +9,6 @@ class Apriori extends Model
     protected $table = 'tbl_apriori';
 
     protected $fillable = [
-        "min_support", "min_confidence"
+        "id", "min_support", "min_confidence"
     ];
 }
