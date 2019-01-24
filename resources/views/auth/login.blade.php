@@ -49,7 +49,7 @@
                 </div>{{-- /.Button  --}}
 
                 <p class="text-center mb-1 mt-2"><small><a href="{{ url('/password/reset') }}">Forgot your password?</a></small></p>
-                <p class="text-center mb-0 mt-2">Didnt have an Account yet? <a href="{{ url('/register') }}">Register first!</a></p>
+                {{--  <p class="text-center mb-0 mt-2">Didnt have an Account yet? <a href="{{ url('/register') }}">Register first!</a></p>  --}}
             </form>
         </div>
     </div>{{-- /.Register Card --}}

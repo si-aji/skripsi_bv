@@ -187,6 +187,7 @@ class PaketController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $harga_jual = 0;
         $exists = array();
         $isChanged = array();
 
@@ -226,10 +227,13 @@ class PaketController extends Controller
                     ]);
                     $isChanged[] = (bool) $storePaketItem;
                 }
+
+                $harga_jual += $request->harga_item[$item];
             }
 
             if(in_array(true, $isChanged)){
                 $paket = Paket::findOrFail($id);
+                $paket->paket_harga = $harga_jual;
                 $paket->updated_at = now();
                 $paket->save();
 

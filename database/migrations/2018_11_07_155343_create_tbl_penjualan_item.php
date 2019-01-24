@@ -17,7 +17,6 @@ class CreateTblPenjualanItem extends Migration
             $table->increments('id');
             $table->integer('penjualan_id')->unsigned(); //Relation dengan tbl_penjualan (id)
             $table->integer('barang_id')->unsigned(); //Relation dengan tbl_barang (id)
-            $table->integer('paket_id')->unsigned()->nullable(); //Relation dengan tbl_paket (id)
             $table->integer('harga_beli');
             $table->integer('harga_jual');
             $table->integer('jual_qty');

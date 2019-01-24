@@ -106,19 +106,8 @@
                                 $subtotal = ($item->harga_jual * $item->jual_qty) - $item->diskon;
                                 $total = $total + $subtotal;
                             @endphp
-
-                            @if($item->paket_id != null)
-                            {{--  Paket  --}}
-                            @php
-                                $paket = "[".$item->paket->paket_nama."] ";
-                            @endphp
-                            @else
-                            @php
-                                $paket = "";
-                            @endphp
-                            @endif
                         <tr>
-                            <td>{{ $paket.$item->barang->barang_nama }}</td>
+                            <td>{{ $item->barang->barang_nama }}</td>
                             <td>{{ idr_currency($item->harga_jual) }}</td>
                             <td>{{ $item->jual_qty }}</td>
                             <td>{{ idr_currency($item->diskon) }}</td>

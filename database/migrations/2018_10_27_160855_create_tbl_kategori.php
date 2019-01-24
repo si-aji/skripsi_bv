@@ -17,7 +17,6 @@ class CreateTblKategori extends Migration
             $table->increments('id');
             $table->string('kategori_kode', 10)->unique();
             $table->string('kategori_nama');
-            $table->string('kategori_slug');
             $table->timestamps();
         });
     }

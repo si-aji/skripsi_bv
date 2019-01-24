@@ -75,7 +75,6 @@
                                 <th class="all">Nama</th>
                                 <th class="all">Username</th>
                                 <th class="desktop">Email</th>
-                                <th class="desktop">Level</th>
                                 <th class="desktop">Status</th>
                                 <th class="desktop">Aksi</th>
                             </tr>
@@ -88,7 +87,6 @@
                                 <button class="btn btn-sm btn-warning text-white"><i class="fa fa-edit"></i> Edit User Data</button>
                                 <button class="btn btn-sm btn-danger text-white"><i class="fa fa-ban"></i> Disable User</button>
                                 <button class="btn btn-sm btn-primary text-white"><i class="fa fa-check"></i> Activate User</button>
-                                <button class="btn btn-sm btn-info text-white"><i class="fa fa-arrow-up"></i>/<i class="fa fa-arrow-down"></i> Change User Level</button>
                                 <button class="btn btn-sm btn-warning text-white"><i class="fa fa-refresh"></i> Change User Password to default</button>
                             </div>
                         </div>
@@ -102,7 +100,7 @@
 {{--  Require Js for this page  --}}
 @section('plugins_js')
     <script src="{{ asset('plugins/dataTables/datatables.js') }}"></script>
-    <script src="{{ asset('plugins/dataTables/Responsive-2.2.1/js/datatables.responsive.js') }}"></script>
+    <script src="{{ asset('plugins/dataTables/Responsive-2.2.1/js/dataTables.responsive.js') }}"></script>
 @endsection
 
 @section('inline_js')
@@ -125,7 +123,6 @@
             { data: 'name' },
             { data: 'username' },
             { data: null },
-            { data: 'level' },
             { data: 'status' },
             { data: null },
         ],
@@ -152,14 +149,13 @@
                     }
                 }
             }, {
-                targets: [6],
+                targets: [5],
                 render: function(data, type, row) {
                     var id = "'"+data.id+"'";
                     var name = "'"+data.name+"'";
                     var username = "'"+data.username+"'";
-                    var level = data.level;
                     var status = data.status;
-                    return generateButton(id, name, username, level, status);
+                    return generateButton(id, name, username, status);
                 }
             }
         ],
@@ -178,26 +174,18 @@
             cell.innerHTML = i+1;
         });
     }).draw();
-    function generateButton(id, name, username, level, status){
+    function generateButton(id, name, username, status){
         var edit = '<a class="btn btn-warning text-white" onclick="formUpdate('+id+','+name+','+username+')"></i><i class="fa fa-edit"></i></a>';
         if(status == "Aktif"){
             var hapus = '<a class="btn btn-danger text-white" onclick="formDelete('+id+')"><i class="fa fa-ban"></i></a>';
-            if(level == "Admin"){
-                var permintaan = "'downgrade'";
-                var ubahLevel = '<a class="btn btn-info text-white" onclick="formLevel('+id+', '+permintaan+')"><i class="fa fa-arrow-down"></i></a>';
-            } else {
-                var permintaan = "'upgrade'";
-                var ubahLevel = '<a class="btn btn-info text-white" onclick="formLevel('+id+', '+permintaan+')"><i class="fa fa-arrow-up"></i></a>';
-            }
             var resetPass = '<a class="btn btn-warning text-white" onclick="formResetPass('+id+')"><i class="fa fa-refresh"></i></a>';
         } else {
             var hapus = '<a class="btn btn-primary text-white" onclick="formActive('+id+')"><i class="fa fa-check"></i></a>';
-            var ubahLevel = "";
             var resetPass = "";
 
         }
 
-        return "<div class='btn-group'>"+edit+hapus+ubahLevel+resetPass+"</div>";
+        return "<div class='btn-group'>"+edit+hapus+resetPass+"</div>";
     }
 
     $("#karyawanForm").submit(function(e){ //Prevent default Action for Form

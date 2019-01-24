@@ -83,8 +83,7 @@ class KategoriController extends Controller
 
         $store = Kategori::create([
             'kategori_kode' => $request->kategori_kode,
-            'kategori_nama' => $request->kategori_nama,
-            'kategori_slug' => str_slug($request->kategori_nama, '-')
+            'kategori_nama' => $request->kategori_nama
         ]);
         $message = [
             "status" => "success",
@@ -130,7 +129,6 @@ class KategoriController extends Controller
         $kategori = Kategori::findOrFail($id);
         $kategori->kategori_kode = $request->kategori_kode;
         $kategori->kategori_nama = $request->kategori_nama;
-        $kategori->kategori_slug = str_slug($request->kategori_nama, '-');
 
         $message = [
             'status' => 'success',

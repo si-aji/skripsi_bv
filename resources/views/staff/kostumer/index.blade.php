@@ -81,7 +81,7 @@
 {{--  Require Js for this page  --}}
 @section('plugins_js')
     <script src="{{ asset('plugins/dataTables/datatables.js') }}"></script>
-    <script src="{{ asset('plugins/dataTables/Responsive-2.2.1/js/datatables.responsive.js') }}"></script>
+    <script src="{{ asset('plugins/dataTables/Responsive-2.2.1/js/dataTables.responsive.js') }}"></script>
 @endsection
 
 @section('inline_js')

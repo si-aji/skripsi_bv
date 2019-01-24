@@ -9,7 +9,7 @@ class Kategori extends Model
     protected $table = 'tbl_kategori';
 
     protected $fillable = [
-        "kategori_kode", "kategori_nama", "kategori_slug"
+        "kategori_kode", "kategori_nama"
     ];
 
     //Set relation with Barang

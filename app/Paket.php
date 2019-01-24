@@ -16,8 +16,4 @@ class Paket extends Model
     public function paketItem(){
         return $this->hasMany('App\PaketItem', 'paket_id');
     }
-    //Set relation with PenjualanItem
-    public function penjualanItem(){
-        return $this->hasMany('App\PenjualanItem', 'penjualan_id');
-    }
 }

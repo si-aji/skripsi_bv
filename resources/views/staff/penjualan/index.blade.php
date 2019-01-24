@@ -21,7 +21,10 @@
 @section('staff_content')
 <div class="card">
     <div class="card-header no-border">
-        <h3 class="card-title"><i class="fa fa-money"></i> <span id="span_title">List Penjualan</span></h3>
+        <h3 class="card-title">
+            <i class="fa fa-money"></i> <span id="span_title">List Penjualan</span>
+            <a class="btn btn-primary btn-sm text-white float-right" href="{{ url('staff/penjualan/create') }}"><i class="fa fa-plus"></i> Tambah</a>
+        </h3>
     </div>
     <div class="card-body">
         <div class="card">

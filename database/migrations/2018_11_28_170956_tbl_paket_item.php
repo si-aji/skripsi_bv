@@ -48,10 +48,6 @@ class TblPaketItem extends Migration
     {
         //Drop foreign
         Schema::table('tbl_paket_item', function(Blueprint $table){
-            $table->dropForeign('tbl_paket_item_paket_id_foreign');
-        });
-        //Drop foreign
-        Schema::table('tbl_paket_item', function(Blueprint $table){
             $table->dropForeign('tbl_paket_item_barang_id_foreign');
         });
         Schema::dropIfExists('tbl_paket_item');

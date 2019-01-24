@@ -518,7 +518,7 @@
                 console.log(result);
 
                 if(result.error != false){
-                    showError(result.error);
+                    showError(result);
                 } else {
                     //Transaksi Berhasil
                     showSuccess_redirect(result.message, result.invoice);

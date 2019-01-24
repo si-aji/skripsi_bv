@@ -212,14 +212,6 @@ class UserController extends Controller
         } else {
             if($request->permintaan == "reset"){
                 $user->password = Hash::make("bakulvisor");
-            } else {
-                if($request->permintaan == "upgrade"){
-                    $user->level = "Admin";
-                } else if($request->permintaan == "downgrade"){
-                    $user->level = "Karyawan";
-                } else {
-                    $user->status = "Aktif";
-                }
             }
         }
 

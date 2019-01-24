@@ -77,7 +77,7 @@ class LoginController extends Controller
 
     /**
      * Get the needed authorization credentials from the request
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @return array
      */
@@ -91,7 +91,7 @@ class LoginController extends Controller
 
     /**
      * Determine if the request field is email or username
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @return string
      */
@@ -102,7 +102,7 @@ class LoginController extends Controller
 
     /**
      * Get the login username to be used by controller
-     * 
+     *
      * @return string
      */
     public function username(){
@@ -121,11 +121,20 @@ class LoginController extends Controller
     }
 
     /**
-     * Where to redirect users after login.
+     * Log the user out of the application.
      *
-     * @var string
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    //protected $redirectTo = '/home';
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        //return $this->loggedOut($request) ?: redirect('/');
+        return response()->json("Successfully logged out!");
+    }
 
     /**
      * Create a new controller instance.

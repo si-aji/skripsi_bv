@@ -75,10 +75,10 @@ class AprioriController extends Controller
     public function update(Request $request, $id)
     {
         $this->validator($request->all())->validate();
-        
+
         try{
-            $apriori = Apriori::findOrFail($id); 
-            
+            $apriori = Apriori::findOrFail($id);
+
             $apriori->min_support = $request->min_support;
             $apriori->min_confidence = $request->min_confidence;
 
@@ -94,7 +94,7 @@ class AprioriController extends Controller
             return $this->store($request);
         }
 
-        
+
     }
 
     /**
@@ -436,11 +436,11 @@ class AprioriController extends Controller
         $tp = 0; $tn = 0; $fp = 0; $fn = 0;
 
         $data_barang = $this->getBarang($request->tanggal_mulai, $request->tanggal_akhir);
-        // $data_barang = $this->getBarang('2018-12-01 00:00:00', '2018-12-09 23:59:59'); // Data Demo
+        // $data_barang = $this->getBarang('2019-01-01 00:00:00', '2019-01-17 23:59:59'); // Data Demo
         $data_belian = $this->getTransactionItem($request->tanggal_mulai, $request->tanggal_akhir);
-        // $data_belian = $this->getTransactionItem('2018-12-01 00:00:00', '2018-12-09 23:59:59'); // Data Demo
+        // $data_belian = $this->getTransactionItem('2018-12-01 00:00:00', '2019-01-17 23:59:59'); // Data Demo
         $barang = $this->getBarangWithSupport($data_barang, $request->min_support);
-        // $barang = $this->getBarangWithSupport($data_barang, '50'); // Data Demo
+        // $barang = $this->getBarangWithSupport($data_barang, '30'); // Data Demo
         $belian = $this->getItemBelian($data_belian);
 
         $total_transaksi = 0;
@@ -453,7 +453,8 @@ class AprioriController extends Controller
         }
 
         $twoitemset = $this->createTwoItemSet($barang, $belian);
-        $threeitemset = $this->createThreeItemSet($barang, $belian, '50');
+        $threeitemset = $this->createThreeItemSet($barang, $belian, $request->min_support);
+        // $threeitemset = $this->createThreeItemSet($barang, $belian, '30');
         if($threeitemset != 0){
             foreach($threeitemset as $k => $item){
                 $arr[] = explode(' - ', $item['item']);
@@ -657,6 +658,7 @@ class AprioriController extends Controller
                 'FN' => $fn,
             ])
             ->tojson();
+        // return datatables()->of($arr)->tojson();
     }
 
 

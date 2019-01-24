@@ -134,8 +134,7 @@ class BarangController extends Controller
             'barang_hBeli' => $request->barang_hBeli,
             'barang_hJual' => $request->barang_hJual,
             'barang_detail' => $request->barang_detail,
-            'barang_status' => "Aktif",
-            'barang_slug' => str_slug($request->barang_nama, '-')
+            'barang_status' => "Aktif"
         ]);
         $message = [
             "status" => "success",
@@ -185,7 +184,6 @@ class BarangController extends Controller
         $barang->barang_hBeli = $request->barang_hBeli;
         $barang->barang_hJual = $request->barang_hJual;
         $barang->barang_detail = $request->barang_detail;
-        $barang->barang_slug = str_slug($request->barang_nama, '-');
 
         $message = [
             'status' => 'success',

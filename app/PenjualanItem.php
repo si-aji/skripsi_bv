@@ -9,7 +9,7 @@ class PenjualanItem extends Model
     protected $table = 'tbl_penjualan_item';
 
     protected $fillable = [
-        "penjualan_id", "barang_id", "paket_id", "harga_beli", "harga_jual", "jual_qty", "diskon"
+        "penjualan_id", "barang_id", "harga_beli", "harga_jual", "jual_qty", "diskon"
     ];
 
     //Set relation with Penjualan
@@ -19,9 +19,5 @@ class PenjualanItem extends Model
     //Set relation with Barang
     public function barang(){
         return $this->belongsTo('App\Barang', 'barang_id');
-    }
-    //Set relation with Paket
-    public function paket(){
-        return $this->belongsTo('App\Paket', 'paket_id');
     }
 }

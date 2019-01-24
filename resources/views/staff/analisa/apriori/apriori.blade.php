@@ -312,7 +312,7 @@
 {{--  Require Js for this page  --}}
 @section('plugins_js')
     <script src="{{ asset('plugins/dataTables/datatables.js') }}"></script>
-    <script src="{{ asset('plugins/dataTables/Responsive-2.2.1/js/datatables.responsive.js') }}"></script>
+    <script src="{{ asset('plugins/dataTables/Responsive-2.2.1/js/dataTables.responsive.js') }}"></script>
     <script src="{{ asset('plugins/datetimePicker/js/tempusdominus-bootstrap-4.js') }}"></script>{{-- dateTimePicker --}}
     <script src="{{ asset('plugins/select2/select2.js') }}"></script>{{-- select2 --}}
 @endsection
@@ -367,6 +367,11 @@
                             $("#alert-itemsetSatu").slideDown(function(){
                                 $(this).removeClass('d-none');
                                 $(this).addClass('d-block');
+                            });
+                        } else {
+                            $("#alert-itemsetSatu").slideDown(function(){
+                                $(this).addClass('d-none');
+                                $(this).removeClass('d-block');
                             });
                         }
                     }
@@ -455,6 +460,11 @@
                             $("#alert-itemsetDua").slideDown(function(){
                                 $(this).removeClass('d-none');
                                 $(this).addClass('d-block');
+                            });
+                        } else {
+                            $("#alert-itemsetDua").slideDown(function(){
+                                $(this).addClass('d-none');
+                                $(this).removeClass('d-block');
                             });
                         }
                     }
@@ -545,6 +555,11 @@
                             $("#alert-itemsetTiga").slideDown(function(){
                                 $(this).removeClass('d-none');
                                 $(this).addClass('d-block');
+                            });
+                        } else {
+                            $("#alert-itemsetTiga").slideDown(function(){
+                                $(this).addClass('d-none');
+                                $(this).removeClass('d-block');
                             });
                         }
                     }
@@ -645,6 +660,11 @@
                             $("#cm_confTwo-recall").val(0);
                             $("#cm_confTwo-precision").val(0);
                         } else {
+                            $("#alert-confTwo").slideDown(function(){
+                                $(this).addClass('d-none');
+                                $(this).removeClass('d-block');
+                            });
+
                             $("#cm_confTwo").slideDown(function(){
                                 $(this).removeClass('d-none');
                                 $(this).addClass('d-block');
@@ -771,6 +791,11 @@
                             $("#cm_confThree-recall").val(0);
                             $("#cm_confThree-precision").val(0);
                         }else {
+                            $("#alert-confThree").slideDown(function(){
+                                $(this).addClass('d-none');
+                                $(this).removeClass('d-block');
+                            });
+
                             $("#cm_confThree").slideDown(function(){
                                 $(this).removeClass('d-none');
                                 $(this).addClass('d-block');

@@ -25,7 +25,6 @@ class CreateTblBarang extends Migration
             $table->integer('barang_hJual');
             $table->text('barang_detail')->nullable();
             $table->enum('barang_status', ['Aktif', 'Tidak Aktif'])->default('Aktif'); //Jika aktif barang akan ditampilkan, sebaliknya akan disembunyikan jika tidak aktif
-            $table->string('barang_slug'); //Untuk front end/url
             $table->timestamps();
         });
 
