@@ -21,6 +21,13 @@ class BarangController extends Controller
     /**
      * Data for Json Format (all)
      */
+    public function getIdByName($name){
+        $data = Barang::where('barang_nama', $name)->first();
+        return $data->id;
+    }
+    /**
+     * Data for Json Format (all)
+     */
     public function barangStokJson(){
         $list = Barang::where([
             ['barang_status', 'Aktif'],
@@ -70,6 +77,23 @@ class BarangController extends Controller
         return datatables()
                 ->of($list)
                 ->toJson();
+    }
+    /**
+     * Data for Json Format (Specific by id)
+     */
+    public function barangSpecific(Request $request){
+        $data_barang = array();
+
+        foreach($request->id as $id){
+            $list = Barang::where('id', $id)->first();
+            array_push($data_barang, array(
+                'barang_id' => $list->id,
+                'barang_nama' => $list->barang_nama,
+                'harga_jual' => $list->barang_hJual
+            ));
+        }
+
+        return $data_barang;
     }
     /**
      * Data for Json Format (Specific by kategori)

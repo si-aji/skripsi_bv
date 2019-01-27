@@ -16,6 +16,14 @@ use App\PenjualanItem;
 class AprioriController extends Controller
 {
     /**
+     *
+     */
+    public function __construct(BarangController $barangController)
+    {
+        $this->barangController = $barangController;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -307,7 +315,17 @@ class AprioriController extends Controller
                                 }
                             }
                             $support = ($item_array[$item_pair]*100)/$total_transaksi;
-                            $result[] = array("item"=>$item_pair, "jumlah"=>$item_array[$item_pair], "total"=>$total_transaksi, "support"=>$support);
+                            $result[] = array(
+                                "id_barang"=>array(
+                                    "id_satu"=>$this->barangController->getIdByName($temp_barang[$i]),
+                                    "id_dua"=>$this->barangController->getIdByName($temp_barang[$j]),
+                                    "id_tiga"=>$this->barangController->getIdByName($temp_barang[$k]),
+                                ),
+                                "item"=>$item_pair,
+                                "jumlah"=>$item_array[$item_pair],
+                                "total"=>$total_transaksi,
+                                "support"=>$support
+                            );
                         }
                     }
                 }

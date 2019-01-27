@@ -97,7 +97,7 @@
         <hr>
 
         <div class="row">
-            <div class="col-12 col-lg-6">{{-- 1 Itemset --}}
+            <div class="col-12 col-xl-6">{{-- 1 Itemset --}}
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">I-1 (Itemset 1)</h5>
@@ -121,7 +121,7 @@
                     </div>
                 </div>
             </div>{{-- /.1 Itemset --}}
-            <div class="col-12 col-lg-6">{{-- 2 Itemset --}}
+            <div class="col-12 col-xl-6">{{-- 2 Itemset --}}
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">I-2 (Itemset 2)</h5>
@@ -145,7 +145,7 @@
                     </div>
                 </div>
             </div>{{-- /.3 Itemset --}}
-            <div class="col-12 col-lg-6">{{-- 3 Itemset --}}
+            <div class="col-12 col-xl-6">{{-- 3 Itemset --}}
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">I-3 (Itemset 3)</h5>
@@ -163,6 +163,7 @@
                                     <th>Item</th>
                                     <th>Jumlah</th>
                                     <th>Support</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                         </table>
@@ -172,7 +173,7 @@
         </div>
 
         <div class="row">
-            <div class="col-12 col-lg-6">{{-- Confidence --}}
+            <div class="col-12 col-xl-6">{{-- Confidence --}}
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Confidence Item Set 2</h5>
@@ -238,7 +239,7 @@
                     </div>
                 </div>
             </div>{{-- /.Confidence --}}
-            <div class="col-12 col-lg-6">{{-- Confidence --}}
+            <div class="col-12 col-xl-6">{{-- Confidence --}}
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Confidence Item Set 3</h5>
@@ -306,6 +307,121 @@
             </div>{{-- /.Confidence --}}
         </div>
     </div>
+
+    {{--  Modal for Toko  --}}
+    <div class="modal fade" id="modalPaket" tabindex="-1" role="dialog" aria-labelledby="labelPaket" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="labelPaket">Form Tambah Paket</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="callout callout-warning mx-2 d-none" id="alert-paket">
+                        <p></p>
+                    </div>
+
+                    <form role="form" id="paketForm">{{-- Form Start --}}
+                        <div class="form-group" id="field-paket_nama">{{-- Nama Paket --}}
+                            <label for="input-paket_nama">Nama Paket</label>
+                            <input type="text" name="paket_nama" class="form-control" placeholder="Nama Paket/Kode Paket" id="input-paket_nama">
+                        </div>{{-- /.Nama Paket --}}
+
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group" id="field-harga_paket_asli">{{-- Harga Asli --}}
+                                    <label for="input-harga_paket">Harga Asli</label>
+                                    <input type="number" name="paket-harga_paket_asli" class="form-control" min="0" value="0" id="input-harga_paket_asli" readonly>
+                                </div>{{-- /.Harga Asli --}}
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group" id="field-harga_paket">{{-- Harga Paket --}}
+                                    <label for="input-harga_paket">Harga Paket</label>
+                                    <input type="number" name="paket_harga" class="form-control" min="0" value="0" id="input-harga_paket" readonly>
+                                </div>{{-- /.Harga Paket --}}
+                            </div>
+                        </div>
+
+                        <div class="row">{{-- /.Paket --}}
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="field_0-barang_nama">
+                                    <label for="input_0-barang_nama">Barang Nama</label>
+                                    <input type="text" name="barang_nama[]" class="form-control" id="input_0-barang_nama" readonly>
+                                    <input type="hidden" name="barang_id[]" class="form-control" id="input_0-barang_id" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="field_0-harga_asli">
+                                    <label for="input_0-harga_asli">Harga@ Asli</label>
+                                    <input type="number" name="harga_asli[]" class="form-control harga_asli" min="0" value="0" id="input_0-harga_asli" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="field_0-harga_item">
+                                    <label for="input_0-harga_item">Harga Item</label>
+                                    <input type="number" name="harga_item[]" class="form-control harga_item" min="0" value="0" id="input_0-harga_item" onchange="hitungHargaPaket()">
+                                </div>
+                            </div>
+                        </div>{{-- /.Paket --}}
+
+                        <div class="row">{{-- /.Paket --}}
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="field_1-barang_nama">
+                                    <label for="input_1-barang_nama">Barang Nama</label>
+                                    <input type="text" name="barang_nama[]" class="form-control" id="input_1-barang_nama" readonly>
+                                    <input type="hidden" name="barang_id[]" class="form-control" id="input_1-barang_id" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="field_1-harga_asli">
+                                    <label for="input_1-harga_asli">Harga@ Asli</label>
+                                    <input type="number" name="harga_asli[]" class="form-control harga_asli" min="0" value="0" id="input_1-harga_asli" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="field_1-harga_item">
+                                    <label for="input_1-harga_item">Harga Item</label>
+                                    <input type="number" name="harga_item[]" class="form-control harga_item" min="0" value="0" id="input_1-harga_item" onchange="hitungHargaPaket()">
+                                </div>
+                            </div>
+                        </div>{{-- /.Paket --}}
+
+                        <div class="row">{{-- /.Paket --}}
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="field_2-barang_nama">
+                                    <label for="input_2-barang_nama">Barang Nama</label>
+                                    <input type="text" name="barang_nama[]" class="form-control" id="input_2-barang_nama" readonly>
+                                    <input type="hidden" name="barang_id[]" class="form-control" id="input_2-barang_id" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="field_2-harga_asli">
+                                    <label for="input_2-harga_asli">Harga@ Asli</label>
+                                    <input type="number" name="harga_asli[]" class="form-control harga_asli" min="0" value="0" id="input_2-harga_asli" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="field_2-harga_item">
+                                    <label for="input_2-harga_item">Harga Item</label>
+                                    <input type="number" name="harga_item[]" class="form-control harga_item" min="0" value="0" id="input_2-harga_item" onchange="hitungHargaPaket()">
+                                </div>
+                            </div>
+                        </div>{{-- /.Paket --}}
+
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-primary text-white">Submit</button>
+                        </div>
+                    </form>{{-- Form Start --}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{--  /.Modal for Toko  --}}
 </div>
 @endsection
 
@@ -327,7 +443,8 @@
         $('#input-tanggal_mulai').datetimepicker({
             useCurrent: false,
             format: 'YYYY-MM-DD HH:mm',
-            defaultDate: moment('{{ date("Y-m-1 00:00:00") }}', 'YYYY-MM-DD HH:mm'),
+            //defaultDate: moment('{{ date("Y-m-1 00:00:00") }}', 'YYYY-MM-DD HH:mm'),
+            defaultDate: moment('{{ date("2018-12-1 00:00:00") }}', 'YYYY-MM-DD HH:mm'),
             maxDate : moment('{{ date("Y-m-d H:i:00") }}', 'YYYY-MM-DD HH:mm')
         });
         $('#input-tanggal_akhir').datetimepicker({
@@ -570,6 +687,7 @@
                 { data: 'item' },
                 { data: 'jumlah' },
                 { data: null },
+                { data: null },
             ],
             columnDefs: [
                 {
@@ -586,6 +704,11 @@
                         var support = Math.round(jumlah * 100)/total;
                         //var support = jumlah/total;
                         return support.toFixed(2)+"%";
+                    }
+                }, {
+                    targets: [4],
+                    render: function(data, type, row) {
+                        return generateButton(data.id_barang.id_satu, data.id_barang.id_dua, data.id_barang.id_tiga);
                     }
                 },
             ],
@@ -673,6 +796,8 @@
                             var accuracy = ((result.TP + result.TN)/(result.TP + result.TN + result.FP + result.FN)) * 100;
                             var recall = (result.TP/(result.TP + result.FN)) * 100;
                             var precision = (result.TP/(result.TP + result.FP)) * 100;
+
+                            // console.log("Akurasi 2 Itemset : "+accuracy.toFixed(2));
 
                             if(isNaN(recall)){
                                 if(result.TP == 0){
@@ -811,9 +936,7 @@
                                 }
                             }
 
-                            console.log("Akurasi : "+accuracy);
-                            console.log("Recall : "+recall);
-                            console.log("Presisi : "+precision);
+                            // console.log("Akurasi 3 Itemset: "+accuracy.toFixed(2));
 
                             $("#cm_confThree-accuracy").val(parseFloat(accuracy).toFixed(2));
                             $("#cm_confThree-recall").val(parseFloat(recall).toFixed(2));
@@ -995,5 +1118,106 @@
             tConfThree.ajax.reload();
         });
     });
+
+    function generateButton(id_satu, id_dua, id_tiga){
+        var satu = "'"+id_satu+"'";
+        var dua = "'"+id_dua+"'";
+        var tiga = "'"+id_tiga+"'";
+        return '<a onclick="buatPaket('+satu+', '+dua+', '+tiga+')" class="btn btn-primary btn-sm text-white"><i class="fa fa-plus"></i></a>';
+    }
+
+    function buatPaket(id_satu, id_dua, id_tiga){
+        $("#modalPaket").modal({
+            show: true
+        });
+
+        loadDataBarang(id_satu, id_dua, id_tiga);
+    }
+    function loadDataBarang(id_satu, id_dua, id_tiga){
+        var data_id = [id_satu, id_dua, id_tiga];
+
+        $.ajax({
+            method: "POST",
+            url: "{{ url('/data/barang/apriori') }}",
+            data: {id: data_id},
+            success: function(result){
+                //console.log(result);
+
+                $.each(result, function(key, result) {
+                    //console.log("Key : "+key+" / Result : "+result.barang_nama);
+
+                    $("#input_"+key+"-barang_nama").val(result.barang_nama);
+                    $("#input_"+key+"-barang_id").val(result.barang_id);
+                    $("#input_"+key+"-harga_asli").val(result.harga_jual);
+                    $("#input_"+key+"-harga_item").val(result.harga_jual);
+                });
+                hitungHargaPaket();
+            }
+        });
+    }
+    $("#modalPaket").on('hide.bs.modal', function(){
+        $("#alert-paket").removeClass('d-block');
+        $("#alert-paket").addClass('d-none');
+
+        $("#alert-paket p").text("");
+    });
+    $("#paketForm").submit(function(e){
+        e.preventDefault();
+        $(".error-block").remove();
+        $(".form-control").removeClass('has-error');
+        $(".input-group-text").removeClass('has-error');
+        $.ajax({
+            method: "POST",
+            url: "{{ url('/data/paket/apriori') }}",
+            data: $("#paketForm").serialize(),
+            success: function(result){
+                console.log(result);
+
+                if(result.includes('Exists')){
+                    $("#alert-paket").addClass('d-block');
+                    $("#alert-paket").removeClass('d-none');
+
+                    $("#alert-paket p").text(result);
+                }
+            },
+            error: function( jqXHR, textStatus, errorThrown ) {
+                console.log(jqXHR);
+
+                //Print all error message
+                $.each(jqXHR.responseJSON.errors, function(key, result) {
+                    var field_id = "field-"+key;
+                    var input_id = "input-"+key;
+                    var input_group_id = "input_group-"+key;
+                    //Append Error Field
+                    $("#"+input_id).addClass('has-error');
+                    $("#"+input_group_id).addClass('has-error');
+                    //Append Error Message
+                    $("#"+field_id).append("<div class='text-muted error-block'><span class='help-block'><small>"+result+"</small></span></div>");
+                });
+            }
+        });
+    });
+    {{--  Fungsi untuk perhitungan otomatis  --}}
+    function hitungHargaPaket(){
+        var jumlah = 0;
+        var jumlah_asli = 0;
+        var harga_item = $('.harga_item').length;
+
+        $(".harga_item").each(function(){
+            if (!Number.isNaN(parseInt(this.value, 10))){
+                //console.log("Perhitungan dijalankan");
+                jumlah += parseInt(this.value, 10);
+                $("#input-harga_paket").val(parseInt(jumlah));
+            }
+        });
+        $(".harga_asli").each(function(){
+            if (!Number.isNaN(parseInt(this.value, 10))){
+                //console.log("Perhitungan dijalankan");
+                jumlah_asli += parseInt(this.value, 10);
+                $("#input-harga_paket_asli").val(parseInt(jumlah_asli));
+            }
+        });
+    }
+    {{--  /.Fungsi untuk perhitungan otomatis  --}}
 </script>
 @endsection

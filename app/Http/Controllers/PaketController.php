@@ -13,7 +13,8 @@ use App\Barang;
 
 class PaketController extends Controller
 {
-    public function paketJson(){
+    public function paketJson()
+    {
         $list = Paket::where('paket_status', 'Aktif')->with('paketItem', 'paketItem.barang')->get()->map(function($data, $key) {
             //Membuat Data Barang
             $data->items = (object)[];
@@ -34,7 +35,8 @@ class PaketController extends Controller
                 ->toJson();
         // return response()->json($list);
     }
-    public function paketSelectTwoJson(){
+    public function paketSelectTwoJson()
+    {
         $array = array();
         $array_item = array();
         $barang = array();
@@ -67,7 +69,8 @@ class PaketController extends Controller
 
         return response()->json($array);
     }
-    public function paketSpecificJson($id){
+    public function paketSpecificJson($id)
+    {
         $list = Paket::where('id', $id)->with('paketItem')->get()->map(function($data, $key) {
             $data->barang_hJual = (object)[];
 
@@ -116,6 +119,72 @@ class PaketController extends Controller
             'paket_harga' => 'required|integer',
         ]);
     }
+
+    /**
+     * Check if two array have similiar value
+     *
+     * @param  $a and $b
+     */
+    private function array_values_identical($a, $b) {
+        $x = array_values($a);
+        $y = array_values($b);
+
+        sort($x);
+        sort($y);
+
+        return $x === $y;
+    }
+
+    /**
+     * Check if Paket is Already Exist
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function checkPaket(Request $request)
+    {
+        $data = array();
+        foreach($request->barang_id as $item => $key){
+            array_push($data, $request->barang_id[$item]);
+        }
+        $data = array_map('intval', $data); //Convert String to Integer
+
+        $temp_item = array();
+        $dataPaket = Paket::where('paket_status', 'aktif')->with('paketItem')->get();
+
+        foreach($dataPaket as $paket){
+            //Reset temp item
+            unset($temp_item);
+            $temp_item = array();
+            foreach($paket->paketItem as $item){
+                array_push($temp_item, $item->barang_id);
+            }
+
+            //Cek kombinasi item apakah sudah ada atau belum
+            if($this->array_values_identical($data, $temp_item)){
+                return response()->json("Exists at paket : ".$paket->paket_nama);
+            }
+        }
+
+        //Jika paket belum ada
+        $this->validator($request->all())->validate();
+        $storePaket = Paket::create([ //Save Paket
+            'paket_nama' => $request->paket_nama,
+            'paket_harga' => $request->paket_harga,
+            'paket_status' => "Aktif",
+        ]);
+
+        $dataPaket = Paket::where('paket_nama', $request->paket_nama)->firstOrFail();
+        foreach($request->barang_id as $item => $key){
+            $storePaketItem = PaketItem::create([//Save Paket Item
+                'paket_id' => $dataPaket->id,
+                'barang_id' => $request->barang_id[$item],
+                'barang_hAsli' => $request->harga_asli[$item],
+                'barang_hJual' => $request->harga_item[$item],
+            ]);
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
