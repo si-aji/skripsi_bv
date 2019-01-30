@@ -139,6 +139,7 @@
                                     <th>Item</th>
                                     <th>Jumlah</th>
                                     <th>Support</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                         </table>
@@ -214,7 +215,7 @@
                                 <div class="col-12 col-md-4">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Didn't find your Store? Add it first with blue + Button"></i> Recall</span>
+                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Menunjukkan proporsi prediksi positif yang terklasifikasikan dengan benar"></i> Recall</span>
                                         </div>
                                         <input type="number" id="cm_confTwo-recall" class="form-control bg-white" readonly>
                                         <div class="input-group-append">
@@ -308,104 +309,82 @@
         </div>
     </div>
 
-    {{--  Modal for Toko  --}}
-    <div class="modal fade" id="modalPaket" tabindex="-1" role="dialog" aria-labelledby="labelPaket" aria-hidden="true">
+    {{--  Modal for Paket 2 Item  --}}
+    <div class="modal fade" id="modal_paketFormDua" tabindex="-1" role="dialog" aria-labelledby="label-paketFormDua" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="labelPaket">Form Tambah Paket</h5>
+                    <h5 class="modal-title" id="label-paketFormDua">Form Tambah Paket (2 Item)</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="callout callout-warning mx-2 d-none" id="alert-paket">
+                    <div class="callout callout-warning mx-2 d-none" id="alert-paketFormDua">
                         <p></p>
                     </div>
 
-                    <form role="form" id="paketForm">{{-- Form Start --}}
-                        <div class="form-group" id="field-paket_nama">{{-- Nama Paket --}}
-                            <label for="input-paket_nama">Nama Paket</label>
-                            <input type="text" name="paket_nama" class="form-control" placeholder="Nama Paket/Kode Paket" id="input-paket_nama">
+                    <form role="form" id="paketFormDua">{{-- Form Start --}}
+                        <div class="form-group" id="paketFormDua_field-paket_nama">{{-- Nama Paket --}}
+                            <label for="paketFormDua_input-paket_nama">Nama Paket</label>
+                            <input type="text" name="paket_nama" class="form-control" placeholder="Nama Paket/Kode Paket" id="paketFormDua_input-paket_nama">
                         </div>{{-- /.Nama Paket --}}
 
                         <div class="row">
                             <div class="col-12 col-lg-6">
-                                <div class="form-group" id="field-harga_paket_asli">{{-- Harga Asli --}}
-                                    <label for="input-harga_paket">Harga Asli</label>
-                                    <input type="number" name="paket-harga_paket_asli" class="form-control" min="0" value="0" id="input-harga_paket_asli" readonly>
+                                <div class="form-group" id="paketFormDua_field-harga_paket_asli">{{-- Harga Asli --}}
+                                    <label for="paketFormDua_input-harga_paket">Harga Asli</label>
+                                    <input type="number" name="paket-harga_paket_asli" class="form-control" min="0" value="0" id="paketFormDua_input-harga_paket_asli" readonly>
                                 </div>{{-- /.Harga Asli --}}
                             </div>
                             <div class="col-12 col-lg-6">
-                                <div class="form-group" id="field-harga_paket">{{-- Harga Paket --}}
-                                    <label for="input-harga_paket">Harga Paket</label>
-                                    <input type="number" name="paket_harga" class="form-control" min="0" value="0" id="input-harga_paket" readonly>
+                                <div class="form-group" id="paketFormDua_field-harga_paket">{{-- Harga Paket --}}
+                                    <label for="paketFormDua_input-harga_paket">Harga Paket</label>
+                                    <input type="number" name="paket_harga" class="form-control" min="0" value="0" id="paketFormDua_input-harga_paket" readonly>
                                 </div>{{-- /.Harga Paket --}}
                             </div>
                         </div>
 
                         <div class="row">{{-- /.Paket --}}
                             <div class="col-12 col-lg-4">
-                                <div class="form-group" id="field_0-barang_nama">
-                                    <label for="input_0-barang_nama">Barang Nama</label>
-                                    <input type="text" name="barang_nama[]" class="form-control" id="input_0-barang_nama" readonly>
-                                    <input type="hidden" name="barang_id[]" class="form-control" id="input_0-barang_id" readonly>
+                                <div class="form-group" id="paketFormDua_field_0-barang_nama">
+                                    <label for="paketFormDua_input_0-barang_nama">Barang Nama</label>
+                                    <input type="text" name="barang_nama[]" class="form-control" id="paketFormDua_input_0-barang_nama" readonly>
+                                    <input type="hidden" name="barang_id[]" class="form-control" id="paketFormDua_input_0-barang_id" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4">
-                                <div class="form-group" id="field_0-harga_asli">
-                                    <label for="input_0-harga_asli">Harga@ Asli</label>
-                                    <input type="number" name="harga_asli[]" class="form-control harga_asli" min="0" value="0" id="input_0-harga_asli" readonly>
+                                <div class="form-group" id="paketFormDua_field_0-harga_asli">
+                                    <label for="paketFormDua_input_0-harga_asli">Harga@ Asli</label>
+                                    <input type="number" name="harga_asli[]" class="form-control harga_asli" min="0" value="0" id="paketFormDua_input_0-harga_asli" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4">
-                                <div class="form-group" id="field_0-harga_item">
-                                    <label for="input_0-harga_item">Harga Item</label>
-                                    <input type="number" name="harga_item[]" class="form-control harga_item" min="0" value="0" id="input_0-harga_item" onchange="hitungHargaPaket()">
-                                </div>
-                            </div>
-                        </div>{{-- /.Paket --}}
-
-                        <div class="row">{{-- /.Paket --}}
-                            <div class="col-12 col-lg-4">
-                                <div class="form-group" id="field_1-barang_nama">
-                                    <label for="input_1-barang_nama">Barang Nama</label>
-                                    <input type="text" name="barang_nama[]" class="form-control" id="input_1-barang_nama" readonly>
-                                    <input type="hidden" name="barang_id[]" class="form-control" id="input_1-barang_id" readonly>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-4">
-                                <div class="form-group" id="field_1-harga_asli">
-                                    <label for="input_1-harga_asli">Harga@ Asli</label>
-                                    <input type="number" name="harga_asli[]" class="form-control harga_asli" min="0" value="0" id="input_1-harga_asli" readonly>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-4">
-                                <div class="form-group" id="field_1-harga_item">
-                                    <label for="input_1-harga_item">Harga Item</label>
-                                    <input type="number" name="harga_item[]" class="form-control harga_item" min="0" value="0" id="input_1-harga_item" onchange="hitungHargaPaket()">
+                                <div class="form-group" id="paketFormDua_field_0-harga_item">
+                                    <label for="paketFormDua_input_0-harga_item">Harga Item</label>
+                                    <input type="number" name="harga_item[]" class="form-control harga_item" min="0" value="0" id="paketFormDua_input_0-harga_item" onchange="hitungHargaPaket('paketForm')">
                                 </div>
                             </div>
                         </div>{{-- /.Paket --}}
 
-                        <div class="row">{{-- /.Paket --}}
+                        <div class="row">{{-- /.Paket Item --}}
                             <div class="col-12 col-lg-4">
-                                <div class="form-group" id="field_2-barang_nama">
-                                    <label for="input_2-barang_nama">Barang Nama</label>
-                                    <input type="text" name="barang_nama[]" class="form-control" id="input_2-barang_nama" readonly>
-                                    <input type="hidden" name="barang_id[]" class="form-control" id="input_2-barang_id" readonly>
+                                <div class="form-group" id="paketFormDua_field_1-barang_nama">
+                                    <label for="paketFormDua_input_1-barang_nama">Barang Nama</label>
+                                    <input type="text" name="barang_nama[]" class="form-control" id="paketFormDua_input_1-barang_nama" readonly>
+                                    <input type="hidden" name="barang_id[]" class="form-control" id="paketFormDua_input_1-barang_id" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4">
-                                <div class="form-group" id="field_2-harga_asli">
-                                    <label for="input_2-harga_asli">Harga@ Asli</label>
-                                    <input type="number" name="harga_asli[]" class="form-control harga_asli" min="0" value="0" id="input_2-harga_asli" readonly>
+                                <div class="form-group" id="paketFormDua_field_1-harga_asli">
+                                    <label for="paketFormDua_input_1-harga_asli">Harga@ Asli</label>
+                                    <input type="number" name="harga_asli[]" class="form-control harga_asli" min="0" value="0" id="paketFormDua_input_1-harga_asli" readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4">
-                                <div class="form-group" id="field_2-harga_item">
-                                    <label for="input_2-harga_item">Harga Item</label>
-                                    <input type="number" name="harga_item[]" class="form-control harga_item" min="0" value="0" id="input_2-harga_item" onchange="hitungHargaPaket()">
+                                <div class="form-group" id="paketFormDua_field_1-harga_item">
+                                    <label for="paketFormDua_input_1-harga_item">Harga Item</label>
+                                    <input type="number" name="harga_item[]" class="form-control harga_item" min="0" value="0" id="paketFormDua_input_1-harga_item" onchange="hitungHargaPaket('paketForm')">
                                 </div>
                             </div>
                         </div>{{-- /.Paket --}}
@@ -421,7 +400,122 @@
             </div>
         </div>
     </div>
-    {{--  /.Modal for Toko  --}}
+    {{--  /.Modal for Paket 2 Item  --}}
+
+    {{--  Modal for Paket 3 Item  --}}
+    <div class="modal fade" id="modal_paketForm" tabindex="-1" role="dialog" aria-labelledby="label_paketForm" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="label_paketForm">Form Tambah Paket</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="callout callout-warning mx-2 d-none" id="alert-paketForm">
+                        <p></p>
+                    </div>
+
+                    <form role="form" id="paketForm">{{-- Form Start --}}
+                        <div class="form-group" id="paketForm_field-paket_nama">{{-- Nama Paket --}}
+                            <label for="paketForm_input-paket_nama">Nama Paket</label>
+                            <input type="text" name="paket_nama" class="form-control" placeholder="Nama Paket/Kode Paket" id="paketForm_input-paket_nama">
+                        </div>{{-- /.Nama Paket --}}
+
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group" id="paketForm_field-harga_paket_asli">{{-- Harga Asli --}}
+                                    <label for="paketForm_input-harga_paket">Harga Asli</label>
+                                    <input type="number" name="paket-harga_paket_asli" class="form-control" min="0" value="0" id="paketForm_input-harga_paket_asli" readonly>
+                                </div>{{-- /.Harga Asli --}}
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group" id="paketForm_field-harga_paket">{{-- Harga Paket --}}
+                                    <label for="input-harga_paket">Harga Paket</label>
+                                    <input type="number" name="paket_harga" class="form-control" min="0" value="0" id="paketForm_input-harga_paket" readonly>
+                                </div>{{-- /.Harga Paket --}}
+                            </div>
+                        </div>
+
+                        <div class="row">{{-- /.Paket --}}
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="paketForm_field_0-barang_nama">
+                                    <label for="paketForm_input_0-barang_nama">Barang Nama</label>
+                                    <input type="text" name="barang_nama[]" class="form-control" id="paketForm_input_0-barang_nama" readonly>
+                                    <input type="hidden" name="barang_id[]" class="form-control" id="paketForm_input_0-barang_id" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="paketForm_field_0-harga_asli">
+                                    <label for="paketForm_input_0-harga_asli">Harga@ Asli</label>
+                                    <input type="number" name="harga_asli[]" class="form-control harga_asli" min="0" value="0" id="paketForm_input_0-harga_asli" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="paketForm_field_0-harga_item">
+                                    <label for="paketForm_input_0-harga_item">Harga Item</label>
+                                    <input type="number" name="harga_item[]" class="form-control harga_item" min="0" value="0" id="paketForm_input_0-harga_item" onchange="hitungHargaPaket('paketForm')">
+                                </div>
+                            </div>
+                        </div>{{-- /.Paket --}}
+
+                        <div class="row">{{-- /.Paket Item --}}
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="paketForm_field_1-barang_nama">
+                                    <label for="paketForm_input_1-barang_nama">Barang Nama</label>
+                                    <input type="text" name="barang_nama[]" class="form-control" id="paketForm_input_1-barang_nama" readonly>
+                                    <input type="hidden" name="barang_id[]" class="form-control" id="paketForm_input_1-barang_id" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="paketForm_field_1-harga_asli">
+                                    <label for="paketForm_input_1-harga_asli">Harga@ Asli</label>
+                                    <input type="number" name="harga_asli[]" class="form-control harga_asli" min="0" value="0" id="paketForm_input_1-harga_asli" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="paketForm_field_1-harga_item">
+                                    <label for="paketForm_input_1-harga_item">Harga Item</label>
+                                    <input type="number" name="harga_item[]" class="form-control harga_item" min="0" value="0" id="paketForm_input_1-harga_item" onchange="hitungHargaPaket('paketForm')">
+                                </div>
+                            </div>
+                        </div>{{-- /.Paket --}}
+
+                        <div class="row">{{-- /.Paket --}}
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="paketForm_field_2-barang_nama">
+                                    <label for="paketForm_input_2-barang_nama">Barang Nama</label>
+                                    <input type="text" name="barang_nama[]" class="form-control" id="paketForm_input_2-barang_nama" readonly>
+                                    <input type="hidden" name="barang_id[]" class="form-control" id="paketForm_input_2-barang_id" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="paketForm_field_2-harga_asli">
+                                    <label for="paketForm_input_2-harga_asli">Harga@ Asli</label>
+                                    <input type="number" name="harga_asli[]" class="form-control harga_asli" min="0" value="0" id="paketForm_input_2-harga_asli" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group" id="paketForm_field_2-harga_item">
+                                    <label for="paketForm_input_2-harga_item">Harga Item</label>
+                                    <input type="number" name="harga_item[]" class="form-control harga_item" min="0" value="0" id="paketForm_input_2-harga_item" onchange="hitungHargaPaket('paketForm')">
+                                </div>
+                            </div>
+                        </div>{{-- /.Paket --}}
+
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-primary text-white">Submit</button>
+                        </div>
+                    </form>{{-- Form Start --}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{--  /.Modal for Paket 3 Item  --}}
 </div>
 @endsection
 
@@ -444,7 +538,7 @@
             useCurrent: false,
             format: 'YYYY-MM-DD HH:mm',
             //defaultDate: moment('{{ date("Y-m-1 00:00:00") }}', 'YYYY-MM-DD HH:mm'),
-            defaultDate: moment('{{ date("2018-12-1 00:00:00") }}', 'YYYY-MM-DD HH:mm'),
+            defaultDate: moment('{{ date("Y-m-1 00:00:00") }}', 'YYYY-MM-DD HH:mm'),
             maxDate : moment('{{ date("Y-m-d H:i:00") }}', 'YYYY-MM-DD HH:mm')
         });
         $('#input-tanggal_akhir').datetimepicker({
@@ -592,6 +686,7 @@
                 { data: 'item' },
                 { data: 'jumlah' },
                 { data: null },
+                { data: null },
             ],
             columnDefs: [
                 {
@@ -610,6 +705,12 @@
                         //console.log("Total Item Set 2 : "+total);
                         //console.log("Jumlah : "+jumlah);
                         return support.toFixed(2)+"%";
+                    }
+                }, {
+                    targets: [4],
+                    render: function(data, type, row) {
+                        var form = "'paketFormDua'";
+                        return generateButton(data.id_barang.id_satu, data.id_barang.id_dua, data.id_barang.id_tiga, form);
                     }
                 },
             ],
@@ -708,7 +809,8 @@
                 }, {
                     targets: [4],
                     render: function(data, type, row) {
-                        return generateButton(data.id_barang.id_satu, data.id_barang.id_dua, data.id_barang.id_tiga);
+                        var form = "'paketForm'";
+                        return generateButton(data.id_barang.id_satu, data.id_barang.id_dua, data.id_barang.id_tiga, form);
                     }
                 },
             ],
@@ -1119,21 +1221,20 @@
         });
     });
 
-    function generateButton(id_satu, id_dua, id_tiga){
+    function generateButton(id_satu, id_dua, id_tiga, form){
         var satu = "'"+id_satu+"'";
         var dua = "'"+id_dua+"'";
         var tiga = "'"+id_tiga+"'";
-        return '<a onclick="buatPaket('+satu+', '+dua+', '+tiga+')" class="btn btn-primary btn-sm text-white"><i class="fa fa-plus"></i></a>';
+        return '<a onclick="buatPaket('+satu+', '+dua+', '+tiga+', '+form+')" class="btn btn-primary btn-sm text-white"><i class="fa fa-plus"></i></a>';
     }
 
-    function buatPaket(id_satu, id_dua, id_tiga){
-        $("#modalPaket").modal({
+    function buatPaket(id_satu, id_dua, id_tiga, form){
+        $("#modal_"+form).modal({
             show: true
         });
-
-        loadDataBarang(id_satu, id_dua, id_tiga);
+        loadDataBarang(id_satu, id_dua, id_tiga, form);
     }
-    function loadDataBarang(id_satu, id_dua, id_tiga){
+    function loadDataBarang(id_satu, id_dua, id_tiga, form){
         var data_id = [id_satu, id_dua, id_tiga];
 
         $.ajax({
@@ -1144,40 +1245,55 @@
                 //console.log(result);
 
                 $.each(result, function(key, result) {
-                    //console.log("Key : "+key+" / Result : "+result.barang_nama);
+                    console.log("Key : "+key+" / Result : "+result.barang_nama);
 
-                    $("#input_"+key+"-barang_nama").val(result.barang_nama);
-                    $("#input_"+key+"-barang_id").val(result.barang_id);
-                    $("#input_"+key+"-harga_asli").val(result.harga_jual);
-                    $("#input_"+key+"-harga_item").val(result.harga_jual);
+                    $("#"+form+"_input_"+key+"-barang_nama").val(result.barang_nama);
+                    $("#"+form+"_input_"+key+"-barang_id").val(result.barang_id);
+                    $("#"+form+"_input_"+key+"-harga_asli").val(result.harga_jual);
+                    $("#"+form+"_input_"+key+"-harga_item").val(result.harga_jual);
                 });
-                hitungHargaPaket();
+                hitungHargaPaket(form);
             }
         });
+        console.log('id_tiga : '+id_tiga);
     }
-    $("#modalPaket").on('hide.bs.modal', function(){
-        $("#alert-paket").removeClass('d-block');
-        $("#alert-paket").addClass('d-none');
+    $("#modal_paketForm").on('hide.bs.modal', function(){
+        $("#alert-paketForm").removeClass('d-block');
+        $("#alert-paketForm").addClass('d-none');
 
-        $("#alert-paket p").text("");
+        $("#alert-paketForm p").text("");
     });
     $("#paketForm").submit(function(e){
         e.preventDefault();
+
+        var form = 'paketForm';
+        paketAction(form);
+    });
+    $("#paketFormDua").submit(function(e){
+        e.preventDefault();
+
+        var form = 'paketFormDua';
+        paketAction(form);
+    });
+    function paketAction(form){
         $(".error-block").remove();
         $(".form-control").removeClass('has-error');
         $(".input-group-text").removeClass('has-error');
+
         $.ajax({
             method: "POST",
             url: "{{ url('/data/paket/apriori') }}",
-            data: $("#paketForm").serialize(),
+            data: $("#"+form).serialize(),
             success: function(result){
                 console.log(result);
 
-                if(result.includes('Exists')){
-                    $("#alert-paket").addClass('d-block');
-                    $("#alert-paket").removeClass('d-none');
+                if(result.message.includes('Exists')){
+                    $("#alert-"+form).addClass('d-block');
+                    $("#alert-"+form).removeClass('d-none');
 
-                    $("#alert-paket p").text(result);
+                    $("#alert-"+form+" p").text(result.message);
+                } else {
+                    topright_notify(result.message);
                 }
             },
             error: function( jqXHR, textStatus, errorThrown ) {
@@ -1185,9 +1301,9 @@
 
                 //Print all error message
                 $.each(jqXHR.responseJSON.errors, function(key, result) {
-                    var field_id = "field-"+key;
-                    var input_id = "input-"+key;
-                    var input_group_id = "input_group-"+key;
+                    var field_id = form+"_field-"+key;
+                    var input_id = form+"_input-"+key;
+                    var input_group_id = form+"_input_group-"+key;
                     //Append Error Field
                     $("#"+input_id).addClass('has-error');
                     $("#"+input_group_id).addClass('has-error');
@@ -1196,10 +1312,10 @@
                 });
             }
         });
-    });
+    }
     {{--  Fungsi untuk perhitungan otomatis  --}}
-    function hitungHargaPaket(){
-        var jumlah = 0;
+    function hitungHargaPaket(form){
+        {{-- var jumlah = 0;
         var jumlah_asli = 0;
         var harga_item = $('.harga_item').length;
 
@@ -1207,16 +1323,18 @@
             if (!Number.isNaN(parseInt(this.value, 10))){
                 //console.log("Perhitungan dijalankan");
                 jumlah += parseInt(this.value, 10);
-                $("#input-harga_paket").val(parseInt(jumlah));
+                $("#"+form+"_input-harga_paket").val(parseInt(jumlah));
             }
         });
         $(".harga_asli").each(function(){
             if (!Number.isNaN(parseInt(this.value, 10))){
                 //console.log("Perhitungan dijalankan");
                 jumlah_asli += parseInt(this.value, 10);
-                $("#input-harga_paket_asli").val(parseInt(jumlah_asli));
+                $("#"+form+"_input-harga_paket_asli").val(parseInt(jumlah_asli));
             }
-        });
+        }); --}}
+
+        console.log(form);
     }
     {{--  /.Fungsi untuk perhitungan otomatis  --}}
 </script>

@@ -6,6 +6,7 @@ use App\Barang;
 use App\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Mockery\Undefined;
 
 class BarangController extends Controller
 {
@@ -79,18 +80,20 @@ class BarangController extends Controller
                 ->toJson();
     }
     /**
-     * Data for Json Format (Specific by id)
+     * Data for Json Format (Specific by id) - This if for Create Paket from Apriori Feature
      */
     public function barangSpecific(Request $request){
         $data_barang = array();
 
         foreach($request->id as $id){
-            $list = Barang::where('id', $id)->first();
-            array_push($data_barang, array(
-                'barang_id' => $list->id,
-                'barang_nama' => $list->barang_nama,
-                'harga_jual' => $list->barang_hJual
-            ));
+            if($id != "undefined"){
+                $list = Barang::where('id', $id)->first();
+                array_push($data_barang, array(
+                    'barang_id' => $list->id,
+                    'barang_nama' => $list->barang_nama,
+                    'harga_jual' => $list->barang_hJual
+                ));
+            }
         }
 
         return $data_barang;

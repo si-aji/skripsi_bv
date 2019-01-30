@@ -14065,9 +14065,7 @@ a.text-muted:hover {
 }
 
 .bg-bakulvisor-gradient {
-    background: #6E6665;
-    background: -o-linear-gradient(#6E6665, #4B4443);
-    color: #ffffff;
+    background: #495057;
 }
 
 .bg-primary-gradient {

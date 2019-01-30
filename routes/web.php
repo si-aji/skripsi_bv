@@ -12,10 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    $toko = App\Toko::where('toko_status', 'Aktif')->get();
+    return view('index', compact('toko'));
 });
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 

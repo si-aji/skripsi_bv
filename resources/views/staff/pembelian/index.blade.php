@@ -30,7 +30,7 @@
                     <th class="desktop">Barang</th>
                     <th class="desktop">Nilai Transaksi</th>
                     <th class="desktop">Dibayar</th>
-                    <th class="desktop">Dibuat Tanggal</th>
+                    <th class="desktop">Tanggal Transaksi</th>
                     <th class="desktop">Action</th>
                 </tr>
             </thead>
@@ -68,7 +68,7 @@
             { data: null },
             { data: null },
             { data: null },
-            { data: 'created_at' },
+            { data: 'pembelian_tgl' },
             { data: null },
         ],
         columnDefs: [

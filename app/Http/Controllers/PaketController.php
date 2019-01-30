@@ -162,7 +162,10 @@ class PaketController extends Controller
 
             //Cek kombinasi item apakah sudah ada atau belum
             if($this->array_values_identical($data, $temp_item)){
-                return response()->json("Exists at paket : ".$paket->paket_nama);
+                $message = [
+                    'message' => "Exists at paket : ".$paket->paket_nama,
+                ];
+                return $message;
             }
         }
 
@@ -183,6 +186,11 @@ class PaketController extends Controller
                 'barang_hJual' => $request->harga_item[$item],
             ]);
         }
+
+        $message = [
+            'message' => "Paket berhasil dibuat",
+        ];
+        return $message;
     }
 
     /**

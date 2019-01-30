@@ -271,13 +271,5 @@
             }
         });
     }
-
-    function showSwal(){
-        swal(
-            'Good job!',
-            'You clicked the button!',
-            'success'
-        );
-    }
 </script>
 @endsection{{-- /.Inline Js --}}

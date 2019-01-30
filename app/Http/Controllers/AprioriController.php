@@ -249,7 +249,7 @@ class AprioriController extends Controller
             // Membuat Kombinasi 2 Item
             for($i = 0; $i < $item1; $i++) {
                 for($j = $i+1; $j < $item2; $j++) {
-                    $item_pair = ucwords($barang[$i][0]).' - '.ucwords($barang[$j][0]);
+                    $item_pair = $barang[$i][0].' - '.$barang[$j][0];
                     $item_array[$item_pair] = 0;
                     foreach($belian as $item_belian) {
                         if((strpos($item_belian, $barang[$i][0]) !== false) && (strpos($item_belian, $barang[$j][0]) !== false)) {
@@ -257,7 +257,16 @@ class AprioriController extends Controller
                         }
                     }
                     $support = ($item_array[$item_pair] * 100) / $total_transaksi;
-                    $itemSet[] = array("item"=>$item_pair, "jumlah"=>$item_array[$item_pair], "total"=>$total_transaksi, "support"=>$support);
+                    $itemSet[] = array(
+                        "id_barang"=>array(
+                            "id_satu"=>$this->barangController->getIdByName($barang[$i]),
+                            "id_dua"=>$this->barangController->getIdByName($barang[$j]),
+                        ),
+                        "item"=>$item_pair,
+                        "jumlah"=>$item_array[$item_pair],
+                        "total"=>$total_transaksi,
+                        "support"=>$support
+                    );
                 }
             }
         } else {
@@ -307,7 +316,7 @@ class AprioriController extends Controller
                 for($i = 0; $i < $item1; $i++) {
                     for($j = $i+1; $j < $item2; $j++) {
                         for($k = $j+1; $k < $item3; $k++) {
-                            $item_pair = ucwords($temp_barang[$i]).' - '.ucwords($temp_barang[$j]).' - '.ucwords($temp_barang[$k]);
+                            $item_pair = $temp_barang[$i].' - '.$temp_barang[$j].' - '.$temp_barang[$k];
                             $item_array[$item_pair] = 0;
                             foreach($belian as $item_belian) {
                                 if((strpos($item_belian, $temp_barang[$i]) !== false) && (strpos($item_belian, $temp_barang[$j]) !== false) && (strpos($item_belian, $temp_barang[$k]) !== false)) {
@@ -373,6 +382,8 @@ class AprioriController extends Controller
                 foreach($data_barang as $barang){
                     if($barang->barang_nama == $arr[$k][0]){
                         $support_x = ($barang->jumlah / $barang->total) * 100;
+                    } else {
+                        $support_x = 0;
                     }
                 }
                 $support_xuy = $item['support'];
@@ -481,6 +492,8 @@ class AprioriController extends Controller
                 foreach($twoitemset as $bar){
                     if($bar['item'] == $arr[$k][0]." - ".$arr[$k][1]){
                         $support_x = ($bar['jumlah'] / $bar['total']) * 100;
+                    } else {
+                        $support_x = 0;
                     }
                 }
                 $support_xuy = $item['support'];
