@@ -1,4 +1,37 @@
 -------------------------------------------------------------------------------------
+- 30 Jan 2019 (v.1.1.1 - Stable)
+```
+- Fix missing files (assets)
+- Add CKEditor to local file
+```
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
+- 30 Jan 2019 (v.1.1.0 - Stable)
+```
+- Fix item on Apriori didn't match with item from data
+- Create 'Paket' from Apriori now is dynamic (User can make it from 2 item or 3 item)
+- Create Coming Soon page for Index
+- Create file/sub-system to easily migrate from previous system
+```
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
+- 27 Jan 2019 (v.1.0.1 - Stable)
+```
+- Add feature to Apriori section, so user can make 'Paket' based on analytic result
+```
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
+- 24 Jan 2019 (v.1.0.0 - Stable)
+```
+- Fix major problem
+```
+-------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------
 - 15 Jan 2019 (v.0.16.0)
 ```
 - Fix user traits, so cloned file from github didn't need change trait if user want to login using username instead email

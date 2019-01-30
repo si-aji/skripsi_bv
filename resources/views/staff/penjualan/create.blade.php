@@ -298,7 +298,7 @@
     <script src="{{ asset('plugins/select2/select2.js') }}"></script>{{-- select2 --}}
     <script src="{{ asset('plugins/iCheck/icheck.js') }}"></script>{{-- iCheck --}}
     <script src="{{ asset('plugins/datetimePicker/js/tempusdominus-bootstrap-4.js') }}"></script>{{-- dateTimePicker --}}
-    <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>{{-- ckeditor 5 --}}
+    <script src="{{ asset('plugins/ckeditor-classic/ckeditor.js') }}"></script>{{-- ckeditor 5 --}}
 @endsection
 
 @section('inline_js')

@@ -203,7 +203,7 @@
                                 <div class="col-12 col-md-4">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Didn't find your Store? Add it first with blue + Button"></i> Accuracy</span>
+                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Menunjukkan perbandingan prediksi yang diidentifikasi benar dengan jumlah semua kasus"></i> Accuracy</span>
                                         </div>
                                         <input type="number" id="cm_confTwo-accuracy" class="form-control bg-white" readonly>
                                         <div class="input-group-append">
@@ -227,7 +227,7 @@
                                 <div class="col-12 col-md-4">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" data-original-title="Didn't find your Store? Add it first with blue + Button"></i> Precision</span>
+                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" data-original-title="Menunjukkan proporsi prediksi positif yang benar"></i> Precision</span>
                                         </div>
                                         <input type="number" id="cm_confTwo-precision" class="form-control bg-white" readonly>
                                         <div class="input-group-append">
@@ -269,7 +269,7 @@
                                 <div class="col-12 col-md-4">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Didn't find your Store? Add it first with blue + Button"></i> Accuracy</span>
+                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="menunjukkan perbandingan prediksi yang diidentifikasi benar dengan jumlah semua kasus"></i> Accuracy</span>
                                         </div>
                                         <input type="number" id="cm_confThree-accuracy" class="form-control bg-white" readonly>
                                         <div class="input-group-append">
@@ -281,7 +281,7 @@
                                 <div class="col-12 col-md-4">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Didn't find your Store? Add it first with blue + Button"></i> Recall</span>
+                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Menunjukkan proporsi prediksi positif yang terklasifikasikan dengan benar"></i> Recall</span>
                                         </div>
                                         <input type="number" id="cm_confThree-recall" class="form-control bg-white" readonly>
                                         <div class="input-group-append">
@@ -293,7 +293,7 @@
                                 <div class="col-12 col-md-4">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" data-original-title="Didn't find your Store? Add it first with blue + Button"></i> Precision</span>
+                                            <span class="input-group-text"><i class="fa fa-question-circle-o pr-1" data-toggle="tooltip" data-placement="bottom" data-original-title="Menunjukkan proporsi prediksi positif yang benar"></i> Precision</span>
                                         </div>
                                         <input type="number" id="cm_confThree-precision" class="form-control bg-white" readonly>
                                         <div class="input-group-append">
