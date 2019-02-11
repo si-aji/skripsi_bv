@@ -1315,7 +1315,7 @@
     }
     {{--  Fungsi untuk perhitungan otomatis  --}}
     function hitungHargaPaket(form){
-        {{-- var jumlah = 0;
+        var jumlah = 0;
         var jumlah_asli = 0;
         var harga_item = $('.harga_item').length;
 
@@ -1332,7 +1332,7 @@
                 jumlah_asli += parseInt(this.value, 10);
                 $("#"+form+"_input-harga_paket_asli").val(parseInt(jumlah_asli));
             }
-        }); --}}
+        });
 
         console.log(form);
     }
