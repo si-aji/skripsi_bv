@@ -382,8 +382,6 @@ class AprioriController extends Controller
                 foreach($data_barang as $barang){
                     if($barang->barang_nama == $arr[$k][0]){
                         $support_x = ($barang->jumlah / $barang->total) * 100;
-                    } else {
-                        $support_x = 0;
                     }
                 }
                 $support_xuy = $item['support'];
@@ -492,8 +490,6 @@ class AprioriController extends Controller
                 foreach($twoitemset as $bar){
                     if($bar['item'] == $arr[$k][0]." - ".$arr[$k][1]){
                         $support_x = ($bar['jumlah'] / $bar['total']) * 100;
-                    } else {
-                        $support_x = 0;
                     }
                 }
                 $support_xuy = $item['support'];

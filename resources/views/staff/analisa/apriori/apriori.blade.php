@@ -870,7 +870,7 @@
                     url: "{{ url('penjualan/apriori/conf_dua') }}",
                     cache: false,
                     success: function(result){
-                        //console.log(result);
+                        console.log(result);
                         if(result.recordsTotal == 0){
                             $("#alert-confTwo").slideDown(function(){
                                 $(this).removeClass('d-none');
